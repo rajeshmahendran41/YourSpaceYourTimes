@@ -3,7 +3,7 @@ package com.ysyt.to.response;
 import com.response.CommonResponse;
 import com.ysyt.bean.UserBean;
 
-public class SignupResponse extends CommonResponse{
+public class AuthResponse extends CommonResponse{
 	
 	private UserBean userBean;
 

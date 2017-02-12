@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.constants.CommonConstants;
 import com.ysyt.service.IAuthService;
+import com.ysyt.to.request.LoginRequest;
 import com.ysyt.to.request.SignupRequest;
-import com.ysyt.to.response.SignupResponse;
+import com.ysyt.to.response.AuthResponse;
 
-@RestController(value="api/auth")
+@RestController
+@RequestMapping(value="api/auth/")
 public class AuthController {
 	
 	@Autowired
@@ -27,17 +29,27 @@ public class AuthController {
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST, produces ="application/json")
     @ResponseBody
-    public SignupResponse getDatabaseConnection(@RequestBody SignupRequest request ){
+    public AuthResponse signUp(@RequestBody SignupRequest request ){
         
-		SignupResponse res = new SignupResponse();
-		
+		AuthResponse res = new AuthResponse();
 		res = iAuthService.setSignupResponse(request);
-		
 		res.setMessage(CommonConstants.SUCCESS);
 		res.setStatus(CommonConstants.OK);
 		
         return res;
- }
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST, produces ="application/json")
+    @ResponseBody
+    public AuthResponse loginAction(@RequestBody LoginRequest loginRequest ){
+        
+		AuthResponse res = new AuthResponse();
+		res = iAuthService.loginAction(loginRequest);
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	}
 	
 
 }

@@ -1,11 +1,14 @@
 package com.ysyt.dao;
 
+import java.math.BigInteger;
+
 import org.hibernate.SessionFactory;
 
 import com.ysyt.bean.LoginCredentials;
 import com.ysyt.bean.UserBean;
+import com.ysyt.to.request.LoginRequest;
 import com.ysyt.to.request.SignupRequest;
-import com.ysyt.to.response.SignupResponse;
+import com.ysyt.to.response.AuthResponse;
 
 public interface IAuthDao {
 
@@ -14,6 +17,10 @@ public interface IAuthDao {
 
 	void createUpdateLoginDetails(LoginCredentials loginCredentials,
 			SessionFactory sessionFactory);
+
+	BigInteger checkLogin(LoginRequest loginRequest, SessionFactory sessionFactory);
+
+	UserBean getUserBean(BigInteger userId, SessionFactory sessionFactory);
 	
 	
 
