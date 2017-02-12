@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 import com.ysyt.bean.UserBean;
@@ -25,8 +27,16 @@ public final class Util {
         BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
         textEncryptor.setPassword("usut");
         String token = textEncryptor.encrypt(password);
-        token = token.replaceAll("[^a-zA-Z0-9]+", "");
         return token;
+    }
+    
+    public static String getDecryptedPassword(String password) {
+	       
+        StandardPBEStringEncryptor textEncryptor = new StandardPBEStringEncryptor();
+        textEncryptor.setPassword("usut");
+        String token = textEncryptor.decrypt(password);
+        return token;
+        
     }
 
      public static String trim(String stringValueInp) {

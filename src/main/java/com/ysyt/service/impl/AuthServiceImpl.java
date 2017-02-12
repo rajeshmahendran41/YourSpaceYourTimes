@@ -90,10 +90,7 @@ public class AuthServiceImpl implements IAuthService {
 		AuthResponse respone = new AuthResponse();
 		UserBean userBean = new UserBean();
 		
-		if(!Util.isNull(loginRequest.getPassword())){
-			loginRequest.setPassword(Util.getEncryptedPassword(loginRequest.getPassword()));
-		}
-				
+						
 		BigInteger userId = iAuthDao.checkLogin(loginRequest,sessionFactory);
 		
 		userBean = getUserBean(userId);
@@ -104,7 +101,7 @@ public class AuthServiceImpl implements IAuthService {
 	             userBean);
 		}
 		
-		return null;
+		return respone;
 	}
 	
 	

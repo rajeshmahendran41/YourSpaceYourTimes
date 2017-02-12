@@ -8,6 +8,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import com.Util.Util;
 import com.ysyt.bean.LoginCredentials;
 import com.ysyt.bean.UserBean;
 import com.ysyt.dao.IAuthDao;
@@ -42,10 +43,22 @@ public class AuthDaoImpl implements IAuthDao {
 	public BigInteger checkLogin(LoginRequest loginRequest,
 			SessionFactory sessionFactory) {
 		
-		return ((LoginCredentials) sessionFactory.getCurrentSession().createCriteria(LoginCredentials.class)
+		LoginCredentials credentials = new LoginCredentials();
+		
+		credentials = (LoginCredentials) sessionFactory.getCurrentSession().createCriteria(LoginCredentials.class)
 							.add(Restrictions.eq("email", loginRequest.getEmail()))
-							.add(Restrictions.eq("password", loginRequest.getPassword()))
-							.uniqueResult()).getUserId();
+							.uniqueResult();
+		if(!Util.isNull(credentials)){
+			
+			if(loginRequest.getPassword().equals(Util.getDecryptedPassword(credentials.getPassword()))){
+				return credentials.getUserId();
+			}
+			
+		}else{
+			return null;
+		}
+		
+		return null;
 		
 		
 	}
@@ -54,7 +67,7 @@ public class AuthDaoImpl implements IAuthDao {
 	public UserBean getUserBean(BigInteger userId, SessionFactory sessionFactory) {
 		
 		return (UserBean) sessionFactory.getCurrentSession().createCriteria(UserBean.class)
-				.add(Restrictions.eq("userId", userId))
+				.add(Restrictions.eq("id", userId))
 				.uniqueResult();
 	}
 
