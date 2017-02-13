@@ -48,9 +48,6 @@ public class LoginCredentials implements Serializable {
 	@Column(name = "is_deleted" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean is_deleted ;
 	
-	@Column(name="role_id")
-	private BigInteger roleId;
-	
 	@Column(name = "created_at")
 	private Timestamp createdAt;
 	
@@ -101,14 +98,6 @@ public class LoginCredentials implements Serializable {
 
 	public void setIs_deleted(Boolean is_deleted) {
 		this.is_deleted = is_deleted;
-	}
-
-	public BigInteger getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(BigInteger roleId) {
-		this.roleId = roleId;
 	}
 
 	public Timestamp getCreatedAt() {

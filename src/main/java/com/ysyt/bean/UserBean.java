@@ -65,6 +65,9 @@ public class UserBean implements Serializable {
 	@Column(name = "mail_subscripton" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean mailSubscription;
 	
+	@Column(name="role_id")
+	private BigInteger roleId;
+	
 	@JsonIgnore
 	@Formula("( concat(first_name,' ',last_name) )")
 	private String userFullname;
@@ -203,6 +206,14 @@ public class UserBean implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public BigInteger getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(BigInteger roleId) {
+		this.roleId = roleId;
 	}
 
 	
