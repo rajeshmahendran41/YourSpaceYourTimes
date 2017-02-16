@@ -113,17 +113,83 @@ public class AuthServiceImpl implements IAuthService {
 	
 		LoginCredentials credentials = iAuthDao.checkLoginEmail(passwordRequest, sessionFactory);
 		
-		if(!Util.isNull(passwordRequest.getNewPassword())){
-			credentials.setPassword(Util.getEncryptedPassword(passwordRequest.getNewPassword()));
-			credentials.setUpdatedAt(Util.getCurrentTimeStamp());
-			credentials.setUpdatedBy(Util.getUserId(httpRequest));
+		if(!Util.isNull(credentials)){
+			if(!Util.isNull(passwordRequest.getNewPassword())){
+				credentials.setPassword(Util.getEncryptedPassword(passwordRequest.getNewPassword()));
+				credentials.setUpdatedAt(Util.getCurrentTimeStamp());
+				credentials.setUpdatedBy(Util.getUserId(httpRequest));
+			}
+			
+			iAuthDao.createUpdateLoginDetails(credentials,sessionFactory);
+			
+			res.setUserBean(Util.getCurrentUser(httpRequest));
 		}
 		
-		iAuthDao.createUpdateLoginDetails(credentials,sessionFactory);
-	
-		res.setUserBean(Util.getCurrentUser(httpRequest));
+		
 		
 		return res;
+	}
+	
+	@Override
+	public UserBean updateUserDetails(UserBean oldUserBean) {
+		
+		UserBean currentUserBean = getUserBean(oldUserBean.getId());
+	
+		if(!Util.isNull(currentUserBean)){			
+			oldUserBean = updateUserDetails(currentUserBean,oldUserBean);
+			oldUserBean = createUpdateUserBean(oldUserBean);
+
+		}else{
+			return null;
+		}
+		
+		
+		return oldUserBean;
+	}
+
+	private UserBean updateUserDetails(UserBean oldUserBean,
+			UserBean currentUserBean) {
+		
+		if(!Util.isNull(currentUserBean.getAddress())){
+			oldUserBean.setAddress(currentUserBean.getAddress());
+		}
+		
+		if(!Util.isNull(currentUserBean.getFirstName())){
+			oldUserBean.setFirstName(currentUserBean.getFirstName());
+		}
+		
+		if(!Util.isNull(currentUserBean.getIs_deleted())){
+			oldUserBean.setIs_deleted(currentUserBean.getIs_deleted());
+		}
+		
+		if(!Util.isNull(currentUserBean.getLastName())){
+			oldUserBean.setLastName(currentUserBean.getLastName());
+		}
+		
+		if(!Util.isNull(currentUserBean.getMobileNumber())){
+			oldUserBean.setMobileNumber(currentUserBean.getMobileNumber());
+		}
+		
+		if(!Util.isNull(currentUserBean.getPhotoPath())){
+			oldUserBean.setPhotoPath(currentUserBean.getPhotoPath());
+		}
+		
+		if(!Util.isNull(currentUserBean.getPinCode())){
+			oldUserBean.setPinCode(currentUserBean.getPinCode());
+		}
+		
+		if(!Util.isNull(currentUserBean.getRoleId())){
+			oldUserBean.setRoleId(currentUserBean.getRoleId());
+		}
+		
+		if(!Util.isNull(currentUserBean.getSecondaryContact())){
+			oldUserBean.setSecondaryContact(currentUserBean.getSecondaryContact());
+		}
+		
+		oldUserBean.setUpdatedAt(Util.getCurrentTimeStamp());
+		oldUserBean.setUpdatedBy(Util.getUserId(httpRequest));
+		
+		return oldUserBean;
 	}
 	
 	

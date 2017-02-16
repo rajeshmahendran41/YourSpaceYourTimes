@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.constants.CommonConstants;
+import com.ysyt.bean.UserBean;
 import com.ysyt.service.IAuthService;
 import com.ysyt.to.request.LoginRequest;
 import com.ysyt.to.request.PasswordRequest;
@@ -64,5 +65,16 @@ public class AuthController {
         return res;
 	}
 	
+	@RequestMapping(value = "/updateUserDetails", method = RequestMethod.POST, produces ="application/json")
+    @ResponseBody
+    public AuthResponse changePassword(@RequestBody UserBean userDetails ){
+        
+		AuthResponse res = new AuthResponse();
+		res.setUserBean(iAuthService.updateUserDetails(userDetails));
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	}
 
 }

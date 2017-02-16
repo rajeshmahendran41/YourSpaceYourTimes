@@ -28,8 +28,8 @@ public class AuthDaoImpl implements IAuthDao {
 			SessionFactory sessionFactory) {
 		
 		sessionFactory.getCurrentSession().saveOrUpdate(userBean);
-		sessionFactory.getCurrentSession().clear();
 		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().clear();
 				
 		return userBean;
 	}
@@ -40,8 +40,8 @@ public class AuthDaoImpl implements IAuthDao {
 		
 		
 		sessionFactory.getCurrentSession().saveOrUpdate(loginCredentials);
-		sessionFactory.getCurrentSession().clear();
 		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().clear();
 						
 	}
 

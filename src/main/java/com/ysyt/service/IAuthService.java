@@ -23,4 +23,6 @@ public interface IAuthService {
 
 	AuthResponse changePassword(PasswordRequest passwordRequest);
 
+	UserBean updateUserDetails(UserBean userBean);
+
 }
