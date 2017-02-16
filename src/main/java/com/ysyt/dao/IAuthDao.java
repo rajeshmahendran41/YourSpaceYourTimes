@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import com.ysyt.bean.LoginCredentials;
 import com.ysyt.bean.UserBean;
 import com.ysyt.to.request.LoginRequest;
+import com.ysyt.to.request.PasswordRequest;
 import com.ysyt.to.request.SignupRequest;
 import com.ysyt.to.response.AuthResponse;
 
@@ -21,6 +22,9 @@ public interface IAuthDao {
 	BigInteger checkLogin(LoginRequest loginRequest, SessionFactory sessionFactory);
 
 	UserBean getUserBean(BigInteger userId, SessionFactory sessionFactory);
+
+	LoginCredentials checkLoginEmail(PasswordRequest pwdRequest,
+			SessionFactory sessionFactory);
 	
 	
 

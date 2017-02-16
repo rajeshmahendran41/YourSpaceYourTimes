@@ -1,3 +1,4 @@
+
 package com.ysyt.service.impl;
 
 import java.math.BigInteger;
@@ -17,6 +18,7 @@ import com.ysyt.constants.SessionConstant;
 import com.ysyt.dao.IAuthDao;
 import com.ysyt.service.IAuthService;
 import com.ysyt.to.request.LoginRequest;
+import com.ysyt.to.request.PasswordRequest;
 import com.ysyt.to.request.SignupRequest;
 import com.ysyt.to.response.AuthResponse;
 
@@ -102,6 +104,26 @@ public class AuthServiceImpl implements IAuthService {
 		}
 		
 		return respone;
+	}
+
+	@Override
+	public AuthResponse changePassword(PasswordRequest passwordRequest) {
+		
+		AuthResponse res = new AuthResponse();
+	
+		LoginCredentials credentials = iAuthDao.checkLoginEmail(passwordRequest, sessionFactory);
+		
+		if(!Util.isNull(passwordRequest.getNewPassword())){
+			credentials.setPassword(Util.getEncryptedPassword(passwordRequest.getNewPassword()));
+			credentials.setUpdatedAt(Util.getCurrentTimeStamp());
+			credentials.setUpdatedBy(Util.getUserId(httpRequest));
+		}
+		
+		iAuthDao.createUpdateLoginDetails(credentials,sessionFactory);
+	
+		res.setUserBean(Util.getCurrentUser(httpRequest));
+		
+		return res;
 	}
 	
 	
