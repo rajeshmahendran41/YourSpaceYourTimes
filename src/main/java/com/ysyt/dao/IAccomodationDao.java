@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 
+import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 
@@ -20,6 +21,13 @@ public interface IAccomodationDao {
 
 	AttributesMaster createOrUpdateAttributeMaster(
 			AttributesMaster oldAttributeBean, SessionFactory sessionFactory);
+
+
+	AmenitiesMapping getAmenitiesMappingById(Long id, SessionFactory sessionFactory);
+
+
+	AmenitiesMapping createOrUpdateAmenitiesMapping(
+			AmenitiesMapping oldAttributeBean, SessionFactory sessionFactory);
 
 	
 }

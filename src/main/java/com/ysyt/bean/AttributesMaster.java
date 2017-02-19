@@ -34,7 +34,7 @@ public class AttributesMaster implements Serializable {
 	@Column(name="is_amenities")
 	private Boolean isAmenities;
 	
-	@Column(name="is_deleted")
+	@Column(name="is_deleted",nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean isDeleted;
 	
 	@Column(name="parent_id")

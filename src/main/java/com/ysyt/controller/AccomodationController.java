@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.constants.CommonConstants;
+import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.service.IAccomodationService;
 import com.ysyt.to.request.AmenitiesMasterRequest;
@@ -47,6 +48,18 @@ public class AccomodationController {
         
 		AmenitiesMasterResponse res = new AmenitiesMasterResponse();
 		res.setAmenitiy(iAccomodationService.createAttributes(request));
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	}
+	
+	@RequestMapping(value = "amenitiesMapping", method = RequestMethod.POST, produces ="application/json")
+    @ResponseBody
+    public AmenitiesMasterResponse createAmenitiesMapping(@RequestBody AmenitiesMapping request ){
+        
+		AmenitiesMasterResponse res = new AmenitiesMasterResponse();
+		res.setAmenitiyMapping(iAccomodationService.createAmenitiyMapping(request));
 		res.setMessage(CommonConstants.SUCCESS);
 		res.setStatus(CommonConstants.OK);
 		

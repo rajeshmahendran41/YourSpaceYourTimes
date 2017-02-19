@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Util.Util;
+import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.UserBean;
 import com.ysyt.dao.IAccomodationDao;
@@ -44,16 +45,15 @@ public class AccomodationServiceImpl implements IAccomodationService {
 	@Override
 	public AttributesMaster createAttributes(AttributesMaster oldAttributeBean) {
 		
-		AttributesMaster currentAttributeBean = getAttributeMasterById(oldAttributeBean.getId());
-	
-		if(!Util.isNull(currentAttributeBean)){			
-			oldAttributeBean = updateAttributeDetails(currentAttributeBean,oldAttributeBean);
-			oldAttributeBean = iAccomodationDao.createOrUpdateAttributeMaster(oldAttributeBean,sessionFactory);
-
-		}else{
-			Util.throwPrimeException("Attribute Id doesnt Exist");
+		if(!Util.isNull(oldAttributeBean.getId())){
+			AttributesMaster currentAttributeBean = getAttributeMasterById(oldAttributeBean.getId());
+		
+			if(!Util.isNull(currentAttributeBean)){			
+				oldAttributeBean = updateAttributeDetails(oldAttributeBean,currentAttributeBean);
+			}
 		}
 		
+		oldAttributeBean = iAccomodationDao.createOrUpdateAttributeMaster(oldAttributeBean,sessionFactory);
 		
 		return oldAttributeBean;
 	}
@@ -91,6 +91,48 @@ public class AccomodationServiceImpl implements IAccomodationService {
 			
 		
 		return oldAttributesMaster;
+	}
+
+
+	@Override
+	public AmenitiesMapping createAmenitiyMapping(AmenitiesMapping oldAttributeBean) {
+		
+		if(!Util.isNull(oldAttributeBean.getId())){
+			AmenitiesMapping currentAttributeBean = getAmenitiesMappingById(oldAttributeBean.getId());
+		
+			if(!Util.isNull(currentAttributeBean)){			
+				oldAttributeBean = updateAmenitiesMappingDetails(oldAttributeBean,currentAttributeBean);
+			}
+		}
+		
+		oldAttributeBean = iAccomodationDao.createOrUpdateAmenitiesMapping(oldAttributeBean,sessionFactory);
+		
+		return oldAttributeBean;
+		
+	}
+
+
+	private AmenitiesMapping updateAmenitiesMappingDetails(
+			AmenitiesMapping currentAttributeBean,
+			AmenitiesMapping oldAttributeBean) {
+		
+		if(!Util.isNull(currentAttributeBean.getAttributeId())){
+			oldAttributeBean.setAttributeId(currentAttributeBean.getAttributeId());
+		}
+		
+		if(!Util.isNull(currentAttributeBean.getParentAmenitiyId())){
+			oldAttributeBean.setParentAmenitiyId(currentAttributeBean.getParentAmenitiyId());
+		}
+		if(!Util.isNull(currentAttributeBean.getIsDeleted())){
+			oldAttributeBean.setIsDeleted(currentAttributeBean.getIsDeleted());
+		}
+				
+		return oldAttributeBean;
+	}
+
+	private AmenitiesMapping getAmenitiesMappingById(Long id) {
+		
+		return iAccomodationDao.getAmenitiesMappingById(id,sessionFactory);
 	}
 	
 	

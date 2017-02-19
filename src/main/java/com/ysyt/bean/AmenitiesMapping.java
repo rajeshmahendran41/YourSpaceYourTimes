@@ -29,7 +29,7 @@ public class AmenitiesMapping implements Serializable {
 	private Long attributeId;
 	
 	@Column(name="parent_amenitiy_id")
-	private String parentAmenitiyId;
+	private Long parentAmenitiyId;
 	
 	@Column(name="source_id")
 	private Long  sourceId;
@@ -43,7 +43,7 @@ public class AmenitiesMapping implements Serializable {
 	@Column(name="orderid")
 	private Integer orderId;
 	
-	@Column(name="is_deleted")
+	@Column(name="is_deleted",nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean isDeleted;
 
 	public Long getId() {
@@ -62,11 +62,13 @@ public class AmenitiesMapping implements Serializable {
 		this.attributeId = attributeId;
 	}
 
-	public String getParentAmenitiyId() {
+	
+
+	public Long getParentAmenitiyId() {
 		return parentAmenitiyId;
 	}
 
-	public void setParentAmenitiyId(String parentAmenitiyId) {
+	public void setParentAmenitiyId(Long parentAmenitiyId) {
 		this.parentAmenitiyId = parentAmenitiyId;
 	}
 
