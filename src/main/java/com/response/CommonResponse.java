@@ -10,6 +10,8 @@ public class CommonResponse {
 	private String message;
 	private String path;
 
+	
+
 	public Timestamp getTimestamp() {
 		return timestamp;
 	}

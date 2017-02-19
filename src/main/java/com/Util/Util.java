@@ -1,17 +1,17 @@
 package com.Util;
 
-import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.util.text.BasicTextEncryptor;
 
-import com.ysyt.bean.RolePermission;
+import com.aspect.AspectException;
 import com.ysyt.bean.Roles;
 import com.ysyt.bean.UserBean;
 import com.ysyt.constants.SessionConstant;
@@ -108,6 +108,10 @@ public final class Util {
         return ((UserBean) request.getSession()
                .getAttribute(SessionConstant.USER_BEAN)).getRoles();
    }
+    
+    public static void throwPrimeException(String msg) {
+        throw new AspectException(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Failure",msg );
+    }
 
        
 

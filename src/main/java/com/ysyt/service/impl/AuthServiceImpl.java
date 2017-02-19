@@ -95,12 +95,17 @@ public class AuthServiceImpl implements IAuthService {
 						
 		Long userId = iAuthDao.checkLogin(loginRequest,sessionFactory);
 		
-		userBean = getUserBean(userId);
-		if(!Util.isNull(userBean)){
-			respone.setUserBean(userBean);
-			HttpSession httpSession = httpRequest.getSession(true);
-	        httpSession.setAttribute(SessionConstant.USER_BEAN,
-	             userBean);
+		if(!Util.isNull(userId)){
+		
+			userBean = getUserBean(userId);
+			if(!Util.isNull(userBean)){
+				respone.setUserBean(userBean);
+				HttpSession httpSession = httpRequest.getSession(true);
+		        httpSession.setAttribute(SessionConstant.USER_BEAN,
+		             userBean);
+			}
+		}else{
+			Util.throwPrimeException("Incorrect UserName or Password");
 		}
 		
 		return respone;
