@@ -19,9 +19,9 @@ public interface IAuthDao {
 	void createUpdateLoginDetails(LoginCredentials loginCredentials,
 			SessionFactory sessionFactory);
 
-	BigInteger checkLogin(LoginRequest loginRequest, SessionFactory sessionFactory);
+	Long checkLogin(LoginRequest loginRequest, SessionFactory sessionFactory);
 
-	UserBean getUserBean(BigInteger userId, SessionFactory sessionFactory);
+	UserBean getUserBean(Long userId, SessionFactory sessionFactory);
 
 	LoginCredentials checkLoginEmail(PasswordRequest pwdRequest,
 			SessionFactory sessionFactory);

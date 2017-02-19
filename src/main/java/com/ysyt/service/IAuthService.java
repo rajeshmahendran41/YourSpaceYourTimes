@@ -19,7 +19,7 @@ public interface IAuthService {
 
 	AuthResponse loginAction(LoginRequest loginRequest);
 
-	UserBean getUserBean(BigInteger userId);
+	UserBean getUserBean(Long userId);
 
 	AuthResponse changePassword(PasswordRequest passwordRequest);
 

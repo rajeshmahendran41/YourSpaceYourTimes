@@ -31,12 +31,12 @@ public class LoginCredentials implements Serializable {
 	@Id
 	@Column(name = "id", columnDefinition = "serial")
     @GeneratedValue(strategy = GenerationType.IDENTITY)	
-	private BigInteger id;
+	private Long id;
 	
 	
 	@Column(name = "user_id")
 	@NotNull
-	private BigInteger userId;
+	private Long userId;
 	
 	@Column(name = "password")
 	@NotNull
@@ -52,27 +52,27 @@ public class LoginCredentials implements Serializable {
 	private Timestamp createdAt;
 	
 	@Column(name = "created_by")
-	private BigInteger createdBy;
+	private Long createdBy;
 	
 	@Column(name = "updated_at")
 	private Timestamp updatedAt;
 	
 	@Column(name = "updated_by")
-	private BigInteger updatedBy;
+	private Long updatedBy;
 
-	public BigInteger getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public BigInteger getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(BigInteger userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
@@ -108,11 +108,11 @@ public class LoginCredentials implements Serializable {
 		this.createdAt = createdAt;
 	}
 
-	public BigInteger getCreatedBy() {
+	public Long getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(BigInteger createdBy) {
+	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -124,17 +124,17 @@ public class LoginCredentials implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public BigInteger getUpdatedBy() {
+	public Long getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(BigInteger updatedBy) {
+	public void setUpdatedBy(Long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
 	
 }

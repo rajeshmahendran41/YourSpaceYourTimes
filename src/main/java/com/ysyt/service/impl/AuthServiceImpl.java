@@ -80,7 +80,7 @@ public class AuthServiceImpl implements IAuthService {
 	
 	
 	@Override
-	public UserBean getUserBean(BigInteger userId) {
+	public UserBean getUserBean(Long userId) {
 		
 		return iAuthDao.getUserBean(userId,sessionFactory);
 
@@ -93,7 +93,7 @@ public class AuthServiceImpl implements IAuthService {
 		UserBean userBean = new UserBean();
 		
 						
-		BigInteger userId = iAuthDao.checkLogin(loginRequest,sessionFactory);
+		Long userId = iAuthDao.checkLogin(loginRequest,sessionFactory);
 		
 		userBean = getUserBean(userId);
 		if(!Util.isNull(userBean)){

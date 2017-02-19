@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.util.text.BasicTextEncryptor;
 
+import com.ysyt.bean.RolePermission;
+import com.ysyt.bean.Roles;
 import com.ysyt.bean.UserBean;
 import com.ysyt.constants.SessionConstant;
 
@@ -97,10 +99,15 @@ public final class Util {
                 .getAttribute(SessionConstant.USER_BEAN);
     }
     
-    public static BigInteger getUserId(HttpServletRequest request) {
+    public static Long getUserId(HttpServletRequest request) {
          return ((UserBean) request.getSession()
                 .getAttribute(SessionConstant.USER_BEAN)).getId();
     }
+    
+    public static Roles getRolesBean(HttpServletRequest request) {
+        return ((UserBean) request.getSession()
+               .getAttribute(SessionConstant.USER_BEAN)).getRoles();
+   }
 
        
 

@@ -46,7 +46,7 @@ public class AuthDaoImpl implements IAuthDao {
 	}
 
 	@Override
-	public BigInteger checkLogin(LoginRequest loginRequest,
+	public Long checkLogin(LoginRequest loginRequest,
 			SessionFactory sessionFactory) {
 		
 		LoginCredentials credentials = new LoginCredentials();
@@ -95,7 +95,7 @@ public class AuthDaoImpl implements IAuthDao {
 	}
 
 	@Override
-	public UserBean getUserBean(BigInteger userId, SessionFactory sessionFactory) {
+	public UserBean getUserBean(Long userId, SessionFactory sessionFactory) {
 		
 		return (UserBean) sessionFactory.getCurrentSession().createCriteria(UserBean.class)
 				.add(Restrictions.eq("id", userId))

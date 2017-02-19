@@ -1,14 +1,17 @@
 package com.ysyt.bean;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -33,7 +36,7 @@ public class UserBean implements Serializable {
 	@Id
 	@Column(name = "id", columnDefinition = "serial")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private BigInteger id;
+	private Long id;
 	
 	@Column(name = "first_name")
 	@Pattern (regexp = "^.*[A-Z0-9a-z].*$" , message = "First should contain atleast one alphanumberic")
@@ -45,10 +48,10 @@ public class UserBean implements Serializable {
 	private String lastName;
 	
 	@Column(name = "mobile_number")
-	private BigInteger mobileNumber;
+	private Long mobileNumber;
 	
 	@Column(name = "secondary_contact")
-	private BigInteger secondaryContact;
+	private Long secondaryContact;
 	
 	@Column(name = "photo_path")
 	private String photoPath;
@@ -57,7 +60,7 @@ public class UserBean implements Serializable {
 	private String address;
 	
 	@Column(name = "pincode")
-	private BigInteger pinCode;
+	private Long pinCode;
 	
 	@Column(name = "is_deleted" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean is_deleted;
@@ -66,7 +69,7 @@ public class UserBean implements Serializable {
 	private Boolean mailSubscription;
 	
 	@Column(name="role_id")
-	private BigInteger roleId;
+	private Long roleId;
 	
 	@JsonIgnore
 	@Formula("( concat(first_name,' ',last_name) )")
@@ -76,19 +79,24 @@ public class UserBean implements Serializable {
 	private Timestamp createdAt;
 	
 	@Column(name = "created_by")
-	private BigInteger createdBy;
+	private Long createdBy;
 	
 	@Column(name = "updated_at")
 	private Timestamp updatedAt;
 	
 	@Column(name = "updated_by")
-	private BigInteger updatedBy;
+	private Long updatedBy;
+	
 
-	public BigInteger getId() {
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = Roles.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id", referencedColumnName = "id",insertable=false ,updatable=false)
+	private Roles roles;
+	
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -108,19 +116,19 @@ public class UserBean implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public BigInteger getMobileNumber() {
+	public Long getMobileNumber() {
 		return mobileNumber;
 	}
 
-	public void setMobileNumber(BigInteger mobileNumber) {
+	public void setMobileNumber(Long mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 
-	public BigInteger getSecondaryContact() {
+	public Long getSecondaryContact() {
 		return secondaryContact;
 	}
 
-	public void setSecondaryContact(BigInteger secondaryContact) {
+	public void setSecondaryContact(Long secondaryContact) {
 		this.secondaryContact = secondaryContact;
 	}
 
@@ -140,11 +148,11 @@ public class UserBean implements Serializable {
 		this.address = address;
 	}
 
-	public BigInteger getPinCode() {
+	public Long getPinCode() {
 		return pinCode;
 	}
 
-	public void setPinCode(BigInteger pinCode) {
+	public void setPinCode(Long pinCode) {
 		this.pinCode = pinCode;
 	}
 
@@ -164,6 +172,14 @@ public class UserBean implements Serializable {
 		this.mailSubscription = mailSubscription;
 	}
 
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+
 	public String getUserFullname() {
 		return userFullname;
 	}
@@ -180,11 +196,11 @@ public class UserBean implements Serializable {
 		this.createdAt = createdAt;
 	}
 
-	public BigInteger getCreatedBy() {
+	public Long getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(BigInteger createdBy) {
+	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -196,25 +212,27 @@ public class UserBean implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public BigInteger getUpdatedBy() {
+	public Long getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(BigInteger updatedBy) {
+	public void setUpdatedBy(Long updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+
+	public Roles getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Roles roles) {
+		this.roles = roles;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	public BigInteger getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(BigInteger roleId) {
-		this.roleId = roleId;
-	}
-
+	
 	
 }
