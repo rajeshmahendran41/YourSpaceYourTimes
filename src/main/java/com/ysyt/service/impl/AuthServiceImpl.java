@@ -128,6 +128,8 @@ public class AuthServiceImpl implements IAuthService {
 			iAuthDao.createUpdateLoginDetails(credentials,sessionFactory);
 			
 			res.setUserBean(Util.getCurrentUser(httpRequest));
+		}else{
+			Util.throwPrimeException("Incorrect Old Password");
 		}
 		
 		
@@ -145,7 +147,7 @@ public class AuthServiceImpl implements IAuthService {
 			oldUserBean = createUpdateUserBean(oldUserBean);
 
 		}else{
-			return null;
+			Util.throwPrimeException("Something Went Wrong");
 		}
 		
 		
