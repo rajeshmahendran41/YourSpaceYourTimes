@@ -29,5 +29,9 @@ public interface IAccomodationDao {
 	AmenitiesMapping createOrUpdateAmenitiesMapping(
 			AmenitiesMapping oldAttributeBean, SessionFactory sessionFactory);
 
+
+	List<AmenitiesMapping> getAmenitiesMappingList(Long typeId,
+			String sourceName, SessionFactory sessionFactory);
+
 	
 }

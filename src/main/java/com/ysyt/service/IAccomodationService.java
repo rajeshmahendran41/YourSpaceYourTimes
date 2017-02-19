@@ -1,6 +1,7 @@
 package com.ysyt.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
@@ -16,6 +17,8 @@ public interface IAccomodationService {
 	AttributesMaster getAttributeMasterById(Long id);
 
 	AmenitiesMapping createAmenitiyMapping(AmenitiesMapping request);
+
+	Map<String, List<AttributesMaster>> getAmenitiesList(Long typeId, String sourceName);
 
 	
 

@@ -1,7 +1,12 @@
 
 package com.ysyt.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.Util.Util;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
-import com.ysyt.bean.UserBean;
 import com.ysyt.dao.IAccomodationDao;
 import com.ysyt.service.IAccomodationService;
 import com.ysyt.to.request.AmenitiesMasterRequest;
@@ -133,6 +137,39 @@ public class AccomodationServiceImpl implements IAccomodationService {
 	private AmenitiesMapping getAmenitiesMappingById(Long id) {
 		
 		return iAccomodationDao.getAmenitiesMappingById(id,sessionFactory);
+	}
+
+
+	@Override
+	public Map<String, List<AttributesMaster>> getAmenitiesList(Long typeId,String sourceName) {
+
+		Map<String, List<AttributesMaster>> mapAmenities = new HashMap<>();
+		List<AmenitiesMapping> amenitiesMapping = new ArrayList<>();
+		Set<String> parentAmenities = new  HashSet<>();
+		List<AttributesMaster> attributeMaster = null;
+		
+		amenitiesMapping = iAccomodationDao.getAmenitiesMappingList(typeId,sourceName, sessionFactory);
+		
+		for(AmenitiesMapping amenitiesSet : amenitiesMapping){
+			parentAmenities.add(amenitiesSet.getParentBean().getTitle());
+		}
+		
+		for(String parentAmenity : parentAmenities){
+			
+			attributeMaster = new ArrayList<>();
+			
+			for(AmenitiesMapping amenities : amenitiesMapping){
+				
+				if(parentAmenity.equals(amenities.getParentBean().getTitle())){
+					
+					attributeMaster.add(amenities.getAttributeBean());					
+				}
+				
+			}
+			mapAmenities.put(parentAmenity, attributeMaster);
+		}
+		
+		return mapAmenities;
 	}
 	
 	

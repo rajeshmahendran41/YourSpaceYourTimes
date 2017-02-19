@@ -6,11 +6,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.constants.CommonConstants;
@@ -45,6 +47,14 @@ public class AmenitiesMapping implements Serializable {
 	
 	@Column(name="is_deleted",nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean isDeleted;
+	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = AttributesMaster.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "attribute_id", referencedColumnName = "id",insertable=false ,updatable=false)
+	private AttributesMaster attributeBean;
+	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = AttributesMaster.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "parent_amenitiy_id", referencedColumnName = "id",insertable=false ,updatable=false)
+	private AttributesMaster  parentBean;
 
 	public Long getId() {
 		return id;
@@ -114,6 +124,22 @@ public class AmenitiesMapping implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public AttributesMaster getAttributeBean() {
+		return attributeBean;
+	}
+
+	public void setAttributeBean(AttributesMaster attributeBean) {
+		this.attributeBean = attributeBean;
+	}
+
+	public AttributesMaster getParentBean() {
+		return parentBean;
+	}
+
+	public void setParentBean(AttributesMaster parentBean) {
+		this.parentBean = parentBean;
 	}
 
 	

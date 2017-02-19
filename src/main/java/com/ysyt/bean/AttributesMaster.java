@@ -14,10 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.constants.CommonConstants;
+import com.ysyt.wrapper.AmenitiesWrapper;
 
 @Entity
 @Table(name = "attribute_master", schema = CommonConstants.SCHEMA)
-public class AttributesMaster implements Serializable {
+public class AttributesMaster extends AmenitiesWrapper implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id

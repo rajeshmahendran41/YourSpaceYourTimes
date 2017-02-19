@@ -93,6 +93,20 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AmenitiesMapping> getAmenitiesMappingList(Long typeId,String sourceName,
+			SessionFactory sessionFactory) {
+
+		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(AmenitiesMapping.class)
+				.add(Restrictions.eq("isDeleted",false))
+				.add(Restrictions.eq("sourceId",typeId))
+				.add(Restrictions.eq("sourceType", sourceName));
+				
+				
+				return  criteria.list();
+	}
+
 	
 
 	
