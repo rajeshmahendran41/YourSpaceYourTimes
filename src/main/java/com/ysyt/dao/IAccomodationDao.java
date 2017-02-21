@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 
+import com.ysyt.bean.Accomodations;
+import com.ysyt.bean.AccomodationsDetails;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
+import com.ysyt.bean.LocationBean;
 import com.ysyt.to.request.AmenitiesMasterRequest;
+import com.ysyt.to.request.LocationRequest;
 
 
 public interface IAccomodationDao {
@@ -32,6 +36,26 @@ public interface IAccomodationDao {
 
 	List<AmenitiesMapping> getAmenitiesMappingList(Long typeId,
 			String sourceName, SessionFactory sessionFactory);
+
+
+	Accomodations getAccomodatoinById(Long id, SessionFactory sessionFactory);
+
+
+	Accomodations createOrUpdateAccomodation(Accomodations oldAccomodation,
+			SessionFactory sessionFactory);
+
+
+	AccomodationsDetails getAccomodationDetailsById(Long id,
+			SessionFactory sessionFactory);
+
+
+	void createOrUpdateAccomodationDetails(
+			AccomodationsDetails acccomodationDetails,
+			SessionFactory sessionFactory);
+
+
+	List<LocationBean> getLocationDetails(LocationRequest request,
+			SessionFactory sessionFactory);
 
 	
 }

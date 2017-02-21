@@ -6,15 +6,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.Util.Util;
+import com.ysyt.bean.Accomodations;
+import com.ysyt.bean.AccomodationsDetails;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
+import com.ysyt.bean.LocationBean;
 import com.ysyt.dao.IAccomodationDao;
 import com.ysyt.to.request.AmenitiesMasterRequest;
+import com.ysyt.to.request.LocationRequest;
 
 @Repository
 public class AccomodationDaoImpl implements IAccomodationDao {
@@ -105,6 +111,91 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 				
 				
 				return  criteria.list();
+	}
+
+	@Override
+	public Accomodations getAccomodatoinById(Long id,
+			SessionFactory sessionFactory) {
+
+		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(Accomodations.class)
+				.add(Restrictions.eq("isDeleted",false))
+				.add(Restrictions.eq("id",id));
+				
+				
+				return (Accomodations) criteria.uniqueResult();
+		
+	}
+
+	@Override
+	public Accomodations createOrUpdateAccomodation(
+			Accomodations oldAccomodation, SessionFactory sessionFactory) {
+		
+		sessionFactory.getCurrentSession().saveOrUpdate(oldAccomodation);
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().clear();
+		
+		return oldAccomodation;
+	}
+
+	@Override
+	public AccomodationsDetails getAccomodationDetailsById(Long id,
+			SessionFactory sessionFactory) {
+		
+		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(AccomodationsDetails.class)
+				.add(Restrictions.eq("isDeleted",false))
+				.add(Restrictions.eq("id",id));
+				
+				
+				return (AccomodationsDetails) criteria.uniqueResult();
+		
+	}
+
+	@Override
+	public void createOrUpdateAccomodationDetails(
+			AccomodationsDetails acccomodationDetails,
+			SessionFactory sessionFactory) {
+
+		sessionFactory.getCurrentSession().saveOrUpdate(acccomodationDetails);
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().clear();
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<LocationBean> getLocationDetails(LocationRequest request,
+			SessionFactory sessionFactory) {
+		
+		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(LocationBean.class);
+		
+		if(!Util.isNull(request.getCountry())){
+			criteria.add(Restrictions.eq("country", request.getCountry().toLowerCase()).ignoreCase());
+		}
+		if(!Util.isNull(request.getState())){
+			criteria.add(Restrictions.eq("state", request.getState()).ignoreCase());
+		}
+		if(!Util.isNull(request.getCountry())){
+			criteria.add(Restrictions.eq("city", request.getCity().toLowerCase()).ignoreCase());
+		}
+		if(!Util.isNull(request.getCountry())){
+			criteria.add(Restrictions.eq("location", request.getLocation().toLowerCase()).ignoreCase());
+		}
+		
+		if(!Util.isNull(request.getProjection())){
+		
+			criteria.setProjection(Projections.distinct(Projections.property(request.getProjection())));
+		}
+		
+		if(!Util.isNull(request.getLimit())){
+			criteria.setMaxResults(request.getLimit());
+		}
+		
+		if(!Util.isNull(request.getOffset())){
+			criteria.setFirstResult(request.getOffset());
+		}
+		
+		return criteria.list();
+		
 	}
 
 	

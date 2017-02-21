@@ -2,7 +2,6 @@ package com.ysyt.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.boot.jaxb.hbm.spi.AttributeMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +14,13 @@ import com.constants.CommonConstants;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.service.IAccomodationService;
+import com.ysyt.to.request.AccomodationRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
+import com.ysyt.to.request.LocationRequest;
+import com.ysyt.to.response.AccomodationResponse;
 import com.ysyt.to.response.AmenitiesMasterResponse;
 import com.ysyt.to.response.AmenitiesResponse;
-import com.ysyt.to.response.AuthResponse;
+import com.ysyt.to.response.LocationResponse;
 
 @RestController
 @RequestMapping(value="api/accomodation/")
@@ -79,4 +81,29 @@ public class AccomodationController {
 		
         return res;
 	}
+	
+	@RequestMapping(value = "createUpdate", method = RequestMethod.POST, produces ="application/json")
+    @ResponseBody
+    public AccomodationResponse createAccomodation(@RequestBody AccomodationRequest request){
+        
+		AccomodationResponse res = new AccomodationResponse();
+		res.setAccomodation(iAccomodationService.createAccomodation(request));
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	}
+	
+	@RequestMapping(value = "locaions", method = RequestMethod.POST, produces ="application/json")
+    @ResponseBody
+    public LocationResponse getLocations(@RequestBody LocationRequest request){
+        
+		LocationResponse res = new LocationResponse();
+		res.setLocations(iAccomodationService.getLocationDetails(request));
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	}
+	
 }
