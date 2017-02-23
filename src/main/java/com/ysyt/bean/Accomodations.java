@@ -46,7 +46,7 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 	private String address;
 	
 	@Column(name="location_id")
-	private String locationId;
+	private Long locationId;
 	
 	
 	@Column(name="latitude")
@@ -205,13 +205,14 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 		return serialVersionUID;
 	}
 
-	public String getLocationId() {
+	public Long getLocationId() {
 		return locationId;
 	}
 
-	public void setLocationId(String locationId) {
+	public void setLocationId(Long locationId) {
 		this.locationId = locationId;
 	}
+
 	
 	
 

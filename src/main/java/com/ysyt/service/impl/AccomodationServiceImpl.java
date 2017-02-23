@@ -353,6 +353,13 @@ public class AccomodationServiceImpl implements IAccomodationService {
 		
 		return iAccomodationDao.getLocationDetails(request,sessionFactory);
 	}
+
+
+	@Override
+	public Accomodations getAccomodation(Long accomodationId) {
+
+		return iAccomodationDao.getAccomodatoinById(accomodationId, sessionFactory);
+	}
 	
 	
 

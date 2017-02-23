@@ -3,6 +3,7 @@ package com.ysyt.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -100,6 +101,18 @@ public class AccomodationController {
         
 		LocationResponse res = new LocationResponse();
 		res.setLocations(iAccomodationService.getLocationDetails(request));
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	}
+	
+	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces ="application/json")
+    @ResponseBody
+    public AccomodationResponse getAccomodation(@PathVariable(value="id") Long accomodationId){
+        
+		AccomodationResponse res = new AccomodationResponse();
+		res.setAccomodation(iAccomodationService.getAccomodation(accomodationId));
 		res.setMessage(CommonConstants.SUCCESS);
 		res.setStatus(CommonConstants.OK);
 		

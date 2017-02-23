@@ -28,6 +28,8 @@ public interface IAccomodationService {
 
 	List<LocationBean> getLocationDetails(LocationRequest request);
 
+	Accomodations getAccomodation(Long accomodationId);
+
 	
 
 }
