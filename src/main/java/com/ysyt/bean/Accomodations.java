@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.Where;
 
 import com.constants.CommonConstants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -79,6 +80,22 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 	
 	@Column(name = "updated_by")
 	private Long updatedBy;
+	
+	
+	@OneToMany(fetch = FetchType.EAGER,targetEntity = AccomodationsDetails.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "source_id", referencedColumnName = "id",insertable=false ,updatable=false)
+	@Where(clause=" is_amenities=false ")
+	private List<AccomodationsDetails>  accomodationDetails;
+
+
+	public List<AccomodationsDetails> getAccomodationDetails() {
+		return accomodationDetails;
+	}
+
+	public void setAccomodationDetails(
+			List<AccomodationsDetails> accomodationDetails) {
+		this.accomodationDetails = accomodationDetails;
+	}
 
 	public Long getId() {
 		return id;

@@ -1,6 +1,7 @@
 package com.ysyt.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.SessionFactory;
 
@@ -9,6 +10,7 @@ import com.ysyt.bean.AccomodationsDetails;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
+import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.LocationRequest;
 
@@ -55,6 +57,10 @@ public interface IAccomodationDao {
 
 
 	List<LocationBean> getLocationDetails(LocationRequest request,
+			SessionFactory sessionFactory);
+
+
+	Map<String, Object> getAccomodationList(AccomodationListRequest request,
 			SessionFactory sessionFactory);
 
 	

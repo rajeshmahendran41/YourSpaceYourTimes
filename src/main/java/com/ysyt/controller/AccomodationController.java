@@ -15,13 +15,16 @@ import com.constants.CommonConstants;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.service.IAccomodationService;
+import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.LocationRequest;
+import com.ysyt.to.response.AccomodationListResponse;
 import com.ysyt.to.response.AccomodationResponse;
 import com.ysyt.to.response.AmenitiesMasterResponse;
 import com.ysyt.to.response.AmenitiesResponse;
 import com.ysyt.to.response.LocationResponse;
+import com.ysyt.wrapper.DataTransformer;
 
 @RestController
 @RequestMapping(value="api/accomodation/")
@@ -113,6 +116,22 @@ public class AccomodationController {
         
 		AccomodationResponse res = new AccomodationResponse();
 		res.setAccomodation(iAccomodationService.getAccomodation(accomodationId));
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	}
+	
+	@RequestMapping(value = "list", method = RequestMethod.POST, produces ="application/json")
+    @ResponseBody
+    public AccomodationListResponse getAccomodationList(@RequestBody AccomodationListRequest request){
+        
+		AccomodationListResponse res = new AccomodationListResponse();
+		
+		res = DataTransformer.transformListResult(iAccomodationService.getAccomodationList(request));
+		
+		
+		
 		res.setMessage(CommonConstants.SUCCESS);
 		res.setStatus(CommonConstants.OK);
 		

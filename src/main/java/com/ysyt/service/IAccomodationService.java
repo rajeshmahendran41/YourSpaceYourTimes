@@ -7,6 +7,7 @@ import com.ysyt.bean.Accomodations;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
+import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.LocationRequest;
@@ -29,6 +30,8 @@ public interface IAccomodationService {
 	List<LocationBean> getLocationDetails(LocationRequest request);
 
 	Accomodations getAccomodation(Long accomodationId);
+
+	Map<String, Object> getAccomodationList(AccomodationListRequest request);
 
 	
 

@@ -23,6 +23,7 @@ import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
 import com.ysyt.dao.IAccomodationDao;
 import com.ysyt.service.IAccomodationService;
+import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.LocationRequest;
@@ -359,6 +360,13 @@ public class AccomodationServiceImpl implements IAccomodationService {
 	public Accomodations getAccomodation(Long accomodationId) {
 
 		return iAccomodationDao.getAccomodatoinById(accomodationId, sessionFactory);
+	}
+
+
+	@Override
+	public Map<String, Object> getAccomodationList(
+			AccomodationListRequest request) {
+		return iAccomodationDao.getAccomodationList(request,sessionFactory);
 	}
 	
 	

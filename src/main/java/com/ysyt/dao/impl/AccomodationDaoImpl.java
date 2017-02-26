@@ -1,6 +1,9 @@
 package com.ysyt.dao.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +22,7 @@ import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
 import com.ysyt.dao.IAccomodationDao;
+import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.LocationRequest;
 
@@ -195,6 +199,52 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		}
 		
 		return criteria.list();
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> getAccomodationList(
+			AccomodationListRequest request, SessionFactory sessionFactory) {
+		
+		Map<String, Object> response = new HashMap<String, Object>();
+		List<Accomodations> accomdationList = new ArrayList<>();
+		List<Long> accomodationIds = new ArrayList<>();
+		Long count = 0L;
+		
+		
+		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(Accomodations.class);
+		
+		Criteria criteriaCount = sessionFactory.getCurrentSession().createCriteria(Accomodations.class);;
+		
+		if(!Util.isNull(request.getLimit())){
+			criteria.setMaxResults(request.getLimit());
+		}
+		
+		if(!Util.isNull(request.getOffset())){
+			criteria.setFirstResult(request.getOffset());
+		}
+		
+		criteriaCount.setProjection(Projections.distinct(Projections.count("id")));
+		count = (Long) criteriaCount.uniqueResult();
+
+		if(!Util.isNull(count)&&count>0){
+			accomodationIds = criteria.setProjection(Projections.distinct(Projections.property("id"))).list();
+			if(!Util.isNullList(accomodationIds)){
+				
+				for(Long accomodationId : accomodationIds){
+					Accomodations accomodation = new Accomodations();
+					accomodation = getAccomodatoinById(accomodationId,sessionFactory);
+					accomdationList.add(accomodation);
+				}
+				response.put("list", accomdationList);
+			}
+		}
+;
+		
+		response.put("count", count);
+		
+		return response;
 		
 	}
 
