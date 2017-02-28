@@ -21,6 +21,7 @@ import com.ysyt.bean.AccomodationsDetails;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
+import com.ysyt.bean.Uploads;
 import com.ysyt.dao.IAccomodationDao;
 import com.ysyt.service.IAccomodationService;
 import com.ysyt.to.request.AccomodationListRequest;
@@ -367,6 +368,18 @@ public class AccomodationServiceImpl implements IAccomodationService {
 	public Map<String, Object> getAccomodationList(
 			AccomodationListRequest request) {
 		return iAccomodationDao.getAccomodationList(request,sessionFactory);
+	}
+
+
+	@Override
+	public Uploads createUploads(Uploads upload) {
+		
+		upload.setCreatedAt(Util.getCurrentTimeStamp());
+		upload.setCreatedBy(Util.getUserId(httpRequest));
+		upload.setUpdatedAt(Util.getCurrentTimeStamp());
+		upload.setUpdatedBy(Util.getUserId(httpRequest));
+		
+		return iAccomodationDao.createUpload(upload,sessionFactory);
 	}
 	
 	

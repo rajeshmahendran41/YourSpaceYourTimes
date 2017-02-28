@@ -98,7 +98,7 @@ public class AccomodationController {
         return res;
 	}
 	
-	@RequestMapping(value = "locaions", method = RequestMethod.POST, produces ="application/json")
+	@RequestMapping(value = "locations", method = RequestMethod.POST, produces ="application/json")
     @ResponseBody
     public LocationResponse getLocations(@RequestBody LocationRequest request){
         

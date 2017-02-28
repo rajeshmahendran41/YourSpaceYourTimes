@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +33,23 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.ysyt.bean.Uploads;
+import com.ysyt.service.IAccomodationService;
 
 @Service
 public class S3Wrapper {
 
 	@Autowired
 	private AmazonS3Client amazonS3Client;
+	
+	@Autowired
+	private IAccomodationService iAccomodationService;
 
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
+	
+	@Value("${cloud.aws.region}")
+	private String region;
 
 	private PutObjectResult upload(String filePath, String uploadKey) throws FileNotFoundException {
 		return upload(new FileInputStream(filePath), uploadKey);
@@ -54,23 +63,30 @@ public class S3Wrapper {
 		PutObjectResult putObjectResult = amazonS3Client.putObject(putObjectRequest);
 
 		IOUtils.closeQuietly(inputStream);
-
+		
 		return putObjectResult;
 	}
 
-	public List<PutObjectResult> upload(MultipartFile[] multipartFiles) {
+	public List<Uploads> upload(MultipartFile[] multipartFiles) {
 		List<PutObjectResult> putObjectResults = new ArrayList<>();
+		List<Uploads> uploadList = new ArrayList<>();
 
 		for( MultipartFile multipartFile : multipartFiles) {
 			if(!StringUtils.isEmpty(multipartFile.getOriginalFilename())){
 				try {
-					putObjectResults.add(upload(multipartFile.getInputStream(), multipartFile.getOriginalFilename()));
+					String fileName = UUID.randomUUID().toString()+"."+multipartFile.getOriginalFilename().split("\\.")[1];
+					putObjectResults.add(upload(multipartFile.getInputStream(), fileName));
+					//https://s3.ap-south-1.amazonaws.com/ysyt/3d0586af-81bb-4636-afa7-3620b5992343.docx
+					Uploads upload = new Uploads();
+					upload.setFileName(fileName);
+					upload.setFilePath("https://s3."+region+".amazonaws.com/"+bucket+"/"+fileName);
+					uploadList.add(iAccomodationService.createUploads(upload));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		}
-		return putObjectResults;
+		return uploadList;
 	}
 
 	public ResponseEntity<byte[]> download(String key) throws IOException {

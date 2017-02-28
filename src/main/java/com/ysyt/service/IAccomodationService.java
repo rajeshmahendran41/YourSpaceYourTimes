@@ -7,6 +7,7 @@ import com.ysyt.bean.Accomodations;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
+import com.ysyt.bean.Uploads;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
@@ -33,6 +34,6 @@ public interface IAccomodationService {
 
 	Map<String, Object> getAccomodationList(AccomodationListRequest request);
 
-	
+	Uploads createUploads(Uploads upload);
 
 }

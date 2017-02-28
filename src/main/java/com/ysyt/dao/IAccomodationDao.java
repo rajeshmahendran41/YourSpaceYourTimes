@@ -10,6 +10,7 @@ import com.ysyt.bean.AccomodationsDetails;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
+import com.ysyt.bean.Uploads;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.LocationRequest;
@@ -62,6 +63,9 @@ public interface IAccomodationDao {
 
 	Map<String, Object> getAccomodationList(AccomodationListRequest request,
 			SessionFactory sessionFactory);
+
+
+	Uploads createUpload(Uploads upload, SessionFactory sessionFactory);
 
 	
 }

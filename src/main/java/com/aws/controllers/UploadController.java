@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.aws.s3.S3Wrapper;
+import com.ysyt.bean.Uploads;
 
 @RestController
 @RequestMapping("/api/aws/s3")
@@ -25,7 +26,7 @@ public class UploadController {
 	private S3Wrapper s3Wrapper;
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public List<PutObjectResult> upload(@RequestParam("file") MultipartFile[] multipartFiles) {
+	public List<Uploads> upload(@RequestParam("file") MultipartFile[] multipartFiles) {
 		return s3Wrapper.upload(multipartFiles);
 	}
 	

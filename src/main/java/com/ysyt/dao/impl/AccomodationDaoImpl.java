@@ -21,6 +21,7 @@ import com.ysyt.bean.AccomodationsDetails;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
+import com.ysyt.bean.Uploads;
 import com.ysyt.dao.IAccomodationDao;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
@@ -246,6 +247,16 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		
 		return response;
 		
+	}
+
+	@Override
+	public Uploads createUpload(Uploads upload, SessionFactory sessionFactory) {
+		
+		sessionFactory.getCurrentSession().saveOrUpdate(upload);
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().clear();
+		
+		return upload;
 	}
 
 	
