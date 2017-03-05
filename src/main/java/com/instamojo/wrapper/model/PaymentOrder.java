@@ -76,6 +76,13 @@ public class PaymentOrder implements Serializable {
     private boolean amountInvalid;
     private boolean redirectUrlInvalid;
     private boolean webhookInvalid;
+    
+    private Long accomodationId;
+    private String depositType;
+    private Double roomCost;
+    private Double foodCost;
+    private Double additionalCost;
+    private Double amountRoomCost;
 
     /**
      * Gets the id.
@@ -571,4 +578,52 @@ public class PaymentOrder implements Serializable {
 
 	    return valid;
     }
+
+	public Long getAccomodationId() {
+		return accomodationId;
+	}
+
+	public void setAccomodationId(Long accomodationId) {
+		this.accomodationId = accomodationId;
+	}
+
+	public String getDepositType() {
+		return depositType;
+	}
+
+	public void setDepositType(String depositType) {
+		this.depositType = depositType;
+	}
+
+	public Double getRoomCost() {
+		return roomCost;
+	}
+
+	public void setRoomCost(Double roomCost) {
+		this.roomCost = roomCost;
+	}
+
+	public Double getFoodCost() {
+		return foodCost;
+	}
+
+	public void setFoodCost(Double foodCost) {
+		this.foodCost = foodCost;
+	}
+
+	public Double getAdditionalCost() {
+		return additionalCost;
+	}
+
+	public void setAdditionalCost(Double additionalCost) {
+		this.additionalCost = additionalCost;
+	}
+
+	public Double getAmountRoomCost() {
+		return amountRoomCost;
+	}
+
+	public void setAmountRoomCost(Double amountRoomCost) {
+		this.amountRoomCost = amountRoomCost;
+	}
 }
