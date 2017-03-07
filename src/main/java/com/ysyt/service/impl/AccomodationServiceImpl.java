@@ -16,6 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Util.Util;
+import com.horizontals.filter.DataTransformer.FilterDataTransformer;
+import com.horizontals.filter.wrapper.EntityWrapper;
+import com.horizontals.filter.wrapper.FilterConstant;
+import com.horizontals.filter.wrapper.FilterObject;
+import com.horizontals.filter.wrapper.FilterWrapper;
 import com.ysyt.bean.Accomodations;
 import com.ysyt.bean.AccomodationsDetails;
 import com.ysyt.bean.AmenitiesMapping;
@@ -27,7 +32,9 @@ import com.ysyt.service.IAccomodationService;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
+import com.ysyt.to.request.FilterRequest;
 import com.ysyt.to.request.LocationRequest;
+import com.ysyt.to.response.FilterResponse;
 
 @Service
 @Transactional
@@ -380,6 +387,26 @@ public class AccomodationServiceImpl implements IAccomodationService {
 		upload.setUpdatedBy(Util.getUserId(httpRequest));
 		
 		return iAccomodationDao.createUpload(upload,sessionFactory);
+	}
+
+
+	@Override
+	public FilterResponse getAccomodationFilter(FilterRequest request) {
+		
+		FilterResponse response = new FilterResponse();	
+		FilterWrapper wrapper = new FilterWrapper();	
+		List<FilterObject> filterList = new ArrayList<>();
+		
+		List<EntityWrapper> roomTypes= new ArrayList<>();
+		roomTypes.add(new EntityWrapper(1,"Hostel"));
+		roomTypes.add(new EntityWrapper(2, "PG"));
+		
+		filterList.add(FilterDataTransformer.convertFilterData("Room Types", "roomTypes", FilterConstant.RADIO, roomTypes));
+		
+		wrapper.setFilter(filterList);
+		response.setFilterData(wrapper);
+		
+		return response;
 	}
 	
 	

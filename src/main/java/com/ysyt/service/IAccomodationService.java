@@ -11,7 +11,9 @@ import com.ysyt.bean.Uploads;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
+import com.ysyt.to.request.FilterRequest;
 import com.ysyt.to.request.LocationRequest;
+import com.ysyt.to.response.FilterResponse;
 
 
 public interface IAccomodationService {
@@ -35,5 +37,7 @@ public interface IAccomodationService {
 	Map<String, Object> getAccomodationList(AccomodationListRequest request);
 
 	Uploads createUploads(Uploads upload);
+
+	FilterResponse getAccomodationFilter(FilterRequest request);
 
 }
