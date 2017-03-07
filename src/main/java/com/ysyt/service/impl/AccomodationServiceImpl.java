@@ -403,6 +403,8 @@ public class AccomodationServiceImpl implements IAccomodationService {
 		
 		filterList.add(FilterDataTransformer.convertFilterData("Room Types", "roomTypes", FilterConstant.RADIO, roomTypes));
 		
+		filterList.add(FilterDataTransformer.convertScrollFilterData("Price Range", "priceRange", FilterConstant.SLIDER, 100D,300D,100D,200D));
+		
 		wrapper.setFilter(filterList);
 		response.setFilterData(wrapper);
 		

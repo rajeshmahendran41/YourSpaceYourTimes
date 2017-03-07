@@ -17,5 +17,20 @@ public class FilterDataTransformer {
 		return filter;
 		
 	}
+	
+public static FilterObject convertScrollFilterData(String displayName, String filterName , String filterType , Double minValue , Double maxValue , Double minSelected, Double maxSelected){
+		
+		FilterObject filter = new FilterObject();
+		
+		filter.setDisplayName(displayName);
+		filter.setFilterName(filterName);
+		filter.setFilterType(filterType);
+		filter.setMinValue(minValue);
+		filter.setMaxValue(maxValue);
+		filter.setSelectedMin(minSelected);
+		filter.setSeleectedMax(maxSelected);
+		return filter;
+		
+	}
 
 }

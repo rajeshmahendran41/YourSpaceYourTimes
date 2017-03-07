@@ -12,6 +12,10 @@ public class FilterObject {
 	private String displayName;
 	private List<EntityWrapper> filterValues;
 	private EntityWrapper selectedValues;
+	private Double minValue;
+	private Double maxValue;
+	private Double selectedMin;
+	private Double seleectedMax;
 
 	public String getFilterName() {
 		return filterName;
@@ -59,6 +63,40 @@ public class FilterObject {
 
 	public void setSelectedValues(EntityWrapper selectedValues) {
 		this.selectedValues = selectedValues;
+	}
+
+	
+
+	public Double getMinValue() {
+		return minValue;
+	}
+
+	public void setMinValue(Double minValue) {
+		this.minValue = minValue;
+	}
+
+	public Double getMaxValue() {
+		return maxValue;
+	}
+
+	public void setMaxValue(Double maxValue) {
+		this.maxValue = maxValue;
+	}
+
+	public Double getSelectedMin() {
+		return selectedMin;
+	}
+
+	public void setSelectedMin(Double selectedMin) {
+		this.selectedMin = selectedMin;
+	}
+
+	public Double getSeleectedMax() {
+		return seleectedMax;
+	}
+
+	public void setSeleectedMax(Double seleectedMax) {
+		this.seleectedMax = seleectedMax;
 	}
 	
 
