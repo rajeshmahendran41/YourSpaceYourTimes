@@ -25,4 +25,6 @@ public interface IAuthService {
 
 	UserBean updateUserDetails(UserBean userBean);
 
+	Boolean validateEmail(String email);
+
 }

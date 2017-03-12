@@ -25,6 +25,8 @@ public interface IAuthDao {
 
 	LoginCredentials checkLoginEmail(PasswordRequest pwdRequest,
 			SessionFactory sessionFactory);
+
+	Boolean validateEmail(String email, SessionFactory sessionFactory);
 	
 	
 

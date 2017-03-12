@@ -39,6 +39,13 @@ public class AuthServiceImpl implements IAuthService {
 	public AuthResponse setSignupResponse(SignupRequest request) {
 		
 		AuthResponse res = new AuthResponse();
+		
+		if(validateEmail(request.getLoginDetails().getEmail())){
+			
+			Util.throwPrimeException("Email Id already Exist");
+			
+		}
+		
 
 		request.getUserDetails().setCreatedAt(Util.getCurrentTimeStamp());
 		request.getUserDetails().setUpdatedAt(Util.getCurrentTimeStamp());
@@ -69,6 +76,12 @@ public class AuthServiceImpl implements IAuthService {
 	public UserBean createUpdateUserBean(UserBean userBean) {
 				
 		return iAuthDao.createUpdateUserBean(userBean,sessionFactory);
+	}
+	
+	@Override
+	public Boolean validateEmail(String email) {
+				
+		return iAuthDao.validateEmail(email,sessionFactory);
 	}
 
 	@Override

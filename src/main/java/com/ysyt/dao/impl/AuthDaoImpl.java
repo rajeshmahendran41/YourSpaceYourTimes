@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -100,6 +101,22 @@ public class AuthDaoImpl implements IAuthDao {
 		return (UserBean) sessionFactory.getCurrentSession().createCriteria(UserBean.class)
 				.add(Restrictions.eq("id", userId))
 				.uniqueResult();
+	}
+
+	@Override
+	public Boolean validateEmail(String email, SessionFactory sessionFactory) {
+		
+		Long count =  (Long) sessionFactory.getCurrentSession().createCriteria(LoginCredentials.class)
+				.add(Restrictions.eq("email", email)).setProjection(Projections.count("id"))
+				.uniqueResult();
+		
+		if(count>=1){
+			return true;
+		}else{
+			return false;
+		}
+		
+		
 	}
 
 

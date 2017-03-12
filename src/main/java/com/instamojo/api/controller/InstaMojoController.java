@@ -152,7 +152,7 @@ public class InstaMojoController {
 
 		
 		try {
-		    api = InstamojoImpl.getApi("DQCRWsqSzQ14uMhwK6q6s4RmnxkjqDI9jV7WRjlj", "ws8nbm3DucuqXSRCP5nNyZjZYJPqAc7WgzcZOb1ed5nLrmBhd6zCjwKiM5atPtx3XT0ZY9pOd042OnpFIyPhS4kNOXbRzT9hycQePPmeTG7dDF18hwEMWFlon8MQL09c", "https://test.instamojo.com/v2/", "https://test.instamojo.com/oauth2/token/");
+		    api = InstamojoImpl.getApi(clientId, clientSecret, apiEndPoint,authEndPoint);
 
 		     paymentOrderDetailsResponse = api.getPaymentOrderDetails(orderId);
 
@@ -174,7 +174,7 @@ public class InstaMojoController {
 
 		
 		try {
-		    api = InstamojoImpl.getApi("DQCRWsqSzQ14uMhwK6q6s4RmnxkjqDI9jV7WRjlj", "ws8nbm3DucuqXSRCP5nNyZjZYJPqAc7WgzcZOb1ed5nLrmBhd6zCjwKiM5atPtx3XT0ZY9pOd042OnpFIyPhS4kNOXbRzT9hycQePPmeTG7dDF18hwEMWFlon8MQL09c", "https://test.instamojo.com/v2/", "https://test.instamojo.com/oauth2/token/");
+		    api = InstamojoImpl.getApi(clientId, clientSecret, apiEndPoint,authEndPoint);
 
 		     paymentOrderDetailsResponse = api.getPaymentOrderDetailsByTransactionId(transactionId);
 
@@ -197,7 +197,7 @@ public class InstaMojoController {
 
 		
 		try {
-			 api =  InstamojoImpl.getApi("DQCRWsqSzQ14uMhwK6q6s4RmnxkjqDI9jV7WRjlj", "ws8nbm3DucuqXSRCP5nNyZjZYJPqAc7WgzcZOb1ed5nLrmBhd6zCjwKiM5atPtx3XT0ZY9pOd042OnpFIyPhS4kNOXbRzT9hycQePPmeTG7dDF18hwEMWFlon8MQL09c", "https://test.instamojo.com/v2/", "https://test.instamojo.com/oauth2/token/");
+		    api = InstamojoImpl.getApi(clientId, clientSecret, apiEndPoint,authEndPoint);
 
 
 			PaymentOrderFilter paymentOrderFilter = new PaymentOrderFilter();
