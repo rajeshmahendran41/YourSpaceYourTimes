@@ -46,17 +46,17 @@ public class UserBills extends AccomodationsWrapper implements Serializable {
 	@Column(name="status")
 	private String status;
 	
-	@Column(name="room_cost",nullable = false ,insertable=false, columnDefinition = "numeric default 0")
-	private BigDecimal roomCost;
+	@Column(name="room_cost",nullable = false ,insertable=false, columnDefinition = "double precision default 0")
+	private Double roomCost;
 	
-	@Column(name="food_cost",nullable = false ,insertable=false, columnDefinition = "numeric default 0")
-	private BigDecimal foodCost;
+	@Column(name="food_cost",nullable = false ,insertable=false, columnDefinition = "double precision default 0")
+	private Double foodCost;
 	
-	@Column(name="additional_cost",nullable = false ,insertable=false, columnDefinition = "numeric default 0")
-	private BigDecimal additionalCost;
+	@Column(name="additional_cost",nullable = false ,insertable=false, columnDefinition = "double precision default 0")
+	private Double additionalCost;
 	
-	@Column(name="total_cost",nullable = false ,insertable=false, columnDefinition = "numeric default 0")
-	private BigDecimal totalCost;
+	@Column(name="total_cost",nullable = false ,insertable=false, columnDefinition = "double precision default 0")
+	private Double totalCost;
 	
 	@Column(name = "is_manual" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean isManual;
@@ -144,38 +144,6 @@ public class UserBills extends AccomodationsWrapper implements Serializable {
 		this.status = status;
 	}
 
-	public BigDecimal getRoomCost() {
-		return roomCost;
-	}
-
-	public void setRoomCost(BigDecimal roomCost) {
-		this.roomCost = roomCost;
-	}
-
-	public BigDecimal getFoodCost() {
-		return foodCost;
-	}
-
-	public void setFoodCost(BigDecimal foodCost) {
-		this.foodCost = foodCost;
-	}
-
-	public BigDecimal getAdditionalCost() {
-		return additionalCost;
-	}
-
-	public void setAdditionalCost(BigDecimal additionalCost) {
-		this.additionalCost = additionalCost;
-	}
-
-	public BigDecimal getTotalCost() {
-		return totalCost;
-	}
-
-	public void setTotalCost(BigDecimal totalCost) {
-		this.totalCost = totalCost;
-	}
-
 	public Boolean getIsManual() {
 		return isManual;
 	}
@@ -230,6 +198,38 @@ public class UserBills extends AccomodationsWrapper implements Serializable {
 
 	public void setUpdatedBy(Long updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public Double getRoomCost() {
+		return roomCost;
+	}
+
+	public void setRoomCost(Double roomCost) {
+		this.roomCost = roomCost;
+	}
+
+	public Double getFoodCost() {
+		return foodCost;
+	}
+
+	public void setFoodCost(Double foodCost) {
+		this.foodCost = foodCost;
+	}
+
+	public Double getAdditionalCost() {
+		return additionalCost;
+	}
+
+	public void setAdditionalCost(Double additionalCost) {
+		this.additionalCost = additionalCost;
+	}
+
+	public Double getTotalCost() {
+		return totalCost;
+	}
+
+	public void setTotalCost(Double totalCost) {
+		this.totalCost = totalCost;
 	}
 		
 	

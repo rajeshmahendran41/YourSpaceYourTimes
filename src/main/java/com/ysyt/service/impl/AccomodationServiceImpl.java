@@ -398,12 +398,19 @@ public class AccomodationServiceImpl implements IAccomodationService {
 		List<FilterObject> filterList = new ArrayList<>();
 		
 		List<EntityWrapper> roomTypes= new ArrayList<>();
-		roomTypes.add(new EntityWrapper(1,"Hostel"));
-		roomTypes.add(new EntityWrapper(2, "PG"));
+		roomTypes.add(new EntityWrapper(1,"Paying Guest"));
+		roomTypes.add(new EntityWrapper(2, "Hostel"));
+		roomTypes.add(new EntityWrapper(3, "Rental Flat"));
 		
-		filterList.add(FilterDataTransformer.convertFilterData("Room Types", "roomTypes", FilterConstant.RADIO, roomTypes));
 		
-		filterList.add(FilterDataTransformer.convertScrollFilterData("Price Range", "priceRange", FilterConstant.SLIDER, 100D,300D,100D,200D));
+		
+		filterList.add(FilterDataTransformer.convertFilterData("Space Type", "spaceTypes", FilterConstant.RADIO, roomTypes));
+		
+		Double minRange = iAccomodationDao.getMinPriceRange("MIN",request.getLocationIds(),request.getTypeId(),sessionFactory);
+		Double maxRange = iAccomodationDao.getMinPriceRange("MAX",request.getLocationIds(),request.getTypeId(),sessionFactory);
+
+		
+		filterList.add(FilterDataTransformer.convertScrollFilterData("Price Range", "priceRange", FilterConstant.SLIDER, minRange,maxRange,minRange,maxRange));
 		
 		wrapper.setFilter(filterList);
 		response.setFilterData(wrapper);

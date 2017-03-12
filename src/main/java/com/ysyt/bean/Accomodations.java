@@ -41,7 +41,7 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 	private String description;
 	
 	@Column(name="cost")
-	private Integer  cost;
+	private Double  cost;
 	
 	@Column(name="address")
 	private String address;
@@ -121,13 +121,7 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 		this.description = description;
 	}
 
-	public Integer getCost() {
-		return cost;
-	}
-
-	public void setCost(Integer cost) {
-		this.cost = cost;
-	}
+	
 
 	public String getAddress() {
 		return address;
@@ -228,6 +222,14 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 
 	public void setLocationId(Long locationId) {
 		this.locationId = locationId;
+	}
+
+	public Double getCost() {
+		return cost;
+	}
+
+	public void setCost(Double cost) {
+		this.cost = cost;
 	}
 
 	

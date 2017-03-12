@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
@@ -257,6 +258,49 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		sessionFactory.getCurrentSession().clear();
 		
 		return upload;
+	}
+
+	
+
+	
+
+	@Override
+	public Double getMinPriceRange(String minField, List<Long> locationIds,
+			Integer typeId, SessionFactory sessionFactory) {
+
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("select ");
+		
+		if(minField.equals("MIN")){
+			sb.append("cast(coalesce( min(cost),0 ) as double precision)  ");
+		}else if(minField.equals("MAX")){
+			sb.append("cast(coalesce( max(cost),0 ) as  double precision)  ");
+		}
+		
+		sb.append(" from accomodations where is_deleted = false ");
+		
+		if(!Util.isNullList(locationIds)){
+			sb.append(" and location_id in (:locationIds) ");
+		}
+
+		if(!Util.isNull(typeId)){
+			sb.append(" and type_id in (:typeId) ");
+		}
+		
+		Query  query = sessionFactory.getCurrentSession().createSQLQuery(sb.toString());
+		
+		if(!Util.isNullList(locationIds)){
+			
+			query.setParameterList("locationIds", locationIds);
+		}
+
+		if(!Util.isNull(typeId)){
+			query.setParameter("typeId", typeId);
+
+		}
+		
+		return (Double) query.uniqueResult();
 	}
 
 	
