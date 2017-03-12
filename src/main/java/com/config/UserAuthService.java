@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.Util.Util;
+
 @Component
 public class UserAuthService implements HandlerInterceptor {  
 
@@ -20,7 +22,13 @@ public class UserAuthService implements HandlerInterceptor {
 
         HttpSession session = request.getSession(false);
         if (request.isRequestedSessionIdValid() && session != null) {
-            preHandle = true;
+        	
+        	if(!Util.isNull(Util.getCurrentUser(request))){
+        		preHandle = true;
+        	}
+        	else {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            }
         } else {
             // set the response to access forbidden
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

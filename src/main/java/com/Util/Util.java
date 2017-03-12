@@ -113,6 +113,12 @@ public final class Util {
         throw new AspectException(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Failure",msg );
     }
 
+    
+    public static String[] exculdeApi(){
+    	
+    	return new String[]{"/api/auth/signup","/api/auth/login","/api/accomodation/locations","/api/accomodation/list","/api/accomodation/filter"};
+    	
+    }
        
 
    

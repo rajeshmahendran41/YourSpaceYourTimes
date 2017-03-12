@@ -8,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.Util.Util;
+
 @Configuration
 public class WebApplicationConfig extends WebMvcConfigurerAdapter {
 	
@@ -18,7 +20,7 @@ public class WebApplicationConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
     	
-    	registry.addInterceptor(userAuth).excludePathPatterns("/api/auth/login","/api/auth/signup");
+    	registry.addInterceptor(userAuth).excludePathPatterns(Util.exculdeApi());
     
     }
 
