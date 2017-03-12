@@ -34,7 +34,7 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
     @GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Long id;
 	
-	@Column(name="tilte")
+	@Column(name="title")
 	private String title;
 	
 	@Column(name="description")
@@ -50,7 +50,7 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 	private Long locationId;
 	
 	
-	@Column(name="latitude")
+	@Column(name="latitute")
 	private BigDecimal latitude;
 	
 	@Column(name="longitude")
