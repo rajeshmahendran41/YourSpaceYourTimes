@@ -63,21 +63,24 @@ public class CsrfGrantingFilter implements Filter {
         		  return;
         	  }
           }else{  
-        	  String csrfTokenValueInSession = null ;
-        	  if (session != null) {
-                   csrfTokenValueInSession = (String) session
-                          .getAttribute("X_CSRF_TOKEN");
-        	  }
-                  
-                  if(Util.isNull(csrfTokenValueInSession)){
         	  
-		        	  String randomValue = UUID.randomUUID().toString();
-		        	  HttpSession httpSession = request.getSession(true);
-		        	  httpSession.setAttribute("X_CSRF_TOKEN", randomValue);
-		              response.addHeader("X_CSRF_TOKEN", randomValue);
-                  }
+        	  if(loginUrl(servletRequest)){
+        	  
+	        	  String csrfTokenValueInSession = null ;
+	        	  if (session != null) {
+	                   csrfTokenValueInSession = (String) session
+	                          .getAttribute("X_CSRF_TOKEN");
+	        	  }
+	                  
+	                  if(Util.isNull(csrfTokenValueInSession)){
+	        	  
+			        	  String randomValue = UUID.randomUUID().toString();
+			        	  HttpSession httpSession = request.getSession(true);
+			        	  httpSession.setAttribute("X_CSRF_TOKEN", randomValue);
+			              response.addHeader("X_CSRF_TOKEN", randomValue);
+	                  }
           
-              
+        	  }
         	  
           }
 	    filterChain.doFilter(servletRequest, servletResponse);
@@ -106,6 +109,18 @@ public class CsrfGrantingFilter implements Filter {
 	    
 	    
 	  }
+	  
+	  private boolean loginUrl(ServletRequest servletRequest) {
+		    HttpServletRequest request = (HttpServletRequest) servletRequest;
+		    
+		    	if( request.getRequestURI().equals("/api/auth/login")){
+		    		return true ;
+		    	}
+		    
+		    return false;
+		    
+		    
+		  }
 
 	  @Override
 	  public void destroy() {}
