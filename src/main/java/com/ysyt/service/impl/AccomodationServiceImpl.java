@@ -398,9 +398,9 @@ public class AccomodationServiceImpl implements IAccomodationService {
 		List<FilterObject> filterList = new ArrayList<>();
 		
 		List<EntityWrapper> roomTypes= new ArrayList<>();
-		roomTypes.add(new EntityWrapper(1,"Paying Guest"));
-		roomTypes.add(new EntityWrapper(2, "Hostel"));
-		roomTypes.add(new EntityWrapper(3, "Rental Flat"));
+		roomTypes.add(new EntityWrapper((long) 1,"Paying Guest"));
+		roomTypes.add(new EntityWrapper((long)2, "Hostel"));
+		roomTypes.add(new EntityWrapper((long)3, "Rental Flat"));
 		
 		
 		

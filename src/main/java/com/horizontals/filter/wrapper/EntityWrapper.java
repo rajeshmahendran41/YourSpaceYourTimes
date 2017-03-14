@@ -12,6 +12,11 @@ public class EntityWrapper {
 		this.id = id;
 		this.title = title;
 	}
+	public EntityWrapper( Long longId,String title) {
+		super();
+		this.title = title;
+		this.longId = longId;
+	}
 	private Integer id;
 	private String title;
 	private Long longId;

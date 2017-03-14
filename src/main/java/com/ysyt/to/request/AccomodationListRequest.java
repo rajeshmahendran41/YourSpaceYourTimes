@@ -1,8 +1,8 @@
 package com.ysyt.to.request;
 
-import java.math.BigInteger;
+import java.util.List;
 
-import com.ysyt.bean.Accomodations;
+import com.horizontals.filter.wrapper.FilterWrapper;
 
 
 public class AccomodationListRequest {
@@ -10,6 +10,11 @@ public class AccomodationListRequest {
 	private Integer limit;
 	private Integer offset;
 	private String projections;
+	private List<Long> typeIds;
+	private Double mincost;
+	private Double maxCost;
+	private List<Long> locationIds;
+	private FilterWrapper filterList;
 
 	public Integer getLimit() {
 		return limit;
@@ -28,6 +33,36 @@ public class AccomodationListRequest {
 	}
 	public void setProjections(String projections) {
 		this.projections = projections;
+	}
+	public List<Long> getTypeIds() {
+		return typeIds;
+	}
+	public void setTypeIds(List<Long> typeIds) {
+		this.typeIds = typeIds;
+	}
+	public Double getMincost() {
+		return mincost;
+	}
+	public void setMincost(Double mincost) {
+		this.mincost = mincost;
+	}
+	public Double getMaxCost() {
+		return maxCost;
+	}
+	public void setMaxCost(Double maxCost) {
+		this.maxCost = maxCost;
+	}
+	public List<Long> getLocationIds() {
+		return locationIds;
+	}
+	public void setLocationIds(List<Long> locationIds) {
+		this.locationIds = locationIds;
+	}
+	public FilterWrapper getFilterList() {
+		return filterList;
+	}
+	public void setFilterList(FilterWrapper filterList) {
+		this.filterList = filterList;
 	}
 
 	

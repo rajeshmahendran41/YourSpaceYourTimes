@@ -130,6 +130,8 @@ public class AccomodationController {
         
 		AccomodationListResponse res = new AccomodationListResponse();
 		
+		request = DataTransformer.convertFilter(request);
+		
 		res = DataTransformer.transformListResult(iAccomodationService.getAccomodationList(request));
 		
 		
