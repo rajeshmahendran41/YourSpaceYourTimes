@@ -35,13 +35,13 @@ public class CsrfGrantingFilter implements Filter {
 	        HttpSession session = request.getSession(false);
 
 		  
-          final String token = request.getHeader("X_CSRF_TOKEN");
+          final String token = request.getHeader("X-Csrf-Token");
 
           if(!isAuthenticating(servletRequest)){
         	  
         	  if (session != null) {
                   String csrfTokenValueInSession = (String) session
-                          .getAttribute("X_CSRF_TOKEN");                  
+                          .getAttribute("X-Csrf-Token");                  
           
 			    if (token != null) {
 			    	
@@ -69,15 +69,15 @@ public class CsrfGrantingFilter implements Filter {
 	        	  String csrfTokenValueInSession = null ;
 	        	  if (session != null) {
 	                   csrfTokenValueInSession = (String) session
-	                          .getAttribute("X_CSRF_TOKEN");
+	                          .getAttribute("X-Csrf-Token");
 	        	  }
 	                  
 	                  if(Util.isNull(csrfTokenValueInSession)){
 	        	  
 			        	  String randomValue = UUID.randomUUID().toString();
 			        	  HttpSession httpSession = request.getSession(true);
-			        	  httpSession.setAttribute("X_CSRF_TOKEN", randomValue);
-			              response.addHeader("X_CSRF_TOKEN", randomValue);
+			        	  httpSession.setAttribute("X-Csrf-Token", randomValue);
+			              response.addHeader("X-Csrf-Token", randomValue);
 	                  }
           
         	  }
