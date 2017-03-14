@@ -1,5 +1,6 @@
 package com.horizontals.filter.DataTransformer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.horizontals.filter.wrapper.EntityWrapper;
@@ -22,13 +23,20 @@ public static FilterObject convertScrollFilterData(String displayName, String fi
 		
 		FilterObject filter = new FilterObject();
 		
+		List<EntityWrapper> optionsList = new ArrayList<EntityWrapper>();
+
+		EntityWrapper options = new EntityWrapper();
+		options.setMinValue(minValue);
+		options.setMaxValue(maxValue);
+		options.setSelectedMin(minSelected);
+		options.setSeleectedMax(maxSelected);
+		optionsList.add(options);
+
+		
 		filter.setDisplayName(displayName);
 		filter.setFilterName(filterName);
 		filter.setFilterType(filterType);
-		filter.setMinValue(minValue);
-		filter.setMaxValue(maxValue);
-		filter.setSelectedMin(minSelected);
-		filter.setSeleectedMax(maxSelected);
+		filter.setFilterValues(optionsList);
 		return filter;
 		
 	}

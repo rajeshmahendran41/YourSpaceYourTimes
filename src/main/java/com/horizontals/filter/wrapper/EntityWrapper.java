@@ -3,6 +3,10 @@ package com.horizontals.filter.wrapper;
 
 public class EntityWrapper {
 
+	public EntityWrapper() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public EntityWrapper(Integer id, String title) {
 		super();
 		this.id = id;
@@ -11,6 +15,35 @@ public class EntityWrapper {
 	private Integer id;
 	private String title;
 	private Long longId;
+	private Double minValue;
+	private Double maxValue;
+	private Double selectedMin;
+	private Double seleectedMax;
+	
+	public Double getMinValue() {
+		return minValue;
+	}
+	public void setMinValue(Double minValue) {
+		this.minValue = minValue;
+	}
+	public Double getMaxValue() {
+		return maxValue;
+	}
+	public void setMaxValue(Double maxValue) {
+		this.maxValue = maxValue;
+	}
+	public Double getSelectedMin() {
+		return selectedMin;
+	}
+	public void setSelectedMin(Double selectedMin) {
+		this.selectedMin = selectedMin;
+	}
+	public Double getSeleectedMax() {
+		return seleectedMax;
+	}
+	public void setSeleectedMax(Double seleectedMax) {
+		this.seleectedMax = seleectedMax;
+	}
 	public Integer getId() {
 		return id;
 	}
