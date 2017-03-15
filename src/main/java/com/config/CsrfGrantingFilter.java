@@ -38,7 +38,7 @@ public class CsrfGrantingFilter implements Filter {
 	        String token = null;
 	        
 
-	        Cookie[] cookies = request.getCookies();
+	        /*Cookie[] cookies = request.getCookies();
 	        
 	        for(Cookie cookie : cookies){
 	        	
@@ -46,7 +46,7 @@ public class CsrfGrantingFilter implements Filter {
 	        		token = cookie.getValue();
 	        	}
 	        	
-	        }
+	        }*/
 
 
           if(!isAuthenticating(servletRequest)){
