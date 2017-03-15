@@ -217,7 +217,28 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		
 		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(Accomodations.class);
 		
-		Criteria criteriaCount = sessionFactory.getCurrentSession().createCriteria(Accomodations.class);;
+		Criteria criteriaCount = sessionFactory.getCurrentSession().createCriteria(Accomodations.class);
+		
+		criteria.add(Restrictions.eq("isDeleted", false));
+		criteriaCount.add(Restrictions.eq("isDeleted", false));
+		
+		if(!Util.isNullList(request.getLocationIds())){
+			criteria.add(Restrictions.in("locationId", request.getLocationIds()));
+			criteriaCount.add(Restrictions.in("locationId", request.getLocationIds()));
+
+		}
+		
+		if(!Util.isNullList(request.getTypeIds())){
+			criteria.add(Restrictions.in("typeId", request.getTypeIds()));
+			criteriaCount.add(Restrictions.in("typeId", request.getTypeIds()));
+
+		}
+		
+		if(!Util.isNull(request.getMincost())&&!Util.isNull(request.getMaxCost())){
+			criteria.add(Restrictions.between("cost", request.getMincost(),request.getMaxCost()));
+			criteriaCount.add(Restrictions.between("cost", request.getMincost(),request.getMaxCost()));
+
+		}
 		
 		if(!Util.isNull(request.getLimit())){
 			criteria.setMaxResults(request.getLimit());

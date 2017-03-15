@@ -36,7 +36,7 @@ public class DataTransformer {
 			
 			for(FilterObject filterObject : filter.getFilter()){
 				
-				switch (filterObject.getFilterName().toLowerCase()){
+				switch (filterObject.getFilterName()){
 				
 					case "spaceTypes":
 						
