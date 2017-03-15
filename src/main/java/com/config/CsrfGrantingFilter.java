@@ -91,7 +91,7 @@ public class CsrfGrantingFilter implements Filter {
 			        	  csrfTokenValueInSession = UUID.randomUUID().toString();
 	                  }
 	                  
-	                  HttpSession httpSession = request.getSession(false);
+	                  HttpSession httpSession = request.getSession(true);
 		        	  httpSession.setAttribute("X-XSRF-TOKEN", csrfTokenValueInSession);
 				      Cookie cookie = new Cookie("XSRF-TOKEN", csrfTokenValueInSession);
 				      cookie.setHttpOnly(false);
