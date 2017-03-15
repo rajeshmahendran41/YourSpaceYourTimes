@@ -77,7 +77,7 @@ public class CsrfGrantingFilter implements Filter {
 		              response.addHeader("X-XSRF-TOKEN", csrfTokenValueInSession);
 				      Cookie cookie = new Cookie("XSRF-TOKEN", csrfTokenValueInSession);
 				      cookie.setHttpOnly(false);
-				      cookie.setDomain("");
+				      cookie.setDomain(".localhost");
 				      cookie.setPath("/");
 				      response.addCookie(cookie);
           
