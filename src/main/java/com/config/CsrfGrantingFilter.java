@@ -1,7 +1,6 @@
 package com.config;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.Filter;
@@ -14,11 +13,13 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.core.NewCookie;
 
+import org.owasp.esapi.HTTPUtilities;
+import org.owasp.esapi.reference.DefaultHTTPUtilities;
 import org.springframework.stereotype.Component;
 
 import com.Util.Util;
+import com.ysyt.constants.SessionConstant;
 
 @Component
 public class CsrfGrantingFilter implements Filter {
@@ -32,22 +33,9 @@ public class CsrfGrantingFilter implements Filter {
 		    HttpServletRequest request = (HttpServletRequest) servletRequest;
 		    HttpServletResponse response = (HttpServletResponse) servletResponse;
 	        HttpSession session = request.getSession(false);
-	        
-	        
-	        
-	        String token = null;
-	        
 
-	        /*Cookie[] cookies = request.getCookies();
-	        
-	        for(Cookie cookie : cookies){
-	        	
-	        	if(cookie.getName().equals("XSRF-TOKEN")){
-	        		token = cookie.getValue();
-	        	}
-	        	
-	        }*/
-
+		  
+          final String token = request.getHeader("X-XSRF-TOKEN");
 
           if(!isAuthenticating(servletRequest)){
         	  
@@ -89,6 +77,7 @@ public class CsrfGrantingFilter implements Filter {
 		              response.addHeader("X-XSRF-TOKEN", csrfTokenValueInSession);
 				      Cookie cookie = new Cookie("XSRF-TOKEN", csrfTokenValueInSession);
 				      cookie.setHttpOnly(false);
+				      cookie.setDomain("localhost");
 				      cookie.setPath("/");
 				      response.addCookie(cookie);
           
