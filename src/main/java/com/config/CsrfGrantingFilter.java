@@ -41,15 +41,17 @@ public class CsrfGrantingFilter implements Filter {
 
 	        String token = null;
 	        
+	        if(!Util.isNullList(request.getCookies())){
 
-	        Cookie[] cookies = request.getCookies();
-	        
-	        for(Cookie cookie : cookies){
-	        	
-	        	if(cookie.getName().equals("XSRF-TOKEN")){
-	        		token = cookie.getValue();
-	        	}
-	        	
+		        Cookie[] cookies = request.getCookies();
+		        
+		        for(Cookie cookie : cookies){
+		        	
+		        	if(cookie.getName().equals("XSRF-TOKEN")){
+		        		token = cookie.getValue();
+		        	}
+		        	
+		        }
 	        }
 
           if(!isAuthenticating(servletRequest)){
