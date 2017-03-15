@@ -37,7 +37,7 @@ public class CsrfGrantingFilter implements Filter {
 		  
          // final String token = request.getHeader("X-XSRF-TOKEN");
 	        
-	        
+	        if(!request.getMethod().equals("OPTIONS")){
 
 	        String token = null;
 	        
@@ -91,7 +91,6 @@ public class CsrfGrantingFilter implements Filter {
 	                  
 	                  HttpSession httpSession = request.getSession(true);
 		        	  httpSession.setAttribute("X-XSRF-TOKEN", csrfTokenValueInSession);
-		              response.addHeader("X-XSRF-TOKEN", csrfTokenValueInSession);
 				      Cookie cookie = new Cookie("XSRF-TOKEN", csrfTokenValueInSession);
 				      cookie.setHttpOnly(false);
 				      cookie.setPath("/");
@@ -100,6 +99,7 @@ public class CsrfGrantingFilter implements Filter {
         	  }
         	  
           }
+	        }
 	    filterChain.doFilter(servletRequest, servletResponse);
 	  }
 	  
