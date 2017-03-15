@@ -35,13 +35,13 @@ public class CsrfGrantingFilter implements Filter {
 	        HttpSession session = request.getSession(false);
 
 		  
-          final String token = request.getHeader("X-Csrf-Token");
+          final String token = request.getHeader("X-XSRF-TOKEN");
 
           if(!isAuthenticating(servletRequest)){
         	  
         	  if (session != null) {
                   String csrfTokenValueInSession = (String) session
-                          .getAttribute("X-Csrf-Token");                  
+                          .getAttribute("X-XSRF-TOKEN");                  
           
 			    if (token != null) {
 			    	
@@ -64,7 +64,7 @@ public class CsrfGrantingFilter implements Filter {
 	        	  String csrfTokenValueInSession = null ;
 	        	  if (session != null) {
 	                   csrfTokenValueInSession = (String) session
-	                          .getAttribute("X-Csrf-Token");
+	                          .getAttribute("X-XSRF-TOKEN");
 	        	  }
 	                  
 	                  if(Util.isNull(csrfTokenValueInSession)){
@@ -73,9 +73,9 @@ public class CsrfGrantingFilter implements Filter {
 	                  }
 	                  
 	                  HttpSession httpSession = request.getSession(true);
-		        	  httpSession.setAttribute("X-Csrf-Token", csrfTokenValueInSession);
-		              response.addHeader("X-Csrf-Token", csrfTokenValueInSession);
-				      Cookie cookie = new Cookie("CSRF-TOKEN", csrfTokenValueInSession);
+		        	  httpSession.setAttribute("X-XSRF-TOKEN", csrfTokenValueInSession);
+		              response.addHeader("X-XSRF-TOKEN", csrfTokenValueInSession);
+				      Cookie cookie = new Cookie("XSRF-TOKEN", csrfTokenValueInSession);
 				      cookie.setPath("/");
 				      response.addCookie(cookie);
           

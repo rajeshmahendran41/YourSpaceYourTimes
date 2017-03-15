@@ -180,10 +180,10 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		if(!Util.isNull(request.getState())){
 			criteria.add(Restrictions.eq("state", request.getState()).ignoreCase());
 		}
-		if(!Util.isNull(request.getCountry())){
+		if(!Util.isNull(request.getCity())){
 			criteria.add(Restrictions.eq("city", request.getCity().toLowerCase()).ignoreCase());
 		}
-		if(!Util.isNull(request.getCountry())){
+		if(!Util.isNull(request.getLocation())){
 			criteria.add(Restrictions.eq("location", request.getLocation().toLowerCase()).ignoreCase());
 		}
 		
