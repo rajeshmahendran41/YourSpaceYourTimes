@@ -19,19 +19,26 @@ public class UserAuthService implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) {
         Boolean preHandle = false;
+        
+        if(!request.getMethod().equals("OPTIONS")){
 
-        HttpSession session = request.getSession(false);
-        if (request.isRequestedSessionIdValid() && session != null) {
-        	
-        	if(!Util.isNull(Util.getCurrentUser(request))){
-        		preHandle = true;
-        	}
-        	else {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            }
-        } else {
-            // set the response to access forbidden
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	        HttpSession session = request.getSession(false);
+	        if (request.isRequestedSessionIdValid() && session != null) {
+	        	
+	        	if(!Util.isNull(Util.getCurrentUser(request))){
+	        		preHandle = true;
+	        	}
+	        	else {
+	                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	            }
+	        } else {
+	            // set the response to access forbidden
+	            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	
+	        }
+        }
+        else{
+    		preHandle = true;
 
         }
         return preHandle;
