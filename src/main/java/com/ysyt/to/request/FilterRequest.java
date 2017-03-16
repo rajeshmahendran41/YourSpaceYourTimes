@@ -8,7 +8,7 @@ import com.horizontals.filter.wrapper.FilterWrapper;
 public class FilterRequest extends FilterWrapper {
 	
 	private String tabName;
-	private Integer typeId;
+	private Long typeId;
 	private List<Long> locationIds;
 	
 	public String getTabName() {
@@ -19,11 +19,13 @@ public class FilterRequest extends FilterWrapper {
 		this.tabName = tabName;
 	}
 
-	public Integer getTypeId() {
+	
+
+	public Long getTypeId() {
 		return typeId;
 	}
 
-	public void setTypeId(Integer typeId) {
+	public void setTypeId(Long typeId) {
 		this.typeId = typeId;
 	}
 

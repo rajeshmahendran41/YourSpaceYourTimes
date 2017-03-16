@@ -287,7 +287,7 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 
 	@Override
 	public Double getMinPriceRange(String minField, List<Long> locationIds,
-			Integer typeId, SessionFactory sessionFactory) {
+			Long typeId, SessionFactory sessionFactory) {
 
 		StringBuilder sb = new StringBuilder();
 		

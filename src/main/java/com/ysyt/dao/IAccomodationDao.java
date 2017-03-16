@@ -68,7 +68,7 @@ public interface IAccomodationDao {
 	Uploads createUpload(Uploads upload, SessionFactory sessionFactory);
 
 
-	Double getMinPriceRange(String minField, List<Long> locationIds, Integer typeId, SessionFactory sessionFactory);
+	Double getMinPriceRange(String minField, List<Long> locationIds, Long typeId, SessionFactory sessionFactory);
 
 	
 }
