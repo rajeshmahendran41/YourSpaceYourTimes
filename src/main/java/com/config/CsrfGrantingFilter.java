@@ -43,7 +43,7 @@ public class CsrfGrantingFilter implements Filter {
 
 	        String token = null;
 	        
-	        if(!Util.isNullList(request.getCookies())){
+	        if(!Util.isNull(request.getCookies())){
 
 		        Cookie[] cookies = request.getCookies();
 		        
