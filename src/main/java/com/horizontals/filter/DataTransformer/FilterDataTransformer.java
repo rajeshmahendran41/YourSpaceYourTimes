@@ -29,7 +29,7 @@ public static FilterObject convertScrollFilterData(String displayName, String fi
 		options.setMinValue(minValue);
 		options.setMaxValue(maxValue);
 		options.setSelectedMin(minSelected);
-		options.setSeleectedMax(maxSelected);
+		options.setSelectedMax(maxSelected);
 		optionsList.add(options);
 
 		

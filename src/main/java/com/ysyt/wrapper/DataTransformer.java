@@ -46,7 +46,7 @@ public class DataTransformer {
 					case "priceRange":
 					
 						if(!Util.isNull(filterObject.getFilterValues().get(0))){
-							res.setMaxCost(filterObject.getFilterValues().get(0).getSeleectedMax());
+							res.setMaxCost(filterObject.getFilterValues().get(0).getSelectedMax());
 							res.setMincost(filterObject.getFilterValues().get(0).getSelectedMin());
 						}
 					break;

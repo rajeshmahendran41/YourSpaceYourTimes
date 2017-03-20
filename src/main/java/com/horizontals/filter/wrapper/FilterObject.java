@@ -11,8 +11,8 @@ public class FilterObject {
 	private String filterType;
 	private String displayName;
 	private List<EntityWrapper> filterValues;
-	private String selectedValues;
-	
+	private String selectedValues="";
+	private Boolean isFilterApplied=false;
 
 	public String getFilterName() {
 		return filterName;
@@ -33,6 +33,7 @@ public class FilterObject {
 	public String getFilterType() {
 		return filterType;
 	}
+
 
 	public void setFilterType(String filterType) {
 		this.filterType = filterType;
@@ -60,6 +61,14 @@ public class FilterObject {
 
 	public void setSelectedValues(String selectedValues) {
 		this.selectedValues = selectedValues;
+	}
+
+	public Boolean getIsFilterApplied() {
+		return isFilterApplied;
+	}
+
+	public void setIsFilterApplied(Boolean isFilterApplied) {
+		this.isFilterApplied = isFilterApplied;
 	}
 
 

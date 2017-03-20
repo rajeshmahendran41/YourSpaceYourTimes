@@ -23,7 +23,8 @@ public class EntityWrapper {
 	private Double minValue;
 	private Double maxValue;
 	private Double selectedMin;
-	private Double seleectedMax;
+	private Double selectedMax;
+	private Boolean selected=false;
 	
 	public Double getMinValue() {
 		return minValue;
@@ -43,12 +44,7 @@ public class EntityWrapper {
 	public void setSelectedMin(Double selectedMin) {
 		this.selectedMin = selectedMin;
 	}
-	public Double getSeleectedMax() {
-		return seleectedMax;
-	}
-	public void setSeleectedMax(Double seleectedMax) {
-		this.seleectedMax = seleectedMax;
-	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -66,6 +62,18 @@ public class EntityWrapper {
 	}
 	public void setLongId(Long longId) {
 		this.longId = longId;
+	}
+	public Boolean getSelected() {
+		return selected;
+	}
+	public void setSelected(Boolean selected) {
+		this.selected = selected;
+	}
+	public Double getSelectedMax() {
+		return selectedMax;
+	}
+	public void setSelectedMax(Double selectedMax) {
+		this.selectedMax = selectedMax;
 	}
 
 }
