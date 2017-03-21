@@ -16,4 +16,6 @@ public interface ITransactionService {
 	void checkInitialTransaction(
 			PaymentOrderDetailsResponse paymentOrderDetailsResponse);
 
+	void storePercentageSplitUp(Double amount, String orderId);
+
 }

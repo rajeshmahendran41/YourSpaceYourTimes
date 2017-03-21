@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -248,22 +249,23 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 			criteria.setFirstResult(request.getOffset());
 		}
 		
+		if(!Util.isNull(request.getSortBy())){
+		
+			if(!Util.isNull(request.getSortType())&&request.getSortType().equalsIgnoreCase("desc")){
+				criteria.addOrder(Order.desc(request.getSortBy()));
+			}else{
+				criteria.addOrder(Order.asc(request.getSortBy()));
+
+			}
+		}
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		criteriaCount.setProjection(Projections.distinct(Projections.count("id")));
 		count = (Long) criteriaCount.uniqueResult();
 
 		if(!Util.isNull(count)&&count>0){
-			accomodationIds = criteria.setProjection(Projections.distinct(Projections.property("id"))).list();
-			if(!Util.isNullList(accomodationIds)){
-				
-				for(Long accomodationId : accomodationIds){
-					Accomodations accomodation = new Accomodations();
-					accomodation = getAccomodatoinById(accomodationId,sessionFactory);
-					accomdationList.add(accomodation);
-				}
-				response.put("list", accomdationList);
-			}
+			response.put("list", criteria.list());
 		}
-;
+
 		
 		response.put("count", count);
 		

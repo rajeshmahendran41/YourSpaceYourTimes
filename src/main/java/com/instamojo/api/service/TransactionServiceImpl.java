@@ -2,6 +2,9 @@ package com.instamojo.api.service;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.SessionFactory;
@@ -15,9 +18,10 @@ import com.instamojo.api.dao.ITransactionDao;
 import com.instamojo.wrapper.model.PaymentOrder;
 import com.instamojo.wrapper.response.CreatePaymentOrderResponse;
 import com.instamojo.wrapper.response.PaymentOrderDetailsResponse;
+import com.ysyt.bean.PercentageSplitUpMaster;
 import com.ysyt.bean.Transactions;
 import com.ysyt.bean.UserAccomodationMapping;
-import com.ysyt.bean.UserBills;
+import com.ysyt.bean.UserBillsPercentage;
 import com.ysyt.constants.YSYTConstants;
 import com.ysyt.to.response.TransactionResponse;
 
@@ -56,6 +60,49 @@ public class TransactionServiceImpl implements ITransactionService {
 		Transactions transaction = new Transactions();
 		transaction = iTransactionDao.getOrderDetails(orderId,sessionFactory);
 		return transaction;
+	}
+	
+	@Override
+	public void storePercentageSplitUp(
+			Double amount,String orderId) {
+		
+		Double totalAmount = amount;
+		
+		List<PercentageSplitUpMaster> percentages = new ArrayList<>();
+				
+		percentages = iTransactionDao.getPercentages(sessionFactory);
+		
+		for(PercentageSplitUpMaster splitPercentage : percentages){
+			
+			UserBillsPercentage splits = new UserBillsPercentage();
+			
+			Double splitAmount = 0.00;
+			
+			if(!Util.isNull(splitPercentage.getPercentage())){
+				
+				splitAmount= ((totalAmount)*(splitPercentage.getPercentage()/100.00));
+				
+				if(splitPercentage.getId()==1){
+					splitAmount+=2;
+				}else if(splitPercentage.getId()==3){
+					splitAmount-=2;
+				}
+				
+				splits.setAmount(splitAmount);
+				splits.setCreatedAt(Util.getCurrentTimeStamp());
+				splits.setUpdatedAt(Util.getCurrentTimeStamp());
+				splits.setCreatedBy(Util.getUserId(httpRequest));
+				splits.setUpdatedBy(Util.getUserId(httpRequest));
+				splits.setOrderId(orderId);
+				splits.setPercentageAllocationId(splitPercentage.getId());
+				
+				iTransactionDao.createUpdateSplitUp(splits,sessionFactory);
+
+		
+			}
+			
+		}
+	
 	}
 
 	
@@ -109,7 +156,7 @@ public class TransactionServiceImpl implements ITransactionService {
 	
 		Transactions transaction = getTranscationDetailsByOrderId(paymentOrderDetailsResponse.getId());
 		
-		if(transaction.equals(YSYTConstants.SECURITY_DEPOSIT)){
+		if(transaction.getDepositType().equals(YSYTConstants.SECURITY_DEPOSIT)){
 			if(paymentOrderDetailsResponse.getStatus().equals(YSYTConstants.INSTAMOJO_STATUS_SUCCESS)){
 				if(transaction.getStatus().equals(YSYTConstants.INSTAMOJO_STATUS_PENDING)){
 					
@@ -145,7 +192,7 @@ public class TransactionServiceImpl implements ITransactionService {
 					}
 					userAccomodationMapping.setUserId(Util.getUserId(httpRequest));
 					userAccomodationMapping = iTransactionDao.createUpdateUserAccomodationMapping(userAccomodationMapping,sessionFactory);
-	
+					storePercentageSplitUp(userAccomodationMapping.getSecurityDeposit(),userAccomodationMapping.getOrderId());
 					
 				}
 			}

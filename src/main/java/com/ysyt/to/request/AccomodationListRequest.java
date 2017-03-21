@@ -15,6 +15,8 @@ public class AccomodationListRequest {
 	private Double maxCost;
 	private List<Long> locationIds;
 	private FilterWrapper filterList;
+	private String sortBy;
+	private String sortType;
 
 	public Integer getLimit() {
 		return limit;
@@ -63,6 +65,18 @@ public class AccomodationListRequest {
 	}
 	public void setFilterList(FilterWrapper filterList) {
 		this.filterList = filterList;
+	}
+	public String getSortBy() {
+		return sortBy;
+	}
+	public void setSortBy(String sortBy) {
+		this.sortBy = sortBy;
+	}
+	public String getSortType() {
+		return sortType;
+	}
+	public void setSortType(String sortType) {
+		this.sortType = sortType;
 	}
 
 	
