@@ -40,8 +40,17 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 	@Column(name="description")
 	private String description;
 	
-	@Column(name="cost")
-	private Double  cost;
+	@Column(name="room_cost")
+	private Double  roomCost;
+	
+	@Column(name="food_cost")
+	private Double  foodCost;
+	
+	@Column(name="security_deposit")
+	private Double  securityDeposit;
+	
+	@Column(name="additional_cost")
+	private Double  additionalCost;
 	
 	@Column(name="address")
 	private String address;
@@ -64,6 +73,9 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 	
 	@Column(name="type_id")
 	private Long typeId;
+	
+	@Column(name = "cover_photo")
+	private Long coverPhoto;
 	
 	@Column(name = "is_deleted" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean isDeleted;
@@ -90,6 +102,11 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 	@OneToOne(fetch = FetchType.EAGER,targetEntity = AccomodationTypes.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "type_id", referencedColumnName = "id",insertable=false ,updatable=false)
 	private AccomodationTypes accomodationType;	
+	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = Uploads.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cover_photo", referencedColumnName = "id",insertable=false ,updatable=false)
+	private Uploads coverPhotoBean;	
+
 
 
 	public List<AccomodationsDetails> getAccomodationDetails() {
@@ -228,13 +245,7 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 		this.locationId = locationId;
 	}
 
-	public Double getCost() {
-		return cost;
-	}
 
-	public void setCost(Double cost) {
-		this.cost = cost;
-	}
 
 	public AccomodationTypes getAccomodationType() {
 		return accomodationType;
@@ -242,6 +253,54 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 
 	public void setAccomodationType(AccomodationTypes accomodationType) {
 		this.accomodationType = accomodationType;
+	}
+
+	public Long getCoverPhoto() {
+		return coverPhoto;
+	}
+
+	public void setCoverPhoto(Long coverPhoto) {
+		this.coverPhoto = coverPhoto;
+	}
+
+	public Uploads getCoverPhotoBean() {
+		return coverPhotoBean;
+	}
+
+	public void setCoverPhotoBean(Uploads coverPhotoBean) {
+		this.coverPhotoBean = coverPhotoBean;
+	}
+
+	public Double getRoomCost() {
+		return roomCost;
+	}
+
+	public void setRoomCost(Double roomCost) {
+		this.roomCost = roomCost;
+	}
+
+	public Double getFoodCost() {
+		return foodCost;
+	}
+
+	public void setFoodCost(Double foodCost) {
+		this.foodCost = foodCost;
+	}
+
+	public Double getSecurityDeposit() {
+		return securityDeposit;
+	}
+
+	public void setSecurityDeposit(Double securityDeposit) {
+		this.securityDeposit = securityDeposit;
+	}
+
+	public Double getAdditionalCost() {
+		return additionalCost;
+	}
+
+	public void setAdditionalCost(Double additionalCost) {
+		this.additionalCost = additionalCost;
 	}
 
 	

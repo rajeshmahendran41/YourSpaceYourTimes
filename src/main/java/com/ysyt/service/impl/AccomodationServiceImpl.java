@@ -317,8 +317,20 @@ public class AccomodationServiceImpl implements IAccomodationService {
 			oldAccomodation.setLocationId(currentAccomodation.getLocationId());
 		}
 		
-		if(!Util.isNull(currentAccomodation.getCost())){
-			oldAccomodation.setCost(currentAccomodation.getCost());
+		if(!Util.isNull(currentAccomodation.getRoomCost())){
+			oldAccomodation.setRoomCost(currentAccomodation.getRoomCost());
+		}
+		
+		if(!Util.isNull(currentAccomodation.getFoodCost())){
+			oldAccomodation.setFoodCost(currentAccomodation.getFoodCost());
+		}
+		
+		if(!Util.isNull(currentAccomodation.getSecurityDeposit())){
+			oldAccomodation.setSecurityDeposit(currentAccomodation.getSecurityDeposit());
+		}
+		
+		if(!Util.isNull(currentAccomodation.getAdditionalCost())){
+			oldAccomodation.setAdditionalCost(currentAccomodation.getAdditionalCost());
 		}
 		
 		if(!Util.isNull(currentAccomodation.getCurrentRoomCount())){
