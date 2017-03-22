@@ -77,6 +77,18 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 	@Column(name = "cover_photo")
 	private Long coverPhoto;
 	
+	
+	@Column(name = "is_food_mandatory" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
+	private Boolean isFoodMandatory;
+	
+	@Column(name="gender_availability_id")
+	private Long genderAvailabilityId;
+	
+	
+	@Column(name="sub_type_id")
+	private Long subTypeId;
+	
+	
 	@Column(name = "is_deleted" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean isDeleted;
 		
@@ -106,8 +118,57 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 	@OneToOne(fetch = FetchType.EAGER,targetEntity = Uploads.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "cover_photo", referencedColumnName = "id",insertable=false ,updatable=false)
 	private Uploads coverPhotoBean;	
+	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = AccomodationSubTypes.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "sub_type_id", referencedColumnName = "id",insertable=false ,updatable=false)
+	private AccomodationSubTypes subType;	
+	
+	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = AccomodationGenders.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "gender_availability_id", referencedColumnName = "id",insertable=false ,updatable=false)
+	private AccomodationGenders gender;	
 
 
+
+	public Boolean getIsFoodMandatory() {
+		return isFoodMandatory;
+	}
+
+	public void setIsFoodMandatory(Boolean isFoodMandatory) {
+		this.isFoodMandatory = isFoodMandatory;
+	}
+
+	public Long getGenderAvailabilityId() {
+		return genderAvailabilityId;
+	}
+
+	public void setGenderAvailabilityId(Long genderAvailabilityId) {
+		this.genderAvailabilityId = genderAvailabilityId;
+	}
+
+	public Long getSubTypeId() {
+		return subTypeId;
+	}
+
+	public void setSubTypeId(Long subTypeId) {
+		this.subTypeId = subTypeId;
+	}
+
+	public AccomodationSubTypes getSubType() {
+		return subType;
+	}
+
+	public void setSubType(AccomodationSubTypes subType) {
+		this.subType = subType;
+	}
+
+	public AccomodationGenders getGender() {
+		return gender;
+	}
+
+	public void setGender(AccomodationGenders gender) {
+		this.gender = gender;
+	}
 
 	public List<AccomodationsDetails> getAccomodationDetails() {
 		return accomodationDetails;
