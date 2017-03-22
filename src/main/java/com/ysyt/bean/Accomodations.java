@@ -86,6 +86,10 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
     @JoinColumn(name = "source_id", referencedColumnName = "id",insertable=false ,updatable=false)
 	@Where(clause=" is_amenities=false ")
 	private List<AccomodationsDetails>  accomodationDetails;
+	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = AccomodationTypes.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "type_id", referencedColumnName = "id",insertable=false ,updatable=false)
+	private AccomodationTypes accomodationType;	
 
 
 	public List<AccomodationsDetails> getAccomodationDetails() {
@@ -230,6 +234,14 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 
 	public void setCost(Double cost) {
 		this.cost = cost;
+	}
+
+	public AccomodationTypes getAccomodationType() {
+		return accomodationType;
+	}
+
+	public void setAccomodationType(AccomodationTypes accomodationType) {
+		this.accomodationType = accomodationType;
 	}
 
 	
