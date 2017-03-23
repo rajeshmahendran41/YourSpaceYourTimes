@@ -60,6 +60,7 @@ public class DatabaseConfig {
     hibernateProperties.put("hibernate.show_sql", HIBERNATE_SHOW_SQL);
     hibernateProperties.put("hibernate.hbm2ddl.auto", HIBERNATE_HBM2DDL_AUTO);
     hibernateProperties.put("hibernate.temp.use_jdbc_metadata_defaults", false);
+    hibernateProperties.put("hibernate.format_sql", true);
     sessionFactoryBean.setHibernateProperties(hibernateProperties);
     
     return sessionFactoryBean;
