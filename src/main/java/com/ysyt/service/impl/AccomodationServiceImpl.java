@@ -356,6 +356,17 @@ public class AccomodationServiceImpl implements IAccomodationService {
 			oldAccomodation.setTypeId(currentAccomodation.getTypeId());
 		}
 		
+		if(!Util.isNull(currentAccomodation.getIsFoodMandatory())){
+			oldAccomodation.setIsFoodMandatory(currentAccomodation.getIsFoodMandatory());
+		}
+		if(!Util.isNull(currentAccomodation.getGenderAvailabilityId())){
+			oldAccomodation.setGenderAvailabilityId(currentAccomodation.getGenderAvailabilityId());
+		}
+		
+		if(!Util.isNull(currentAccomodation.getSubTypeId())){
+			oldAccomodation.setSubTypeId(currentAccomodation.getSubTypeId());
+		}
+		
 		
 		return oldAccomodation;
 		
