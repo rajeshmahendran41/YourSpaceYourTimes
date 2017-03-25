@@ -1,6 +1,7 @@
 package com.ysyt.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 
@@ -42,6 +43,12 @@ public class LocationBean implements Serializable {
 	
 	@Column(name = "location" )
 	private String location ;
+	
+	@Column(name="latitude")
+	private BigDecimal latitude;
+	
+	@Column(name="longitute")
+	private BigDecimal longitude;
 	
 	@Column(name = "is_deleted" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean is_deleted ;
@@ -96,6 +103,22 @@ public class LocationBean implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public BigDecimal getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(BigDecimal latitude) {
+		this.latitude = latitude;
+	}
+
+	public BigDecimal getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(BigDecimal longitude) {
+		this.longitude = longitude;
 	}
 	
 	
