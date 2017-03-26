@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.Util.Util;
+import com.ysyt.bean.AccomodationGenders;
+import com.ysyt.bean.AccomodationTypes;
 import com.ysyt.bean.Accomodations;
 import com.ysyt.bean.AccomodationsDetails;
 import com.ysyt.bean.AmenitiesMapping;
@@ -28,6 +30,7 @@ import com.ysyt.dao.IAccomodationDao;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.LocationRequest;
+import com.ysyt.to.response.AccomodationTypeResponse;
 
 @Repository
 public class AccomodationDaoImpl implements IAccomodationDao {
@@ -333,6 +336,33 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		}
 		
 		return (Double) query.uniqueResult();
+	}
+
+	@Override
+	public AccomodationTypeResponse getAccomodationTypes(SessionFactory sessionFactory) {
+		
+		AccomodationTypeResponse res = new AccomodationTypeResponse();
+		List<AccomodationTypes>  accomodationTypes = new ArrayList<AccomodationTypes>();
+		
+		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(AccomodationTypes.class)
+				.add(Restrictions.eq("is_default",false));
+				
+		accomodationTypes= criteria.list();
+		
+		res.setAccomodationTypes(accomodationTypes);
+		return res;
+				
+	}
+
+	@Override
+	public List<AccomodationGenders> getAccomodationGender(
+			SessionFactory sessionFactory) {
+
+		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(AccomodationGenders.class)
+				.add(Restrictions.eq("isDeleted",false));
+				
+		return criteria.list();
+		
 	}
 
 	

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.hibernate.SessionFactory;
 
+import com.ysyt.bean.AccomodationGenders;
 import com.ysyt.bean.Accomodations;
 import com.ysyt.bean.AccomodationsDetails;
 import com.ysyt.bean.AmenitiesMapping;
@@ -14,6 +15,7 @@ import com.ysyt.bean.Uploads;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.LocationRequest;
+import com.ysyt.to.response.AccomodationTypeResponse;
 
 
 public interface IAccomodationDao {
@@ -69,6 +71,13 @@ public interface IAccomodationDao {
 
 
 	Double getMinPriceRange(String minField, List<Long> locationIds, Long typeId, SessionFactory sessionFactory);
+
+
+	AccomodationTypeResponse getAccomodationTypes(SessionFactory sessionFactory);
+
+
+	List<AccomodationGenders> getAccomodationGender(
+			SessionFactory sessionFactory);
 
 	
 }

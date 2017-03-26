@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.constants.CommonConstants;
+import com.ysyt.bean.AccomodationTypes;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.service.IAccomodationService;
@@ -20,8 +21,10 @@ import com.ysyt.to.request.AccomodationRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.FilterRequest;
 import com.ysyt.to.request.LocationRequest;
+import com.ysyt.to.response.AccomodationGenderResponse;
 import com.ysyt.to.response.AccomodationListResponse;
 import com.ysyt.to.response.AccomodationResponse;
+import com.ysyt.to.response.AccomodationTypeResponse;
 import com.ysyt.to.response.AmenitiesMasterResponse;
 import com.ysyt.to.response.AmenitiesResponse;
 import com.ysyt.to.response.FilterResponse;
@@ -155,6 +158,36 @@ public class AccomodationController {
 		res.setStatus(CommonConstants.OK);
 		
         return res;
+	}
+	
+	@RequestMapping(value = "accomodationTypes", method = RequestMethod.GET, produces ="application/json")
+    @ResponseBody
+    public AccomodationTypeResponse getAccomodationTypes(){
+        
+		AccomodationTypeResponse res = new AccomodationTypeResponse();
+		
+		res = iAccomodationService.getAccomodationTypes();
+		
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	}
+	
+	
+	@RequestMapping(value = "accomodationGender", method = RequestMethod.GET, produces ="application/json")
+    @ResponseBody
+    public AccomodationGenderResponse getAccomodationGender(){
+        
+		AccomodationGenderResponse res = new AccomodationGenderResponse();
+		
+		res.setAccomodationGender(iAccomodationService.getAccomodationGender());
+		
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	
 	}
 	
 }
