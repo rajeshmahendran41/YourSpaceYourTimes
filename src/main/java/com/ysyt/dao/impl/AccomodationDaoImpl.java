@@ -258,12 +258,21 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 
 			}
 		}
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		criteriaCount.setProjection(Projections.distinct(Projections.count("id")));
 		count = (Long) criteriaCount.uniqueResult();
 
+		
 		if(!Util.isNull(count)&&count>0){
-			response.put("list", criteria.list());
+			accomodationIds = criteria.setProjection(Projections.distinct(Projections.property("id"))).list();
+			if(!Util.isNullList(accomodationIds)){
+				
+				for(Long accomodationId : accomodationIds){
+					Accomodations accomodation = new Accomodations();
+					accomodation = getAccomodatoinById(accomodationId,sessionFactory);
+					accomdationList.add(accomodation);
+				}
+				response.put("list", accomdationList);
+			}
 		}
 
 		
