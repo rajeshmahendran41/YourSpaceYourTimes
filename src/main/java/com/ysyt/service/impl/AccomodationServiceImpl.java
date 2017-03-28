@@ -22,6 +22,7 @@ import com.horizontals.filter.wrapper.FilterConstant;
 import com.horizontals.filter.wrapper.FilterObject;
 import com.horizontals.filter.wrapper.FilterWrapper;
 import com.ysyt.bean.AccomodationGenders;
+import com.ysyt.bean.AccomodationSubTypes;
 import com.ysyt.bean.Accomodations;
 import com.ysyt.bean.AccomodationsDetails;
 import com.ysyt.bean.AmenitiesMapping;
@@ -32,6 +33,7 @@ import com.ysyt.dao.IAccomodationDao;
 import com.ysyt.service.IAccomodationService;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationRequest;
+import com.ysyt.to.request.AccomodationSubTypesRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.FilterRequest;
 import com.ysyt.to.request.LocationRequest;
@@ -454,6 +456,13 @@ public class AccomodationServiceImpl implements IAccomodationService {
 	public List<AccomodationGenders> getAccomodationGender() {
 		
 		return iAccomodationDao.getAccomodationGender(sessionFactory);
+	}
+
+
+	@Override
+	public List<AccomodationSubTypes> getAccomodationSubTypes(
+			AccomodationSubTypesRequest request) {
+		return iAccomodationDao.getAccomodationSubTypes(request,sessionFactory);
 	}
 	
 	

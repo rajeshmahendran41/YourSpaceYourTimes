@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import com.Util.Util;
 import com.ysyt.bean.AccomodationGenders;
+import com.ysyt.bean.AccomodationSubTypes;
 import com.ysyt.bean.AccomodationTypes;
 import com.ysyt.bean.Accomodations;
 import com.ysyt.bean.AccomodationsDetails;
@@ -28,6 +29,7 @@ import com.ysyt.bean.LocationBean;
 import com.ysyt.bean.Uploads;
 import com.ysyt.dao.IAccomodationDao;
 import com.ysyt.to.request.AccomodationListRequest;
+import com.ysyt.to.request.AccomodationSubTypesRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.LocationRequest;
 import com.ysyt.to.response.AccomodationTypeResponse;
@@ -363,6 +365,19 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 				
 		return criteria.list();
 		
+	}
+
+	@Override
+	public List<AccomodationSubTypes> getAccomodationSubTypes(
+			AccomodationSubTypesRequest request, SessionFactory sessionFactory) {
+		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(AccomodationSubTypes.class)
+				.add(Restrictions.eq("isDeleted",false));
+		
+		if(!Util.isNull(request.getTypeId())){
+			criteria.add(Restrictions.eq("accomodationTypeId", request.getTypeId()));
+		}
+				
+		return criteria.list();
 	}
 
 	

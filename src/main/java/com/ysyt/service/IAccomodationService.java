@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ysyt.bean.AccomodationGenders;
+import com.ysyt.bean.AccomodationSubTypes;
 import com.ysyt.bean.Accomodations;
 import com.ysyt.bean.AmenitiesMapping;
 import com.ysyt.bean.AttributesMaster;
@@ -11,6 +12,7 @@ import com.ysyt.bean.LocationBean;
 import com.ysyt.bean.Uploads;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationRequest;
+import com.ysyt.to.request.AccomodationSubTypesRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.FilterRequest;
 import com.ysyt.to.request.LocationRequest;
@@ -45,5 +47,8 @@ public interface IAccomodationService {
 	AccomodationTypeResponse getAccomodationTypes();
 
 	List<AccomodationGenders> getAccomodationGender();
+
+	List<AccomodationSubTypes> getAccomodationSubTypes(
+			AccomodationSubTypesRequest request);
 
 }

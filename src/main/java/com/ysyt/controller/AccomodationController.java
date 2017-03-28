@@ -18,12 +18,14 @@ import com.ysyt.bean.AttributesMaster;
 import com.ysyt.service.IAccomodationService;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationRequest;
+import com.ysyt.to.request.AccomodationSubTypesRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.FilterRequest;
 import com.ysyt.to.request.LocationRequest;
 import com.ysyt.to.response.AccomodationGenderResponse;
 import com.ysyt.to.response.AccomodationListResponse;
 import com.ysyt.to.response.AccomodationResponse;
+import com.ysyt.to.response.AccomodationSubTypeResponse;
 import com.ysyt.to.response.AccomodationTypeResponse;
 import com.ysyt.to.response.AmenitiesMasterResponse;
 import com.ysyt.to.response.AmenitiesResponse;
@@ -182,6 +184,21 @@ public class AccomodationController {
 		AccomodationGenderResponse res = new AccomodationGenderResponse();
 		
 		res.setAccomodationGender(iAccomodationService.getAccomodationGender());
+		
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	
+	}
+	
+	@RequestMapping(value = "accomodationSubTypes", method = RequestMethod.POST, produces ="application/json")
+    @ResponseBody
+    public AccomodationSubTypeResponse getAccomodationSubTypes(@RequestBody AccomodationSubTypesRequest request){
+        
+		AccomodationSubTypeResponse res = new AccomodationSubTypeResponse();
+		
+		res.setAccomodationSubTypes(iAccomodationService.getAccomodationSubTypes(request));
 		
 		res.setMessage(CommonConstants.SUCCESS);
 		res.setStatus(CommonConstants.OK);
