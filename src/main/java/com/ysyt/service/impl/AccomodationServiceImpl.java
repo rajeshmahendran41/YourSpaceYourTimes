@@ -39,6 +39,7 @@ import com.ysyt.to.request.FilterRequest;
 import com.ysyt.to.request.LocationRequest;
 import com.ysyt.to.response.AccomodationTypeResponse;
 import com.ysyt.to.response.FilterResponse;
+import com.ysyt.wrapper.ParentAmenityHelper;
 
 @Service
 @Transactional
@@ -163,28 +164,34 @@ public class AccomodationServiceImpl implements IAccomodationService {
 
 		Map<String, List<AttributesMaster>> mapAmenities = new HashMap<>();
 		List<AmenitiesMapping> amenitiesMapping = new ArrayList<>();
-		Set<String> parentAmenities = new  HashSet<>();
+		Set<ParentAmenityHelper> parentAmenities = new  HashSet<>();
 		List<AttributesMaster> attributeMaster = null;
 		
 		amenitiesMapping = iAccomodationDao.getAmenitiesMappingList(typeId,sourceName, sessionFactory);
 		
 		for(AmenitiesMapping amenitiesSet : amenitiesMapping){
-			parentAmenities.add(amenitiesSet.getParentBean().getTitle());
+			ParentAmenityHelper parentAmenitiy = new ParentAmenityHelper();
+			parentAmenitiy.setParentId(amenitiesSet.getParentBean().getId());
+			parentAmenitiy.setTitle(amenitiesSet.getParentBean().getTitle());
+
+			parentAmenities.add(parentAmenitiy);
 		}
 		
-		for(String parentAmenity : parentAmenities){
+		for(ParentAmenityHelper parentAmenity : parentAmenities){
 			
 			attributeMaster = new ArrayList<>();
 			
 			for(AmenitiesMapping amenities : amenitiesMapping){
 				
-				if(parentAmenity.equals(amenities.getParentBean().getTitle())){
-					
-					attributeMaster.add(amenities.getAttributeBean());					
+				if(parentAmenity.getTitle().equals(amenities.getParentBean().getTitle())){
+					AttributesMaster amenityMaster =  new AttributesMaster(); 
+					amenityMaster = amenities.getAttributeBean();
+					amenityMaster.setParentId(parentAmenity.getParentId());
+					attributeMaster.add(amenityMaster);					
 				}
 				
 			}
-			mapAmenities.put(parentAmenity, attributeMaster);
+			mapAmenities.put(parentAmenity.getTitle(), attributeMaster);
 		}
 		
 		return mapAmenities;
