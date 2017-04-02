@@ -36,6 +36,7 @@ import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationRequest;
 import com.ysyt.to.request.AccomodationSubTypesRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
+import com.ysyt.to.request.AttributeListRequest;
 import com.ysyt.to.request.FilterRequest;
 import com.ysyt.to.request.LocationRequest;
 import com.ysyt.to.response.AccomodationTypeResponse;
@@ -523,6 +524,15 @@ public class AccomodationServiceImpl implements IAccomodationService {
 		return iAccomodationDao.getAttributeOptionById(id, sessionFactory);
 
 		
+	}
+
+
+	@Override
+	public List<AttributeOptions> getAttributeOptionList(
+			AttributeListRequest request) {
+		
+		return iAccomodationDao.getAttributeOptionList(request, sessionFactory);
+
 	}
 	
 	

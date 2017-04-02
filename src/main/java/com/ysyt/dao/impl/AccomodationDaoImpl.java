@@ -11,7 +11,6 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +31,7 @@ import com.ysyt.dao.IAccomodationDao;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationSubTypesRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
+import com.ysyt.to.request.AttributeListRequest;
 import com.ysyt.to.request.LocationRequest;
 import com.ysyt.to.response.AccomodationTypeResponse;
 
@@ -402,6 +402,28 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		sessionFactory.getCurrentSession().clear();
 		
 		return request;
+	}
+
+	@Override
+	public List<AttributeOptions> getAttributeOptionList(
+			AttributeListRequest request, SessionFactory sessionFactory) {
+		
+			Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(AttributeOptions.class)
+					.add(Restrictions.eq("isDeleted",false));
+			
+			if(!Util.isNull(request.getEntityId())){
+				criteria.add(Restrictions.eq("entityId", request.getEntityId()));
+			}
+			
+			if(!Util.isNull(request.getEntityName())){
+				criteria.add(Restrictions.eq("entityType", request.getEntityName()));
+			}
+			
+			if(!Util.isNull(request.getAttributeId())){
+				criteria.add(Restrictions.eq("attributeId",request.getAttributeId()));
+			}
+					
+			return criteria.list();
 	}
 
 	

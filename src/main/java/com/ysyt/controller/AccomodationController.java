@@ -21,6 +21,7 @@ import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationRequest;
 import com.ysyt.to.request.AccomodationSubTypesRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
+import com.ysyt.to.request.AttributeListRequest;
 import com.ysyt.to.request.FilterRequest;
 import com.ysyt.to.request.LocationRequest;
 import com.ysyt.to.response.AccomodationGenderResponse;
@@ -30,6 +31,7 @@ import com.ysyt.to.response.AccomodationSubTypeResponse;
 import com.ysyt.to.response.AccomodationTypeResponse;
 import com.ysyt.to.response.AmenitiesMasterResponse;
 import com.ysyt.to.response.AmenitiesResponse;
+import com.ysyt.to.response.AttributeOptionListResponse;
 import com.ysyt.to.response.AttributeOptionResponse;
 import com.ysyt.to.response.FilterResponse;
 import com.ysyt.to.response.LocationResponse;
@@ -219,6 +221,22 @@ public class AccomodationController {
 		res.setStatus(CommonConstants.OK);
 		
         return res;
+	}
+	
+	
+	@RequestMapping(value = "attributeOptions/list", method = RequestMethod.POST, produces ="application/json")
+    @ResponseBody
+    public AttributeOptionListResponse getAttributeOptionList(@RequestBody AttributeListRequest request){
+        
+		AttributeOptionListResponse res = new AttributeOptionListResponse();
+		
+		res.setAttributeOptionList(iAccomodationService.getAttributeOptionList(request));
+		
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	
 	}
 	
 	
