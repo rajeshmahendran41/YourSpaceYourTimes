@@ -83,9 +83,9 @@ public class TransactionServiceImpl implements ITransactionService {
 				splitAmount= ((totalAmount)*(splitPercentage.getPercentage()/100.00));
 				
 				if(splitPercentage.getId()==1){
-					splitAmount+=2;
+					splitAmount+=3;
 				}else if(splitPercentage.getId()==3){
-					splitAmount-=2;
+					splitAmount-=3;
 				}
 				
 				splits.setAmount(splitAmount);
