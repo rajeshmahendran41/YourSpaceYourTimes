@@ -7,6 +7,7 @@ import com.ysyt.bean.AccomodationGenders;
 import com.ysyt.bean.AccomodationSubTypes;
 import com.ysyt.bean.Accomodations;
 import com.ysyt.bean.AmenitiesMapping;
+import com.ysyt.bean.AttributeOptions;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
 import com.ysyt.bean.Uploads;
@@ -50,5 +51,9 @@ public interface IAccomodationService {
 
 	List<AccomodationSubTypes> getAccomodationSubTypes(
 			AccomodationSubTypesRequest request);
+
+	AttributeOptions createAttributeOptions(AttributeOptions request);
+	
+	AttributeOptions getAttributeOptionById(Long id);
 
 }

@@ -26,6 +26,7 @@ import com.ysyt.bean.AccomodationSubTypes;
 import com.ysyt.bean.Accomodations;
 import com.ysyt.bean.AccomodationsDetails;
 import com.ysyt.bean.AmenitiesMapping;
+import com.ysyt.bean.AttributeOptions;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
 import com.ysyt.bean.Uploads;
@@ -470,6 +471,58 @@ public class AccomodationServiceImpl implements IAccomodationService {
 	public List<AccomodationSubTypes> getAccomodationSubTypes(
 			AccomodationSubTypesRequest request) {
 		return iAccomodationDao.getAccomodationSubTypes(request,sessionFactory);
+	}
+
+
+	@Override
+	public AttributeOptions createAttributeOptions(AttributeOptions request) {
+		
+				
+		if(!Util.isNull(request.getId())){
+			AttributeOptions currentAttributeOptions = getAttributeOptionById(request.getId());
+		
+			if(!Util.isNull(currentAttributeOptions)){			
+				request = updateAttributeOptionDetails(currentAttributeOptions,request);
+			}else{
+				Util.throwPrimeException("Resource Not Available");
+			}
+		}
+
+		return iAccomodationDao.createAttributeOptions(request,sessionFactory);
+			
+	}
+
+	private AttributeOptions updateAttributeOptionDetails(
+			AttributeOptions  currentAttributeOptions, AttributeOptions request) {
+		
+		if(!Util.isNull(request.getAttributeId())){
+			currentAttributeOptions.setAttributeId(request.getAttributeId());
+		}
+		if(!Util.isNull(request.getAttributeValues())){
+			currentAttributeOptions.setAttributeValues(request.getAttributeValues());
+		}
+		if(!Util.isNull(request.getEntityId())){
+			currentAttributeOptions.setEntityId(request.getEntityId());
+		}
+		if(!Util.isNull(request.getEntityType())){
+			currentAttributeOptions.setEntityType(request.getEntityType());
+		}
+		if(!Util.isNull(request.getIsDeleted())){
+			currentAttributeOptions.setIsDeleted(request.getIsDeleted());
+		}
+
+		
+		return currentAttributeOptions;
+		
+	}
+
+
+	@Override
+	public AttributeOptions getAttributeOptionById(Long id) {
+		
+		return iAccomodationDao.getAttributeOptionById(id, sessionFactory);
+
+		
 	}
 	
 	

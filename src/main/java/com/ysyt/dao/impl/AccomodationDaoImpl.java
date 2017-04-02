@@ -24,6 +24,7 @@ import com.ysyt.bean.AccomodationTypes;
 import com.ysyt.bean.Accomodations;
 import com.ysyt.bean.AccomodationsDetails;
 import com.ysyt.bean.AmenitiesMapping;
+import com.ysyt.bean.AttributeOptions;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
 import com.ysyt.bean.Uploads;
@@ -378,6 +379,29 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		}
 				
 		return criteria.list();
+	}
+
+	@Override
+	public AttributeOptions getAttributeOptionById(Long id,
+			SessionFactory sessionFactory) {
+		
+		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(AttributeOptions.class)
+				.add(Restrictions.eq("isDeleted",false))
+				.add(Restrictions.eq("id",id));
+				
+				
+				return (AttributeOptions) criteria.uniqueResult();
+	}
+
+	@Override
+	public AttributeOptions createAttributeOptions(AttributeOptions request,
+			SessionFactory sessionFactory) {
+		
+		sessionFactory.getCurrentSession().saveOrUpdate(request);
+		sessionFactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().clear();
+		
+		return request;
 	}
 
 	

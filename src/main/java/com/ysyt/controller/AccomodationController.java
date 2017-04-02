@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.constants.CommonConstants;
 import com.ysyt.bean.AccomodationTypes;
 import com.ysyt.bean.AmenitiesMapping;
+import com.ysyt.bean.AttributeOptions;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.service.IAccomodationService;
 import com.ysyt.to.request.AccomodationListRequest;
@@ -29,6 +30,7 @@ import com.ysyt.to.response.AccomodationSubTypeResponse;
 import com.ysyt.to.response.AccomodationTypeResponse;
 import com.ysyt.to.response.AmenitiesMasterResponse;
 import com.ysyt.to.response.AmenitiesResponse;
+import com.ysyt.to.response.AttributeOptionResponse;
 import com.ysyt.to.response.FilterResponse;
 import com.ysyt.to.response.LocationResponse;
 import com.ysyt.wrapper.DataTransformer;
@@ -206,5 +208,18 @@ public class AccomodationController {
         return res;
 	
 	}
+	
+	@RequestMapping(value = "attributeOptions", method = RequestMethod.POST, produces ="application/json")
+    @ResponseBody
+    public AttributeOptionResponse createAttributeOptions(@RequestBody AttributeOptions request){
+        
+		AttributeOptionResponse res = new AttributeOptionResponse();
+		res.setAttributeOptions(iAccomodationService.createAttributeOptions(request));
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	}
+	
 	
 }
