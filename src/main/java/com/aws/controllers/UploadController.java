@@ -26,12 +26,12 @@ public class UploadController {
 	private S3Wrapper s3Wrapper;
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public List<Uploads> upload(@RequestParam("file") MultipartFile[] multipartFiles) {
+	public List<Uploads> upload(@RequestParam("image") MultipartFile[] multipartFiles) {
 		return s3Wrapper.upload(multipartFiles);
 	}
 	
 	@RequestMapping(value = "/upload/single", method = RequestMethod.POST)
-	public PutObjectResult uploadSingle(@RequestParam("file") MultipartFile[] multipartFile) throws IOException {
+	public PutObjectResult uploadSingle(@RequestParam("image") MultipartFile[] multipartFile) throws IOException {
 		
 		for (MultipartFile multipart : multipartFile){
 			return s3Wrapper.upload(multipart.getInputStream(),multipart.getOriginalFilename());
