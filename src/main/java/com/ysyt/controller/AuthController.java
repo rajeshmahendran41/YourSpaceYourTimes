@@ -1,6 +1,9 @@
 package com.ysyt.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Util.Util;
 import com.constants.CommonConstants;
 import com.ysyt.bean.UserBean;
+import com.ysyt.constants.SessionConstant;
 import com.ysyt.service.IAuthService;
 import com.ysyt.to.request.LoginRequest;
 import com.ysyt.to.request.PasswordRequest;
@@ -103,5 +107,36 @@ public class AuthController {
 		
         return res;
 	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public void exit(HttpServletRequest request,
+            HttpServletResponse response) {
+        HttpSession httpSession = request.getSession(false);
+        if (request.isRequestedSessionIdValid() && httpSession != null) {
+            clearSessionVariables(httpSession);
+            httpSession.invalidate();
+        }
+        
+        handleLogOutResponseCookie(response);
+    }
+	
+	public static void clearSessionVariables(HttpSession httpSession) {
+       
+        httpSession.removeAttribute(SessionConstant.USER_BEAN);    }
 
-}
+
+
+		private void handleLogOutResponseCookie(HttpServletResponse response) {
+		    Cookie[] cookies = httpRequest.getCookies();
+		    if (!Util.isNull(cookies)) {
+		        for (Cookie cookie : cookies) {
+		            cookie.setMaxAge(0);
+		            cookie.setValue(null);
+		            cookie.setPath("/api/");
+		            cookie.setSecure(true);
+		            response.addCookie(cookie);
+		        }
+		    }
+		}
+
+	}
