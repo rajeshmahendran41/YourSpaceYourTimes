@@ -11,9 +11,12 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Transformer;
 import org.springframework.stereotype.Repository;
 
 import com.Util.Util;
@@ -34,6 +37,7 @@ import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.AttributeListRequest;
 import com.ysyt.to.request.LocationRequest;
 import com.ysyt.to.response.AccomodationTypeResponse;
+import com.ysyt.wrapper.AccomodationListWrapper;
 
 @Repository
 public class AccomodationDaoImpl implements IAccomodationDao {
@@ -218,7 +222,7 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		
 		Map<String, Object> response = new HashMap<String, Object>();
 		List<Accomodations> accomdationList = new ArrayList<>();
-		List<Long> accomodationIds = new ArrayList<>();
+		List<AccomodationListWrapper> accomodationIds = new ArrayList<>();
 		Long count = 0L;
 		
 		
@@ -269,12 +273,19 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 
 		
 		if(!Util.isNull(count)&&count>0){
-			accomodationIds = criteria.setProjection(Projections.distinct(Projections.property("id"))).list();
+			
+			ProjectionList p1=Projections.projectionList();
+	         p1.add(Projections.property("id"),"id");
+	         p1.add(Projections.property("roomCost"),"roomCost");
+			
+			accomodationIds = (List<AccomodationListWrapper>)criteria.setProjection(p1).setResultTransformer(Transformers.aliasToBean(AccomodationListWrapper.class)).list();
+
+			//accomodationIds = criteria.setProjection(Projections.distinct(Projections.property("id"))).list();
 			if(!Util.isNullList(accomodationIds)){
 				
-				for(Long accomodationId : accomodationIds){
+				for(AccomodationListWrapper accomodationId : accomodationIds){
 					Accomodations accomodation = new Accomodations();
-					accomodation = getAccomodatoinById(accomodationId,sessionFactory);
+					accomodation = getAccomodatoinById(accomodationId.getId(),sessionFactory);
 					accomdationList.add(accomodation);
 				}
 				response.put("list", accomdationList);
