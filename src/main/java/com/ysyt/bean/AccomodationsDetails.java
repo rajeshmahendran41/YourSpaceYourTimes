@@ -80,6 +80,22 @@ public class AccomodationsDetails implements Serializable {
 		return id;
 	}
 
+	public AttributesMaster getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(AttributesMaster attributes) {
+		this.attributes = attributes;
+	}
+
+	public AttributesMaster getParentAttributes() {
+		return parentAttributes;
+	}
+
+	public void setParentAttributes(AttributesMaster parentAttributes) {
+		this.parentAttributes = parentAttributes;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
