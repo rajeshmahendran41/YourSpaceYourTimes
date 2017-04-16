@@ -1,4 +1,4 @@
-package com.ysyt.bean;
+ package com.ysyt.bean;
 
 import java.io.Serializable;
 import java.util.List;

@@ -66,7 +66,16 @@ public class AccomodationsDetails implements Serializable {
 	
 	@Column(name = "updated_by")
 	private Long updatedBy;
+	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = AttributesMaster.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "attribute_id", referencedColumnName = "id",insertable=false ,updatable=false)
+	private AttributesMaster attributes;	
 
+	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = AttributesMaster.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "parent_id", referencedColumnName = "id",insertable=false ,updatable=false)
+	private AttributesMaster parentAttributes;
+	
 	public Long getId() {
 		return id;
 	}

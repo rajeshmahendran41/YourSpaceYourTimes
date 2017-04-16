@@ -71,6 +71,51 @@ public class UserBean implements Serializable {
 	@Column(name="role_id")
 	private Long roleId;
 	
+	@Column(name = "gender")
+	private String gender;
+	
+	@Column(name = "marital_status")
+	private String martialStatus;
+	
+	@Column(name = "permanent_address1")
+	private String permanentAddress1;
+	
+	@Column(name = "permanent_address2")
+	private String permanentAddress2;
+	
+	@Column(name = "permanent_landmark")
+	private String permanentLandmark;
+	
+	@Column(name = "permanent_state")
+	private String permanentState;
+	
+	@Column(name = "permanent_city")
+	private String permanentCity;
+	
+	@Column(name = "permanent_pincode")
+	private String permanentPincode;
+	
+	@Column(name = "billing_address1")
+	private String billingAddress1;
+	
+	@Column(name = "billing_address2")
+	private String billingAddress2;
+	
+	@Column(name = "billing_landmark")
+	private String billingLandmark;
+	
+	@Column(name = "billing_state")
+	private String billingState;
+	
+	@Column(name = "billing_city")
+	private String billingCity;
+	
+	@Column(name = "billing_pincode")
+	private String billingPincode;
+	
+	@Column(name = "permanent_billing_replica" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
+	private Boolean billingAddressReplica;
+	
 	@JsonIgnore
 	@Formula("( concat(first_name,' ',last_name) )")
 	private String userFullname;
@@ -231,6 +276,126 @@ public class UserBean implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getMartialStatus() {
+		return martialStatus;
+	}
+
+	public void setMartialStatus(String martialStatus) {
+		this.martialStatus = martialStatus;
+	}
+
+	public String getPermanentAddress1() {
+		return permanentAddress1;
+	}
+
+	public void setPermanentAddress1(String permanentAddress1) {
+		this.permanentAddress1 = permanentAddress1;
+	}
+
+	public String getPermanentAddress2() {
+		return permanentAddress2;
+	}
+
+	public void setPermanentAddress2(String permanentAddress2) {
+		this.permanentAddress2 = permanentAddress2;
+	}
+
+	public String getPermanentLandmark() {
+		return permanentLandmark;
+	}
+
+	public void setPermanentLandmark(String permanentLandmark) {
+		this.permanentLandmark = permanentLandmark;
+	}
+
+	public String getPermanentState() {
+		return permanentState;
+	}
+
+	public void setPermanentState(String permanentState) {
+		this.permanentState = permanentState;
+	}
+
+	public String getPermanentCity() {
+		return permanentCity;
+	}
+
+	public void setPermanentCity(String permanentCity) {
+		this.permanentCity = permanentCity;
+	}
+
+	public String getPermanentPincode() {
+		return permanentPincode;
+	}
+
+	public void setPermanentPincode(String permanentPincode) {
+		this.permanentPincode = permanentPincode;
+	}
+
+	public String getBillingAddress1() {
+		return billingAddress1;
+	}
+
+	public void setBillingAddress1(String billingAddress1) {
+		this.billingAddress1 = billingAddress1;
+	}
+
+	public String getBillingAddress2() {
+		return billingAddress2;
+	}
+
+	public void setBillingAddress2(String billingAddress2) {
+		this.billingAddress2 = billingAddress2;
+	}
+
+	public String getBillingLandmark() {
+		return billingLandmark;
+	}
+
+	public void setBillingLandmark(String billingLandmark) {
+		this.billingLandmark = billingLandmark;
+	}
+
+	public String getBillingState() {
+		return billingState;
+	}
+
+	public void setBillingState(String billingState) {
+		this.billingState = billingState;
+	}
+
+	public String getBillingCity() {
+		return billingCity;
+	}
+
+	public void setBillingCity(String billingCity) {
+		this.billingCity = billingCity;
+	}
+
+	public String getBillingPincode() {
+		return billingPincode;
+	}
+
+	public void setBillingPincode(String billingPincode) {
+		this.billingPincode = billingPincode;
+	}
+
+	public Boolean getBillingAddressReplica() {
+		return billingAddressReplica;
+	}
+
+	public void setBillingAddressReplica(Boolean billingAddressReplica) {
+		this.billingAddressReplica = billingAddressReplica;
 	}
 
 	

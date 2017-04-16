@@ -206,6 +206,66 @@ public class AuthServiceImpl implements IAuthService {
 			oldUserBean.setSecondaryContact(currentUserBean.getSecondaryContact());
 		}
 		
+		if(!Util.isNull(currentUserBean.getGender())){
+			oldUserBean.setGender(currentUserBean.getGender());
+		}
+		
+		if(!Util.isNull(currentUserBean.getMartialStatus())){
+			oldUserBean.setMartialStatus(currentUserBean.getMartialStatus());
+		}
+		
+		if(!Util.isNull(currentUserBean.getPermanentAddress1())){
+			oldUserBean.setPermanentAddress1(currentUserBean.getPermanentAddress1());
+		}
+		
+		if(!Util.isNull(currentUserBean.getPermanentAddress2())){
+			oldUserBean.setPermanentAddress2(currentUserBean.getPermanentAddress2());
+		}
+		
+		if(!Util.isNull(currentUserBean.getPermanentCity())){
+			oldUserBean.setPermanentCity(currentUserBean.getPermanentCity());
+		}
+		
+		if(!Util.isNull(currentUserBean.getPermanentLandmark())){
+			oldUserBean.setPermanentLandmark(currentUserBean.getPermanentLandmark());
+		}
+		
+		if(!Util.isNull(currentUserBean.getPermanentPincode())){
+			oldUserBean.setPermanentPincode(currentUserBean.getPermanentPincode());
+		}
+		
+		if(!Util.isNull(currentUserBean.getPermanentState())){
+			oldUserBean.setPermanentState(currentUserBean.getPermanentState());
+		}
+		
+		if(!Util.isNull(currentUserBean.getBillingAddress1())){
+			oldUserBean.setBillingAddress1(currentUserBean.getBillingAddress1());
+		}
+		
+		if(!Util.isNull(currentUserBean.getBillingAddress2())){
+			oldUserBean.setBillingAddress2(currentUserBean.getBillingAddress2());
+		}
+		
+		if(!Util.isNull(currentUserBean.getBillingCity())){
+			oldUserBean.setBillingCity(currentUserBean.getBillingCity());
+		}
+		
+		if(!Util.isNull(currentUserBean.getBillingLandmark())){
+			oldUserBean.setBillingLandmark(currentUserBean.getBillingLandmark());
+		}
+		
+		if(!Util.isNull(currentUserBean.getBillingPincode())){
+			oldUserBean.setBillingPincode(currentUserBean.getBillingPincode());
+		}
+		
+		if(!Util.isNull(currentUserBean.getBillingState())){
+			oldUserBean.setBillingState(currentUserBean.getBillingState());
+		}
+		
+		if(!Util.isNull(currentUserBean.getBillingAddressReplica())){
+			oldUserBean.setBillingAddressReplica(currentUserBean.getBillingAddressReplica());
+		}
+		
 		oldUserBean.setUpdatedAt(Util.getCurrentTimeStamp());
 		oldUserBean.setUpdatedBy(Util.getUserId(httpRequest));
 		
