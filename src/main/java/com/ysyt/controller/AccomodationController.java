@@ -97,6 +97,19 @@ public class AccomodationController {
         return res;
 	}
 	
+	@RequestMapping(value = "amenities", method = RequestMethod.GET, produces ="application/json")
+    @ResponseBody
+    public AmenitiesResponse getAmenititesList(@RequestParam("id") Long id ){
+        
+		AmenitiesResponse res = new AmenitiesResponse();
+		res.setAmenities(iAccomodationService.fetchAmenities(id));
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	}
+	
+	
 	@RequestMapping(value = "createUpdate", method = RequestMethod.POST, produces ="application/json")
     @ResponseBody
     public AccomodationResponse createAccomodation(@RequestBody AccomodationRequest request){

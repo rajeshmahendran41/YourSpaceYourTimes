@@ -534,6 +534,46 @@ public class AccomodationServiceImpl implements IAccomodationService {
 		return iAccomodationDao.getAttributeOptionList(request, sessionFactory);
 
 	}
+
+
+	@Override
+	public Map<String, List<AttributesMaster>> fetchAmenities(Long id) {
+		
+		
+		Map<String, List<AttributesMaster>> mapAmenities = new HashMap<>();
+		List<AccomodationsDetails> amenitiesMapping = new ArrayList<>();
+		Set<ParentAmenityHelper> parentAmenities = new  HashSet<>();
+		List<AttributesMaster> attributeMaster = null;
+		
+		amenitiesMapping = iAccomodationDao.getAmenitiesBasedonAccomodations(id, sessionFactory);
+		
+		for(AccomodationsDetails amenitiesSet : amenitiesMapping){
+			ParentAmenityHelper parentAmenitiy = new ParentAmenityHelper();
+			parentAmenitiy.setParentId(amenitiesSet.getParentAttributes().getId());
+			parentAmenitiy.setTitle(amenitiesSet.getParentAttributes().getTitle());
+
+			parentAmenities.add(parentAmenitiy);
+		}
+		
+		for(ParentAmenityHelper parentAmenity : parentAmenities){
+			
+			attributeMaster = new ArrayList<>();
+			
+			for(AccomodationsDetails amenities : amenitiesMapping){
+				
+				if(parentAmenity.getTitle().equals(amenities.getParentAttributes().getTitle())){
+					AttributesMaster amenityMaster =  new AttributesMaster(); 
+					amenityMaster = amenities.getAttributes();
+					amenityMaster.setParentId(parentAmenity.getParentId());
+					attributeMaster.add(amenityMaster);					
+				}
+				
+			}
+			mapAmenities.put(parentAmenity.getTitle(), attributeMaster);
+		}
+		
+		return mapAmenities;
+	}
 	
 	
 

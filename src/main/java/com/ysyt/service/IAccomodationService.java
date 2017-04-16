@@ -59,4 +59,6 @@ public interface IAccomodationService {
 
 	List<AttributeOptions> getAttributeOptionList(AttributeListRequest request);
 
+	Map<String, List<AttributesMaster>> fetchAmenities(Long id);
+
 }

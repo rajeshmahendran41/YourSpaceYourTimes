@@ -99,5 +99,9 @@ public interface IAccomodationDao {
 	List<AttributeOptions> getAttributeOptionList(AttributeListRequest request,
 			SessionFactory sessionFactory);
 
+
+	List<AccomodationsDetails> getAmenitiesBasedonAccomodations(Long id,
+			SessionFactory sessionFactory);
+
 	
 }

@@ -54,7 +54,7 @@ public class UserBean implements Serializable {
 	private Long secondaryContact;
 	
 	@Column(name = "photo_path")
-	private String photoPath;
+	private Long photoPath;
 	
 	@Column(name = "address")
 	private String address;
@@ -137,6 +137,10 @@ public class UserBean implements Serializable {
     @JoinColumn(name = "role_id", referencedColumnName = "id",insertable=false ,updatable=false)
 	private Roles roles;
 	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = Uploads.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "photo_path", referencedColumnName = "id",insertable=false ,updatable=false)
+	private Uploads coverPhotoBean;
+	
 	public Long getId() {
 		return id;
 	}
@@ -177,13 +181,7 @@ public class UserBean implements Serializable {
 		this.secondaryContact = secondaryContact;
 	}
 
-	public String getPhotoPath() {
-		return photoPath;
-	}
-
-	public void setPhotoPath(String photoPath) {
-		this.photoPath = photoPath;
-	}
+	
 
 	public String getAddress() {
 		return address;
@@ -396,6 +394,22 @@ public class UserBean implements Serializable {
 
 	public void setBillingAddressReplica(Boolean billingAddressReplica) {
 		this.billingAddressReplica = billingAddressReplica;
+	}
+
+	public Long getPhotoPath() {
+		return photoPath;
+	}
+
+	public void setPhotoPath(Long photoPath) {
+		this.photoPath = photoPath;
+	}
+
+	public Uploads getCoverPhotoBean() {
+		return coverPhotoBean;
+	}
+
+	public void setCoverPhotoBean(Uploads coverPhotoBean) {
+		this.coverPhotoBean = coverPhotoBean;
 	}
 
 	

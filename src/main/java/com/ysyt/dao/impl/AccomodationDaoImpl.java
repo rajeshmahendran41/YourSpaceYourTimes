@@ -16,7 +16,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Transformer;
 import org.springframework.stereotype.Repository;
 
 import com.Util.Util;
@@ -435,6 +434,22 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 			}
 					
 			return criteria.list();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<AccomodationsDetails> getAmenitiesBasedonAccomodations(Long id,
+			SessionFactory sessionFactory) {
+		
+		
+		List<AccomodationsDetails> accomodationDetails = sessionFactory.getCurrentSession().createCriteria(AccomodationsDetails.class)
+				.add(Restrictions.eq("sourceId", id))
+				.add(Restrictions.eq("sourceType", "accomodation"))
+				.add(Restrictions.eq("isAmenities",true))
+				.add(Restrictions.eq("isDeleted",false))
+				.list();
+		
+		return accomodationDetails;
 	}
 
 	
