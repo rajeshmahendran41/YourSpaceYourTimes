@@ -6,11 +6,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.constants.CommonConstants;
@@ -40,6 +42,15 @@ public class AttributesMaster extends AmenitiesWrapper implements Serializable {
 	
 	@Column(name="parent_id")
 	private Long parentId;
+	
+	@Column(name="logo_path")
+	private Long logoPath;
+	
+	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = Uploads.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "logo_path", referencedColumnName = "id",insertable=false ,updatable=false)
+	private Uploads logoDetails;
+	
 
 	public Long getId() {
 		return id;
@@ -91,6 +102,22 @@ public class AttributesMaster extends AmenitiesWrapper implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Long getLogoPath() {
+		return logoPath;
+	}
+
+	public void setLogoPath(Long logoPath) {
+		this.logoPath = logoPath;
+	}
+
+	public Uploads getLogoDetails() {
+		return logoDetails;
+	}
+
+	public void setLogoDetails(Uploads logoDetails) {
+		this.logoDetails = logoDetails;
 	}
 
 
