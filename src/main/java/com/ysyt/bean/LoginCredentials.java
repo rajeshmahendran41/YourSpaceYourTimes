@@ -1,7 +1,6 @@
 package com.ysyt.bean;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -16,8 +15,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.FilterDefs;
 
-import com.Util.Util;
 import com.constants.CommonConstants;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user_login", schema = CommonConstants.SCHEMA)
@@ -38,6 +37,7 @@ public class LoginCredentials implements Serializable {
 	@NotNull
 	private Long userId;
 	
+    @JsonIgnore
 	@Column(name = "password")
 	@NotNull
 	private String password;
@@ -45,18 +45,23 @@ public class LoginCredentials implements Serializable {
 	@Column(name = "email")
 	private String email;
 	
+    @JsonIgnore
 	@Column(name = "is_deleted" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean is_deleted ;
 	
+    @JsonIgnore
 	@Column(name = "created_at")
 	private Timestamp createdAt;
 	
+    @JsonIgnore
 	@Column(name = "created_by")
 	private Long createdBy;
 	
+    @JsonIgnore
 	@Column(name = "updated_at")
 	private Timestamp updatedAt;
 	
+    @JsonIgnore
 	@Column(name = "updated_by")
 	private Long updatedBy;
 

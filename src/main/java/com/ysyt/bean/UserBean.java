@@ -137,6 +137,10 @@ public class UserBean implements Serializable {
     @JoinColumn(name = "role_id", referencedColumnName = "id",insertable=false ,updatable=false)
 	private Roles roles;
 	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = LoginCredentials.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", referencedColumnName = "user_id",insertable=false ,updatable=false)
+	private LoginCredentials userDetails;
+	
 	@OneToOne(fetch = FetchType.EAGER,targetEntity = Uploads.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "photo_path", referencedColumnName = "id",insertable=false ,updatable=false)
 	private Uploads coverPhotoBean;
@@ -410,6 +414,14 @@ public class UserBean implements Serializable {
 
 	public void setCoverPhotoBean(Uploads coverPhotoBean) {
 		this.coverPhotoBean = coverPhotoBean;
+	}
+
+	public LoginCredentials getUserDetails() {
+		return userDetails;
+	}
+
+	public void setUserDetails(LoginCredentials userDetails) {
+		this.userDetails = userDetails;
 	}
 
 	
