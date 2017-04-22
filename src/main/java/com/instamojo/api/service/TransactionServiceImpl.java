@@ -181,7 +181,7 @@ public class TransactionServiceImpl implements ITransactionService {
 					if(!Util.isNull(transaction.getFoodCost())){
 						userAccomodationMapping.setFoodCost(transaction.getFoodCost());
 					}
-					userAccomodationMapping.setJoinDate(Util.getCurrentTimeStamp());
+					userAccomodationMapping.setJoinDate(!Util.isNull(transaction.getJoinDate())?transaction.getJoinDate():Util.getCurrentTimeStamp());
 					userAccomodationMapping.setOrderId(transaction.getOrderId());
 					if(!Util.isNull(transaction.getRoomCost())){
 						userAccomodationMapping.setRoomCost(transaction.getRoomCost());

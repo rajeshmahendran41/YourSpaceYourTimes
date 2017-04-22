@@ -87,6 +87,9 @@ public class Transactions  implements Serializable {
 	
 	@Column(name="gson_response")
 	private String gsonResponse;
+	
+	@Column(name = "join_date" )
+	private Timestamp joinDate;
 		
 	@Column(name = "is_deleted" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean isDeleted;
@@ -308,6 +311,14 @@ public class Transactions  implements Serializable {
 
 	public void setTotalRoomCost(Double totalRoomCost) {
 		this.totalRoomCost = totalRoomCost;
+	}
+
+	public Timestamp getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(Timestamp joinDate) {
+		this.joinDate = joinDate;
 	}
 
 	
