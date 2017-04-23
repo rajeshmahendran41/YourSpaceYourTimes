@@ -205,6 +205,8 @@ public class AccomodationServiceImpl implements IAccomodationService {
 		
 		Accomodations oldAccomodation = request.getAccomodation();
 		
+		List<AccomodationsDetails> accomodationDetailsBean = request.getAccomodation().getAccomodationDetails();
+		
 		if(!Util.isNull(oldAccomodation.getId())){
 			Accomodations currentAccomodation = getAccomodationById(oldAccomodation.getId());
 		
@@ -225,9 +227,9 @@ public class AccomodationServiceImpl implements IAccomodationService {
 		
 		if(!Util.isNull(oldAccomodation)){
 			
-			if(!Util.isNullList(request.getAccomodation().getAccomodationDetails())){
+			if(!Util.isNullList(accomodationDetailsBean)){
 				
-				for(AccomodationsDetails acccomodationDetails : request.getAccomodation().getAccomodationDetails()){
+				for(AccomodationsDetails acccomodationDetails : accomodationDetailsBean){
 				
 					if(!Util.isNull(acccomodationDetails.getId())){
 						AccomodationsDetails currentAccomodationDetails = getAccomodationDetailsById(acccomodationDetails.getId());
@@ -244,6 +246,11 @@ public class AccomodationServiceImpl implements IAccomodationService {
 						acccomodationDetails.setSourceType("accomodation");
 					}
 					
+					
+					acccomodationDetails.setCreatedAt(Util.getCurrentTimeStamp());
+					acccomodationDetails.setCreatedBy(Util.getUserId(httpRequest));
+					acccomodationDetails.setSourceId(request.getAccomodation().getId());
+					acccomodationDetails.setSourceType("accomodation");
 					acccomodationDetails.setUpdatedAt(Util.getCurrentTimeStamp());
 					acccomodationDetails.setUpdatedBy(Util.getUserId(httpRequest));
 					
