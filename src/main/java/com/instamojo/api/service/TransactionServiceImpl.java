@@ -134,6 +134,13 @@ public class TransactionServiceImpl implements ITransactionService {
 		if(!Util.isNull(order.getAmountRoomCost())){
 			transaction.setTotalRoomCost(order.getAmountRoomCost());
 		}
+		if(!Util.isNull(order.getJoinDate())){
+			transaction.setJoinDate(order.getJoinDate());
+		}
+		if(!Util.isNull(order.getIsFoodSelected())){
+			transaction.setIsFoodSelected(order.getIsFoodSelected());
+		}
+
 		transaction.setDescription(createPaymentOrderResponse.getPaymentOrder().getDescription());
 		transaction.setEmail(createPaymentOrderResponse.getPaymentOrder().getEmail());
 		transaction.setGsonResponse(createPaymentOrderResponse.getJsonResponse());

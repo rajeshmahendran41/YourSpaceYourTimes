@@ -58,6 +58,9 @@ public class UserAccomodationMapping  implements Serializable {
 	@Column(name = "is_deleted" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean isDeleted;
 		
+	@Column(name = "is_food_selected" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
+	private Boolean isFoodSelected;
+		
 		
 	@Column(name = "created_at")
 	private Timestamp createdAt;
@@ -203,6 +206,14 @@ public class UserAccomodationMapping  implements Serializable {
 
 	public void setSecurityDeposit(Double securityDeposit) {
 		this.securityDeposit = securityDeposit;
+	}
+
+	public Boolean getIsFoodSelected() {
+		return isFoodSelected;
+	}
+
+	public void setIsFoodSelected(Boolean isFoodSelected) {
+		this.isFoodSelected = isFoodSelected;
 	}
 
 	

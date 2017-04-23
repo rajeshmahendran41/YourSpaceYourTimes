@@ -15,6 +15,8 @@ import com.instamojo.wrapper.response.PaymentOrderListResponse;
 import com.instamojo.wrapper.util.Constants;
 import com.instamojo.wrapper.util.HttpUtils;
 import com.instamojo.wrapper.util.JsonUtils;
+import com.ysyt.constants.YSYTConstants;
+
 import org.apache.http.util.Asserts;
 import org.apache.http.util.TextUtils;
 
@@ -202,11 +204,23 @@ public class InstamojoImpl implements Instamojo {
         params.put("email", paymentOrder.getEmail());
         params.put("phone", paymentOrder.getPhone());
         params.put("currency", paymentOrder.getCurrency());
-        params.put("amount", String.valueOf(paymentOrder.getAmount()));
+        params.put("roomCost", String.valueOf(paymentOrder.getRoomCost()));
+        params.put("additionalCost", String.valueOf(paymentOrder.getAdditionalCost()));
+        params.put("foodCost", String.valueOf(paymentOrder.getFoodCost()));
+        params.put("currentBillAmount", String.valueOf(paymentOrder.getAmount()));
+        params.put("deposityType", paymentOrder.getDepositType());
+        if(paymentOrder.getDepositType().equals(YSYTConstants.SECURITY_DEPOSIT)){
+            params.put("deposityType", String.valueOf(paymentOrder.getAmount()));
+
+        }
         params.put("description", paymentOrder.getDescription());
         params.put("transaction_id", paymentOrder.getTransactionId());
         params.put("redirect_url", paymentOrder.getRedirectUrl());
         params.put("webhook_url", paymentOrder.getWebhookUrl());
+        params.put("joinDate", String.valueOf(paymentOrder.getJoinDate()));
+        params.put("isFoodSelected", String.valueOf(paymentOrder.getIsFoodSelected()));
+
+
 
         try {
             String response = HttpUtils.sendPostRequest(this.getApiPath(Constants.PAYMENT_ORDER_API_PATH), headers,

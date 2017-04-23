@@ -2,6 +2,8 @@ package com.instamojo.api.controller;
 
 import java.util.logging.Level;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,9 @@ import com.instamojo.wrapper.model.PaymentOrderFilter;
 import com.instamojo.wrapper.response.CreatePaymentOrderResponse;
 import com.instamojo.wrapper.response.PaymentOrderDetailsResponse;
 import com.instamojo.wrapper.response.PaymentOrderListResponse;
+import com.ysyt.bean.Accomodations;
+import com.ysyt.constants.YSYTConstants;
+import com.ysyt.service.IAccomodationService;
 import com.ysyt.to.response.TransactionResponse;
 
 @RestController
@@ -30,6 +35,12 @@ public class InstaMojoController {
 	
 	@Autowired 
 	private ITransactionService iTransactionService;
+	
+	@Autowired
+	private IAccomodationService iAccomodationService;
+	
+	@Autowired
+    private HttpServletRequest httpRequest;
 	
 	@Value("${instamojo.clientId}")
 	private String clientId;
@@ -52,6 +63,10 @@ public class InstaMojoController {
 		TransactionResponse transactionResponse = new TransactionResponse();
 
 		Instamojo api = null;
+		
+		validatePayment(order);
+		
+		order = generateTransaction(order);
 
 		try {
 		    api = InstamojoImpl.getApi(clientId, clientSecret, apiEndPoint,authEndPoint);
@@ -75,10 +90,10 @@ public class InstaMojoController {
 		    } catch (InvalidPaymentOrderException e) {
 
 		        if (order.isTransactionIdInvalid()) {
-		        	Util.throwPrimeException("Transaction id is invalid. This is mostly due to duplicate  transaction id.");
+		        	Util.throwException("Transaction id is invalid. This is mostly due to duplicate  transaction id.");
 		        }
 		        if (order.isCurrencyInvalid()) {
-		        	Util.throwPrimeException("Currency is invalid.");
+		        	Util.throwException("Currency is invalid.");
 
 		        }
 		    } catch (ConnectionException e) {
@@ -86,32 +101,32 @@ public class InstaMojoController {
 		} else {
 		    // inform validation errors to the user.
 		    if (order.isTransactionIdInvalid()) {
-		        Util.throwPrimeException("Transaction id is invalid.");
+		        Util.throwException("Transaction id is invalid.");
 		    }
 		    if (order.isAmountInvalid()) {
-		      Util.throwPrimeException("Amount can not be less than 9.00.");
+		      Util.throwException("Amount can not be less than 9.00.");
 		    }
 		    if (order.isCurrencyInvalid()) {
-		      Util.throwPrimeException("Please provide the currency.");
+		      Util.throwException("Please provide the currency.");
 		    }
 		    if (order.isDescriptionInvalid()) {
-		      Util.throwPrimeException("Description can not be greater than 255 characters.");
+		      Util.throwException("Description can not be greater than 255 characters.");
 		        }
 		    if (order.isEmailInvalid()) {
-		      Util.throwPrimeException("Please provide valid Email Address.");
+		      Util.throwException("Please provide valid Email Address.");
 		    }
 		    if (order.isNameInvalid()) {
-		      Util.throwPrimeException("Name can not be greater than 100 characters.");
+		      Util.throwException("Name can not be greater than 100 characters.");
 		    }
 		    if (order.isPhoneInvalid()) {
-		      Util.throwPrimeException("Phone is invalid.");
+		      Util.throwException("Phone is invalid.");
 		    }
 		    if (order.isRedirectUrlInvalid()) {
-		      Util.throwPrimeException("Please provide valid Redirect url.");
+		      Util.throwException("Please provide valid Redirect url.");
 		    }
 
 		    if (order.isWebhookInvalid()) {
-		      Util.throwPrimeException("Provide a valid webhook url");
+		      Util.throwException("Provide a valid webhook url");
 		    }
 		}
 		
@@ -119,6 +134,52 @@ public class InstaMojoController {
 	}
 	
 	
+	private PaymentOrder generateTransaction(PaymentOrder order) {
+		
+		order.setCurrency("INR");
+		
+		if(order.getDepositType().equals(YSYTConstants.SECURITY_DEPOSIT)){
+			order.setTransactionId("YSYT_SD"+Util.getCurrentUser(httpRequest).getId()+order.getAccomodationId()+Util.getCurrentTimeStamp());
+		}
+		
+		return order;
+	}
+
+
+	private void validatePayment(PaymentOrder order) {
+
+		if(order.getDepositType().equals(YSYTConstants.SECURITY_DEPOSIT)){
+			Accomodations accomodation = new Accomodations();
+			
+			if(Util.isNull(order.getAccomodationId())){
+				Util.throwException("Accomdation Id is Mandatory");
+			}
+			
+			accomodation = iAccomodationService.getAccomodation(order.getAccomodationId());
+			if(accomodation.getIsFoodMandatory()){
+				if(!accomodation.getIsFoodMandatory().equals(order.getIsFoodSelected())){
+					Util.throwException("Food is Mandatory");
+				}
+			}
+			
+			if(order.getIsFoodSelected()){
+				if(!accomodation.getFoodCost().equals(order.getFoodCost())){
+					Util.throwException("Food Cost Mismatches");
+				}
+			}
+			if(!accomodation.getSecurityDeposit().equals(order.getAmount())){
+				Util.throwException("Security Deposit Cost Mismatches");
+
+			}
+			if(!accomodation.getRoomCost().equals(order.getRoomCost())){
+				Util.throwException("Room Cost Mismatches");
+
+			}
+		}
+		
+	}
+
+
 	@RequestMapping(value = "/order/{orderId}", method = RequestMethod.GET, produces ="application/json")
     @ResponseBody
     public PaymentOrderDetailsResponse orderRefresh(@PathVariable(value="orderId") String orderId ){
@@ -179,7 +240,7 @@ public class InstaMojoController {
 		     paymentOrderDetailsResponse = api.getPaymentOrderDetailsByTransactionId(transactionId);
 
 		    // print the status of the payment order.
-		    Util.throwPrimeException(paymentOrderDetailsResponse.getStatus());
+		    Util.throwException(paymentOrderDetailsResponse.getStatus());
 		} catch (ConnectionException e) {
 			
 		}

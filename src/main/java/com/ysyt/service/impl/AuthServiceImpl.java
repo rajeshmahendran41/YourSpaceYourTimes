@@ -42,7 +42,7 @@ public class AuthServiceImpl implements IAuthService {
 		
 		if(validateEmail(request.getLoginDetails().getEmail())){
 			
-			Util.throwPrimeException("Email Id already Exist");
+			Util.throwException("Email Id already Exist");
 			
 		}
 		
@@ -118,7 +118,7 @@ public class AuthServiceImpl implements IAuthService {
 		             userBean);
 			}
 		}else{
-			Util.throwPrimeException("Incorrect UserName or Password");
+			Util.throwException("Incorrect UserName or Password");
 		}
 		
 		return respone;
@@ -142,7 +142,7 @@ public class AuthServiceImpl implements IAuthService {
 			
 			res.setUserBean(Util.getCurrentUser(httpRequest));
 		}else{
-			Util.throwPrimeException("Incorrect Old Password");
+			Util.throwException("Incorrect Old Password");
 		}
 		
 		
@@ -160,7 +160,7 @@ public class AuthServiceImpl implements IAuthService {
 			oldUserBean = createUpdateUserBean(oldUserBean);
 
 		}else{
-			Util.throwPrimeException("Something Went Wrong");
+			Util.throwException("Something Went Wrong");
 		}
 		
 		

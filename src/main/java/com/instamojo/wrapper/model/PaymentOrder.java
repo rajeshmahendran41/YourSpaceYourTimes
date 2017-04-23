@@ -1,9 +1,11 @@
 package com.instamojo.wrapper.model;
 
 import com.google.gson.annotations.SerializedName;
+
 import org.apache.http.util.TextUtils;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class PaymentOrder implements Serializable {
 
@@ -83,6 +85,9 @@ public class PaymentOrder implements Serializable {
     private Double foodCost;
     private Double additionalCost;
     private Double amountRoomCost;
+    private Timestamp joinDate;
+	private Boolean isFoodSelected;
+
 
     /**
      * Gets the id.
@@ -625,5 +630,21 @@ public class PaymentOrder implements Serializable {
 
 	public void setAmountRoomCost(Double amountRoomCost) {
 		this.amountRoomCost = amountRoomCost;
+	}
+
+	public Timestamp getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(Timestamp joinDate) {
+		this.joinDate = joinDate;
+	}
+
+	public Boolean getIsFoodSelected() {
+		return isFoodSelected;
+	}
+
+	public void setIsFoodSelected(Boolean isFoodSelected) {
+		this.isFoodSelected = isFoodSelected;
 	}
 }

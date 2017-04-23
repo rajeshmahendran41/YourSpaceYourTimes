@@ -93,6 +93,11 @@ public class Transactions  implements Serializable {
 		
 	@Column(name = "is_deleted" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
 	private Boolean isDeleted;
+	
+	
+	@Column(name = "is_food_selected" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
+	private Boolean isFoodSelected;
+		
 		
 		
 	@Column(name = "created_at")
@@ -319,6 +324,14 @@ public class Transactions  implements Serializable {
 
 	public void setJoinDate(Timestamp joinDate) {
 		this.joinDate = joinDate;
+	}
+
+	public Boolean getIsFoodSelected() {
+		return isFoodSelected;
+	}
+
+	public void setIsFoodSelected(Boolean isFoodSelected) {
+		this.isFoodSelected = isFoodSelected;
 	}
 
 	

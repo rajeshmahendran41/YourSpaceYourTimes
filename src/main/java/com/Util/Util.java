@@ -109,7 +109,7 @@ public final class Util {
                .getAttribute(SessionConstant.USER_BEAN)).getRoles();
    }
     
-    public static void throwPrimeException(String msg) {
+    public static void throwException(String msg) {
         throw new AspectException(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Failure",msg );
     }
 

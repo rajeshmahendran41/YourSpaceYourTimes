@@ -211,7 +211,7 @@ public class AccomodationServiceImpl implements IAccomodationService {
 			if(!Util.isNull(currentAccomodation)){			
 				oldAccomodation = updateAccomodationDetails(oldAccomodation,currentAccomodation);
 			}else{
-				Util.throwPrimeException("Resource Not Available");
+				Util.throwException("Resource Not Available");
 			}
 		}else{
 			oldAccomodation.setCreatedAt(Util.getCurrentTimeStamp());
@@ -235,7 +235,7 @@ public class AccomodationServiceImpl implements IAccomodationService {
 						if(!Util.isNull(currentAccomodationDetails)){			
 							acccomodationDetails = updateExtraAccomodationDetailBean(acccomodationDetails,currentAccomodationDetails);
 						}else{
-							Util.throwPrimeException("Extra Details Resource Not Available");
+							Util.throwException("Extra Details Resource Not Available");
 						}
 					}else{
 						acccomodationDetails.setCreatedAt(Util.getCurrentTimeStamp());
@@ -485,7 +485,7 @@ public class AccomodationServiceImpl implements IAccomodationService {
 			if(!Util.isNull(currentAttributeOptions)){			
 				request = updateAttributeOptionDetails(currentAttributeOptions,request);
 			}else{
-				Util.throwPrimeException("Resource Not Available");
+				Util.throwException("Resource Not Available");
 			}
 		}
 
