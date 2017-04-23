@@ -139,7 +139,7 @@ public class InstaMojoController {
 		order.setCurrency("INR");
 		
 		if(order.getDepositType().equals(YSYTConstants.SECURITY_DEPOSIT)){
-			order.setTransactionId("YSYT_SD"+Util.getCurrentUser(httpRequest).getId()+order.getAccomodationId()+Util.getCurrentTimeStamp());
+			order.setTransactionId("YSYTSD_"+Util.getCurrentUser(httpRequest).getId()+order.getAccomodationId()+Util.getCurrentTimeStamp().getTime());
 		}
 		
 		return order;
