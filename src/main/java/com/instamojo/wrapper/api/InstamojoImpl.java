@@ -207,7 +207,7 @@ public class InstamojoImpl implements Instamojo {
         params.put("roomCost", String.valueOf(paymentOrder.getRoomCost()));
         params.put("additionalCost", String.valueOf(paymentOrder.getAdditionalCost()));
         params.put("foodCost", String.valueOf(paymentOrder.getFoodCost()));
-        params.put("currentBillAmount", String.valueOf(paymentOrder.getAmount()));
+        params.put("amount", String.valueOf(paymentOrder.getAmount()));
         params.put("deposityType", paymentOrder.getDepositType());
         if(paymentOrder.getDepositType().equals(YSYTConstants.SECURITY_DEPOSIT)){
             params.put("deposityType", String.valueOf(paymentOrder.getAmount()));
