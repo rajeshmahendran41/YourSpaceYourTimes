@@ -179,7 +179,7 @@ public class InstaMojoController {
 	
 				}
 				
-				if(!Util.isNull(order.getFoodCost())){
+				if(!Util.isNull(order.getRoomCost())){
 					if(!accomodation.getRoomCost().equals(order.getRoomCost())){
 						Util.throwException("Room Cost Mismatches");
 		
