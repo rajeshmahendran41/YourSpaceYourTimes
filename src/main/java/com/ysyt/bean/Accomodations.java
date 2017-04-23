@@ -65,10 +65,10 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 	@Column(name="longitude")
 	private BigDecimal longitude;
 	
-	@Column(name="total_room_count",nullable = false ,insertable=false, columnDefinition = "boolean default 0")
+	@Column(name="total_room_count",nullable = false , columnDefinition = "boolean default 0")
 	private Integer totalRoomCount;
 	
-	@Column(name="current_room_count",nullable = false ,insertable=false, columnDefinition = "integer default 0")
+	@Column(name="current_room_count",nullable = false , columnDefinition = "integer default 0")
 	private Integer currentRoomCount;
 	
 	@Column(name="type_id")
@@ -78,7 +78,7 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 	private Long coverPhoto;
 	
 	
-	@Column(name = "is_food_mandatory" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
+	@Column(name = "is_food_mandatory" ,nullable = false , columnDefinition = "boolean default false")
 	private Boolean isFoodMandatory;
 	
 	@Column(name="gender_availability_id")
@@ -89,7 +89,7 @@ public class Accomodations extends AccomodationsWrapper implements Serializable 
 	private Long subTypeId;
 	
 	
-	@Column(name = "is_deleted" ,nullable = false ,insertable=false, columnDefinition = "boolean default false")
+	@Column(name = "is_deleted" ,nullable = false , insertable=false,columnDefinition = "boolean default false")
 	private Boolean isDeleted;
 		
 		

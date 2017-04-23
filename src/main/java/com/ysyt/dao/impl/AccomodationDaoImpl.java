@@ -307,8 +307,21 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		
 		return upload;
 	}
-
 	
+	@Override
+	public Uploads getUploadsById(Long id , SessionFactory sessionFactory) {
+				
+		
+		Uploads uploads = new Uploads();
+		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(Uploads.class)
+				.add(Restrictions.eq("id",id));
+				
+
+		 uploads =(Uploads) criteria.uniqueResult();
+				
+		 return uploads;
+
+	}
 
 	
 

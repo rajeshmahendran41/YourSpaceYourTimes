@@ -17,13 +17,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.Where;
 
 import com.constants.CommonConstants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ysyt.wrapper.AccomodationDetailsWrapper;
 
 @Entity
 @Table(name = "accomodations_details", schema = CommonConstants.SCHEMA)
-public class AccomodationsDetails implements Serializable {
+public class AccomodationsDetails extends AccomodationDetailsWrapper implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -76,6 +78,8 @@ public class AccomodationsDetails implements Serializable {
     @JoinColumn(name = "parent_id", referencedColumnName = "id",insertable=false ,updatable=false)
 	private AttributesMaster parentAttributes;
 	
+
+
 	public Long getId() {
 		return id;
 	}

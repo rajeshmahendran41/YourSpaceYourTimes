@@ -30,6 +30,7 @@ import com.ysyt.bean.AttributeOptions;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
 import com.ysyt.bean.Uploads;
+import com.ysyt.constants.YSYTConstants;
 import com.ysyt.dao.IAccomodationDao;
 import com.ysyt.service.IAccomodationService;
 import com.ysyt.to.request.AccomodationListRequest;
@@ -409,8 +410,22 @@ public class AccomodationServiceImpl implements IAccomodationService {
 
 	@Override
 	public Accomodations getAccomodation(Long accomodationId) {
+		
+		Accomodations accomodation = new Accomodations();
 
-		return iAccomodationDao.getAccomodatoinById(accomodationId, sessionFactory);
+		accomodation =  iAccomodationDao.getAccomodatoinById(accomodationId, sessionFactory);
+		
+		for(AccomodationsDetails accomodationDetails : accomodation.getAccomodationDetails()){
+			 
+			if(accomodationDetails.getAttributeId().equals(YSYTConstants.ACCOMODATION_IMAGES_ATTRIBUTE_ID)){
+				
+				accomodationDetails.setImages(iAccomodationDao.getUploadsById(Long.parseLong(accomodationDetails.getValue()), sessionFactory));
+			}
+			
+		}
+		
+		return accomodation;
+	
 	}
 
 

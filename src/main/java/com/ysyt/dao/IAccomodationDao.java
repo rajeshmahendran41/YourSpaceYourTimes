@@ -103,5 +103,8 @@ public interface IAccomodationDao {
 	List<AccomodationsDetails> getAmenitiesBasedonAccomodations(Long id,
 			SessionFactory sessionFactory);
 
+
+	Uploads getUploadsById(Long id, SessionFactory sessionFactory);
+
 	
 }
