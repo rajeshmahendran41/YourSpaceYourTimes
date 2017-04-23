@@ -156,24 +156,40 @@ public class InstaMojoController {
 			}
 			
 			accomodation = iAccomodationService.getAccomodation(order.getAccomodationId());
-			if(accomodation.getIsFoodMandatory()){
-				if(!accomodation.getIsFoodMandatory().equals(order.getIsFoodSelected())){
-					Util.throwException("Food is Mandatory");
+			if(!Util.isNull(accomodation)){
+				if(accomodation.getIsFoodMandatory()){
+					if(!accomodation.getIsFoodMandatory().equals(order.getIsFoodSelected())){
+						Util.throwException("Food is Mandatory");
+					}
 				}
-			}
-			
-			if(order.getIsFoodSelected()){
-				if(!accomodation.getFoodCost().equals(order.getFoodCost())){
-					Util.throwException("Food Cost Mismatches");
+				
+				if(!Util.isNull(order.getIsFoodSelected())){
+					if(order.getIsFoodSelected()){
+						if(!Util.isNull(order.getFoodCost())){
+							if(!accomodation.getFoodCost().equals(order.getFoodCost())){
+								Util.throwException("Food Cost Mismatches");
+							}
+						}else{
+							Util.throwException("Please provide Food Cost");
+						}
+					}
 				}
-			}
-			if(!accomodation.getSecurityDeposit().equals(order.getAmount())){
-				Util.throwException("Security Deposit Cost Mismatches");
-
-			}
-			if(!accomodation.getRoomCost().equals(order.getRoomCost())){
-				Util.throwException("Room Cost Mismatches");
-
+				if(!accomodation.getSecurityDeposit().equals(order.getAmount())){
+					Util.throwException("Security Deposit Cost Mismatches");
+	
+				}
+				
+				if(!Util.isNull(order.getFoodCost())){
+					if(!accomodation.getRoomCost().equals(order.getRoomCost())){
+						Util.throwException("Room Cost Mismatches");
+		
+					}
+				}else
+				{
+					Util.throwException("Please provide Room Cost");
+				}
+			}else{
+				Util.throwException("Accomodation Doesn't Exist");
 			}
 		}
 		
