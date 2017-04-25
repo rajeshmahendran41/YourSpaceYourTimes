@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.Util.Util;
 import com.instamojo.api.dao.ITransactionDao;
 import com.instamojo.wrapper.model.PaymentOrder;
+import com.instamojo.wrapper.request.OrderListRequest;
 import com.instamojo.wrapper.response.CreatePaymentOrderResponse;
 import com.instamojo.wrapper.response.PaymentOrderDetailsResponse;
 import com.ysyt.bean.PercentageSplitUpMaster;
@@ -206,6 +207,16 @@ public class TransactionServiceImpl implements ITransactionService {
 		}
 		
 		
+	}
+
+	@Override
+	public List<Transactions> orderList(OrderListRequest request) {
+
+		List<Transactions> transactions = new ArrayList<Transactions>();
+		
+		transactions = iTransactionDao.orderList(request,sessionFactory);
+		
+		return transactions;
 	}
 	
 

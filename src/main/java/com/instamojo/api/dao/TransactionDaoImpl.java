@@ -1,21 +1,32 @@
 package com.instamojo.api.dao;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.Util.Util;
+import com.instamojo.wrapper.request.OrderListRequest;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.PercentageSplitUpMaster;
 import com.ysyt.bean.Transactions;
 import com.ysyt.bean.UserAccomodationMapping;
 import com.ysyt.bean.UserBillsPercentage;
+import com.ysyt.constants.YSYTConstants;
 
 @Repository
 public class TransactionDaoImpl implements ITransactionDao {
+	
+	
+	@Autowired
+	private HttpServletRequest httpRequest;
 
 	@Override
 	public Transactions createOrder(Transactions transaction,
@@ -78,6 +89,48 @@ public class TransactionDaoImpl implements ITransactionDao {
 		sessionFactory.getCurrentSession().saveOrUpdate(splits);
 		sessionFactory.getCurrentSession().flush();
 		sessionFactory.getCurrentSession().clear();
+		
+	}
+
+	@Override
+	public List<Transactions> orderList(OrderListRequest request,SessionFactory sessionFactory) {
+		
+		List<Transactions> transactions = new ArrayList<Transactions>();
+		
+		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(Transactions.class)
+				.add(Restrictions.eq("isDeleted",false))
+				.add(Restrictions.eq("depositType", YSYTConstants.SECURITY_DEPOSIT))
+				.add(Restrictions.eq("userId", Util.getCurrentUser(httpRequest).getId()))
+				.setFirstResult(!Util.isNull(request.getOffset())?request.getOffset():0)
+				.setMaxResults(!Util.isNull(request.getLimit())?request.getLimit():0)
+				.addOrder(Order.desc("createdAt"));
+				
+				transactions= criteria.list();
+				
+				for(Transactions trans : transactions){
+					
+					UserAccomodationMapping userAccomodationMapping = new UserAccomodationMapping();
+
+			
+					Criteria userMapping =  sessionFactory.getCurrentSession().createCriteria(UserAccomodationMapping.class)
+							.add(Restrictions.eq("orderId", trans.getOrderId()));
+					
+					userAccomodationMapping = (UserAccomodationMapping) userMapping.uniqueResult();
+					if(!Util.isNull(userAccomodationMapping)){
+					
+						if(!Util.isNull(userAccomodationMapping.getJoinDate())){
+							trans.setJoinDate(userAccomodationMapping.getJoinDate());
+						}
+						if(!Util.isNull(userAccomodationMapping.getVacateDate())){
+							trans.setVacateDate(userAccomodationMapping.getVacateDate());
+						}
+					}
+					
+					
+				}
+				
+				
+				return transactions;
 		
 	}
 

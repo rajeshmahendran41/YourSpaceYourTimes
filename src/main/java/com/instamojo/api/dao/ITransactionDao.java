@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 
+import com.instamojo.wrapper.request.OrderListRequest;
 import com.ysyt.bean.PercentageSplitUpMaster;
 import com.ysyt.bean.Transactions;
 import com.ysyt.bean.UserAccomodationMapping;
@@ -24,5 +25,7 @@ public interface ITransactionDao {
 
 	void createUpdateSplitUp(UserBillsPercentage splits,
 			SessionFactory sessionFactory);
+
+	List<Transactions> orderList(OrderListRequest request,SessionFactory sessionFactory);
 
 }

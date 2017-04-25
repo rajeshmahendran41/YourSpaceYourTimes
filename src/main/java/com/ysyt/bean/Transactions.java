@@ -3,20 +3,30 @@ package com.ysyt.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Where;
+
 import com.constants.CommonConstants;
+import com.ysyt.constants.YSYTConstants;
 import com.ysyt.wrapper.AccomodationsWrapper;
+import com.ysyt.wrapper.TransactionWrapper;
 
 @Entity
 @Table(name = "transactions", schema = CommonConstants.SCHEMA)
-public class Transactions  implements Serializable {
+public class Transactions extends TransactionWrapper implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -111,6 +121,23 @@ public class Transactions  implements Serializable {
 	
 	@Column(name = "updated_by")
 	private Long updatedBy;
+	
+	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = Accomodations.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "accomodation_id", referencedColumnName = "id",insertable=false ,updatable=false)
+	private Accomodations  accomodationDetails;
+	
+	
+
+
+
+	public Accomodations getAccomodationDetails() {
+		return accomodationDetails;
+	}
+
+	public void setAccomodationDetails(Accomodations accomodationDetails) {
+		this.accomodationDetails = accomodationDetails;
+	}
 
 	public Long getId() {
 		return id;

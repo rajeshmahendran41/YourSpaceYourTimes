@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Util.Util;
+import com.constants.CommonConstants;
 import com.instamojo.api.service.ITransactionService;
 import com.instamojo.wrapper.api.Instamojo;
 import com.instamojo.wrapper.api.InstamojoImpl;
@@ -21,12 +22,15 @@ import com.instamojo.wrapper.exception.ConnectionException;
 import com.instamojo.wrapper.exception.InvalidPaymentOrderException;
 import com.instamojo.wrapper.model.PaymentOrder;
 import com.instamojo.wrapper.model.PaymentOrderFilter;
+import com.instamojo.wrapper.request.OrderListRequest;
 import com.instamojo.wrapper.response.CreatePaymentOrderResponse;
+import com.instamojo.wrapper.response.OrderListResponse;
 import com.instamojo.wrapper.response.PaymentOrderDetailsResponse;
 import com.instamojo.wrapper.response.PaymentOrderListResponse;
 import com.ysyt.bean.Accomodations;
 import com.ysyt.constants.YSYTConstants;
 import com.ysyt.service.IAccomodationService;
+import com.ysyt.to.request.LocationRequest;
 import com.ysyt.to.response.TransactionResponse;
 
 @RestController
@@ -215,6 +219,22 @@ public class InstaMojoController {
 		}
 		
 		return paymentOrderDetailsResponse;
+
+	}
+	
+	
+	
+	@RequestMapping(value = "/order/list", method = RequestMethod.POST, produces ="application/json")
+    @ResponseBody
+    public OrderListResponse orderList(@RequestBody OrderListRequest request){
+		
+		OrderListResponse res =new OrderListResponse();
+		res.setTransactions(iTransactionService.orderList(request));
+		
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
 
 	}
 	
