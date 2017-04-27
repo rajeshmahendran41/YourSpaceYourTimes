@@ -17,6 +17,8 @@ import org.hibernate.annotations.FilterDefs;
 
 import com.constants.CommonConstants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "user_login", schema = CommonConstants.SCHEMA)
@@ -37,7 +39,7 @@ public class LoginCredentials implements Serializable {
 	@NotNull
 	private Long userId;
 	
-    @JsonIgnore
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name = "password")
 	@NotNull
 	private String password;
