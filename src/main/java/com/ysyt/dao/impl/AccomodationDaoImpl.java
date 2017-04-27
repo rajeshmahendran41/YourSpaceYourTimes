@@ -245,8 +245,8 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		}
 		
 		if(!Util.isNull(request.getMincost())&&!Util.isNull(request.getMaxCost())){
-			criteria.add(Restrictions.between("cost", request.getMincost(),request.getMaxCost()));
-			criteriaCount.add(Restrictions.between("cost", request.getMincost(),request.getMaxCost()));
+			criteria.add(Restrictions.between("roomCost", request.getMincost(),request.getMaxCost()));
+			criteriaCount.add(Restrictions.between("roomCost", request.getMincost(),request.getMaxCost()));
 
 		}
 		
@@ -334,9 +334,9 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		sb.append("select ");
 		
 		if(minField.equals("MIN")){
-			sb.append("cast(coalesce( min(cost),0 ) as double precision)  ");
+			sb.append("cast(coalesce( min(room_cost),0 ) as double precision)  ");
 		}else if(minField.equals("MAX")){
-			sb.append("cast(coalesce( max(cost),0 ) as  double precision)  ");
+			sb.append("cast(coalesce( max(room_cost),0 ) as  double precision)  ");
 		}
 		
 		sb.append(" from accomodations where is_deleted = false ");
