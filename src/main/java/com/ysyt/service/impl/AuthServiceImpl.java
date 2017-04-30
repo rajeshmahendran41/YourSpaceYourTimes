@@ -158,6 +158,9 @@ public class AuthServiceImpl implements IAuthService {
 		if(!Util.isNull(currentUserBean)){			
 			oldUserBean = updateUserDetails(currentUserBean,oldUserBean);
 			oldUserBean = createUpdateUserBean(oldUserBean);
+			HttpSession httpSession = httpRequest.getSession(true);
+	        httpSession.setAttribute(SessionConstant.USER_BEAN,
+	        		oldUserBean);
 
 		}else{
 			Util.throwException("Something Went Wrong");
