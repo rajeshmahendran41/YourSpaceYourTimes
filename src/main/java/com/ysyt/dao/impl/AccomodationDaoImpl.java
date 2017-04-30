@@ -129,16 +129,36 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 				return  criteria.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Accomodations getAccomodatoinById(Long id,
 			SessionFactory sessionFactory) {
 
+		Accomodations accomodation = new Accomodations();
+		List<AccomodationsDetails> accomodationDetails = new ArrayList<AccomodationsDetails>();
 		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(Accomodations.class)
 				.add(Restrictions.eq("isDeleted",false))
 				.add(Restrictions.eq("id",id));
 				
 				
-				return (Accomodations) criteria.uniqueResult();
+		accomodation=  (Accomodations) criteria.uniqueResult();
+		
+		Criteria accoDetailsCri = 	sessionFactory.getCurrentSession().createCriteria(AccomodationsDetails.class)
+					.add(Restrictions.eq("isDeleted",false))
+					.add(Restrictions.eq("isAmenities",false))
+					.add(Restrictions.eq("sourceType","accomodation"))
+					.add(Restrictions.eq("sourceId", accomodation.getId()));
+		
+		accomodationDetails = (List<AccomodationsDetails>) accoDetailsCri.list();
+		
+		if(!Util.isNullList(accomodationDetails)){
+			accomodation.setAccomodationDetails(accomodationDetails);
+		}
+		
+		accomodation=  (Accomodations) criteria.uniqueResult();
+
+		
+		return accomodation;
 		
 	}
 
