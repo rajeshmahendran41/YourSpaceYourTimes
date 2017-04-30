@@ -42,7 +42,7 @@ public class UserBean implements Serializable {
 	
 	@Column(name = "first_name")
 	@Pattern (regexp = "^.*[A-Z0-9a-z].*$" , message = "First should contain atleast one alphanumberic")
-    @Size(min = 5, max = 5000, message = "First Name should not be less than 5 characters and greater than 50 characters") 
+    @Size(min = 2, max = 500, message = "First Name should not be less than 5 characters and greater than 500 characters") 
 	@NotNull
 	private String firstName;
 		
