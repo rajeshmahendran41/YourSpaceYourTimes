@@ -109,30 +109,47 @@ public class TransactionDaoImpl implements ITransactionDao {
 				
 				for(Transactions trans : transactions){
 					
-					UserAccomodationMapping userAccomodationMapping = new UserAccomodationMapping();
-
-			
-					Criteria userMapping =  sessionFactory.getCurrentSession().createCriteria(UserAccomodationMapping.class)
-							.add(Restrictions.eq("orderId", trans.getOrderId()));
-					
-					userAccomodationMapping = (UserAccomodationMapping) userMapping.uniqueResult();
-					if(!Util.isNull(userAccomodationMapping)){
-					
-						if(!Util.isNull(userAccomodationMapping.getJoinDate())){
-							trans.setJoinDate(userAccomodationMapping.getJoinDate());
-						}
-						if(!Util.isNull(userAccomodationMapping.getVacateDate())){
-							trans.setVacateDate(userAccomodationMapping.getVacateDate());
-						}
-					}
-					
-					
+					userAccomodationMapping(trans,sessionFactory);
 				}
+				return transactions;
+	}
+	
+	@Override
+	public Transactions orderDetails(String orderId,SessionFactory sessionFactory) {
+		
+		Transactions transactions = new Transactions();
+		
+		Criteria criteria =  sessionFactory.getCurrentSession().createCriteria(Transactions.class)
+				.add(Restrictions.eq("isDeleted",false))
+				.add(Restrictions.eq("depositType", YSYTConstants.SECURITY_DEPOSIT))
+				.add(Restrictions.eq("orderId",orderId));
 				
+				transactions= (Transactions) criteria.uniqueResult();
+					
+				userAccomodationMapping(transactions, sessionFactory);
 				
 				return transactions;
-		
 	}
+	
+	public void userAccomodationMapping(Transactions trans,SessionFactory sessionFactory){
+		UserAccomodationMapping userAccomodationMapping = new UserAccomodationMapping();
+
+		
+		Criteria userMapping =  sessionFactory.getCurrentSession().createCriteria(UserAccomodationMapping.class)
+				.add(Restrictions.eq("orderId", trans.getOrderId()));
+		
+		userAccomodationMapping = (UserAccomodationMapping) userMapping.uniqueResult();
+		if(!Util.isNull(userAccomodationMapping)){
+		
+			if(!Util.isNull(userAccomodationMapping.getJoinDate())){
+				trans.setJoinDate(userAccomodationMapping.getJoinDate());
+			}
+			if(!Util.isNull(userAccomodationMapping.getVacateDate())){
+				trans.setVacateDate(userAccomodationMapping.getVacateDate());
+			}
+		}
+	}
+
 
 
 

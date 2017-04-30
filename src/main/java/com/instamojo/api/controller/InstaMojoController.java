@@ -25,6 +25,7 @@ import com.instamojo.wrapper.model.PaymentOrderFilter;
 import com.instamojo.wrapper.request.OrderListRequest;
 import com.instamojo.wrapper.response.CreatePaymentOrderResponse;
 import com.instamojo.wrapper.response.OrderListResponse;
+import com.instamojo.wrapper.response.OrderResponse;
 import com.instamojo.wrapper.response.PaymentOrderDetailsResponse;
 import com.instamojo.wrapper.response.PaymentOrderListResponse;
 import com.ysyt.bean.Accomodations;
@@ -222,6 +223,17 @@ public class InstaMojoController {
 
 	}
 	
+	@RequestMapping(value = "/orderDetails/{orderId}", method = RequestMethod.GET, produces ="application/json")
+    @ResponseBody
+    public OrderResponse orderDetails(@PathVariable(value="orderId") String orderId ){
+		
+		OrderResponse res = new OrderResponse();
+		res.setOrderDetails(iTransactionService.getOrderDetails(orderId));
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		return res;
+
+	}
 	
 	
 	@RequestMapping(value = "/order/list", method = RequestMethod.POST, produces ="application/json")

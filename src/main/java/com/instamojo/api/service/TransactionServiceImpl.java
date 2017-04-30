@@ -218,6 +218,13 @@ public class TransactionServiceImpl implements ITransactionService {
 		
 		return transactions;
 	}
+
+	@Override
+	public Transactions getOrderDetails(String orderId) {
+		
+		
+		return iTransactionDao.getOrderDetails(orderId, sessionFactory);
+	}
 	
 
 }

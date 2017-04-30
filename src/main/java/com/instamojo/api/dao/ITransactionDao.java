@@ -28,4 +28,6 @@ public interface ITransactionDao {
 
 	List<Transactions> orderList(OrderListRequest request,SessionFactory sessionFactory);
 
+	Transactions orderDetails(String orderId, SessionFactory sessionFactory);
+
 }

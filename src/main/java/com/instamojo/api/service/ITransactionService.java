@@ -23,4 +23,6 @@ public interface ITransactionService {
 
 	List<Transactions> orderList(OrderListRequest request);
 
+	Transactions getOrderDetails(String orderId);
+
 }
