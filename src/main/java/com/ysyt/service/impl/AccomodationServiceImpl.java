@@ -414,14 +414,15 @@ public class AccomodationServiceImpl implements IAccomodationService {
 		Accomodations accomodation = new Accomodations();
 
 		accomodation =  iAccomodationDao.getAccomodatoinById(accomodationId, sessionFactory);
-		
+		if(!Util.isNullList(accomodation.getAccomodationDetails())){
 		for(AccomodationsDetails accomodationDetails : accomodation.getAccomodationDetails()){
 			 
-			if(accomodationDetails.getAttributeId().equals(YSYTConstants.ACCOMODATION_IMAGES_ATTRIBUTE_ID)){
+				if(accomodationDetails.getAttributeId().equals(YSYTConstants.ACCOMODATION_IMAGES_ATTRIBUTE_ID)){
+					
+					accomodationDetails.setImages(iAccomodationDao.getUploadsById(Long.parseLong(accomodationDetails.getValue()), sessionFactory));
+				}
 				
-				accomodationDetails.setImages(iAccomodationDao.getUploadsById(Long.parseLong(accomodationDetails.getValue()), sessionFactory));
 			}
-			
 		}
 		
 		return accomodation;
