@@ -29,12 +29,14 @@ import com.ysyt.bean.AttributeOptions;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
 import com.ysyt.bean.Uploads;
+import com.ysyt.bean.UserAccomodationMapping;
 import com.ysyt.dao.IAccomodationDao;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationSubTypesRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.AttributeListRequest;
 import com.ysyt.to.request.LocationRequest;
+import com.ysyt.to.request.UserTaggedAccomdoationRequest;
 import com.ysyt.to.response.AccomodationTypeResponse;
 import com.ysyt.wrapper.AccomodationListWrapper;
 
@@ -143,20 +145,24 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 				
 		accomodation=  (Accomodations) criteria.uniqueResult();
 		
-		Criteria accoDetailsCri = 	sessionFactory.getCurrentSession().createCriteria(AccomodationsDetails.class)
-					.add(Restrictions.eq("isDeleted",false))
-					.add(Restrictions.eq("isAmenities",false))
-					.add(Restrictions.eq("sourceType","accomodation"))
-					.add(Restrictions.eq("sourceId", accomodation.getId()));
+		if(!Util.isNull(accomodation)){
 		
-		accomodationDetails = (List<AccomodationsDetails>) accoDetailsCri.list();
-		
-		if(!Util.isNullList(accomodationDetails)){
-			accomodation.setAccomodationDetails(accomodationDetails);
+			Criteria accoDetailsCri = 	sessionFactory.getCurrentSession().createCriteria(AccomodationsDetails.class)
+						.add(Restrictions.eq("isDeleted",false))
+						.add(Restrictions.eq("isAmenities",false))
+						.add(Restrictions.eq("sourceType","accomodation"))
+						.add(Restrictions.eq("sourceId", accomodation.getId()));
+			
+			accomodationDetails = (List<AccomodationsDetails>) accoDetailsCri.list();
+			
+			if(!Util.isNullList(accomodationDetails)){
+				accomodation.setAccomodationDetails(accomodationDetails);
+			}
+			
+			accomodation.setIsEnrolled(isEnrolled(null, accomodation.getId(), sessionFactory));
 		}
-		
-		accomodation=  (Accomodations) criteria.uniqueResult();
 
+		
 		
 		return accomodation;
 		
@@ -448,6 +454,7 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<AttributeOptions> getAttributeOptionList(
 			AttributeListRequest request, SessionFactory sessionFactory) {
 		
@@ -485,6 +492,39 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 		return accomodationDetails;
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<UserAccomodationMapping> getUserAccomodationMappingDetails(
+			UserTaggedAccomdoationRequest request, SessionFactory sessionFactory) {
+
+		List<UserAccomodationMapping> accomodationDetails = sessionFactory.getCurrentSession().createCriteria(UserAccomodationMapping.class)
+				.add(Restrictions.eq("userId", Util.getCurrentUser(httpRequest).getId()))
+				.add(Restrictions.eq("isDeleted",false))
+				.addOrder(Order.desc("joinDate"))
+				.list();
+		
+		return accomodationDetails;
+	}
+
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public Boolean isEnrolled(
+			Long userId, Long accomodationId, SessionFactory sessionFactory) {
+
+		Long count=  (Long) sessionFactory.getCurrentSession().createCriteria(UserAccomodationMapping.class)
+				.add(Restrictions.eq("userId", !Util.isNull(userId)?userId:Util.getCurrentUser(httpRequest).getId()))
+				.add(Restrictions.eq("isDeleted",false))
+				.setProjection(Projections.count("id"))
+				.uniqueResult();
+		
+		
+		if(count>=1){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 
 	

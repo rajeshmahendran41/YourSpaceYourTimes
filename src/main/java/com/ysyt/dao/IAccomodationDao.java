@@ -14,11 +14,13 @@ import com.ysyt.bean.AttributeOptions;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
 import com.ysyt.bean.Uploads;
+import com.ysyt.bean.UserAccomodationMapping;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationSubTypesRequest;
 import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.AttributeListRequest;
 import com.ysyt.to.request.LocationRequest;
+import com.ysyt.to.request.UserTaggedAccomdoationRequest;
 import com.ysyt.to.response.AccomodationTypeResponse;
 
 
@@ -105,6 +107,14 @@ public interface IAccomodationDao {
 
 
 	Uploads getUploadsById(Long id, SessionFactory sessionFactory);
+
+
+	List<UserAccomodationMapping> getUserAccomodationMappingDetails(
+			UserTaggedAccomdoationRequest request, SessionFactory sessionFactory);
+
+
+	Boolean isEnrolled(Long userId, Long accomodationId,
+			SessionFactory sessionFactory);
 
 	
 }

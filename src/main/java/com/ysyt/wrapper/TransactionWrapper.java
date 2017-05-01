@@ -7,6 +7,8 @@ public class TransactionWrapper {
 	
 	private Timestamp joinDate;
 	private Timestamp vacateDate;
+	
+
 	public Timestamp getJoinDate() {
 		return joinDate;
 	}

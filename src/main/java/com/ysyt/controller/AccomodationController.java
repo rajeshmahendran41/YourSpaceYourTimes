@@ -25,6 +25,7 @@ import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.AttributeListRequest;
 import com.ysyt.to.request.FilterRequest;
 import com.ysyt.to.request.LocationRequest;
+import com.ysyt.to.request.UserTaggedAccomdoationRequest;
 import com.ysyt.to.response.AccomodationGenderResponse;
 import com.ysyt.to.response.AccomodationListResponse;
 import com.ysyt.to.response.AccomodationResponse;
@@ -36,6 +37,7 @@ import com.ysyt.to.response.AttributeOptionListResponse;
 import com.ysyt.to.response.AttributeOptionResponse;
 import com.ysyt.to.response.FilterResponse;
 import com.ysyt.to.response.LocationResponse;
+import com.ysyt.to.response.UserTaggedAccomodationsResponse;
 import com.ysyt.wrapper.DataTransformer;
 
 @RestController
@@ -245,6 +247,22 @@ public class AccomodationController {
 		AttributeOptionListResponse res = new AttributeOptionListResponse();
 		
 		res.setAttributeOptionList(iAccomodationService.getAttributeOptionList(request));
+		
+		res.setMessage(CommonConstants.SUCCESS);
+		res.setStatus(CommonConstants.OK);
+		
+        return res;
+	
+	}
+	
+	
+	@RequestMapping(value = "userTaggedAccomodations/list", method = RequestMethod.POST, produces ="application/json")
+    @ResponseBody
+    public UserTaggedAccomodationsResponse getAttributeOptionList(@RequestBody UserTaggedAccomdoationRequest request){
+        
+		UserTaggedAccomodationsResponse res = new UserTaggedAccomodationsResponse();
+		
+		res.setAccomodationList(iAccomodationService.getUserTaggedAccomodationDetails(request));
 		
 		res.setMessage(CommonConstants.SUCCESS);
 		res.setStatus(CommonConstants.OK);

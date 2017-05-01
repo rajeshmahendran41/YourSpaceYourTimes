@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.constants.CommonConstants;
@@ -73,6 +77,12 @@ public class UserAccomodationMapping  implements Serializable {
 	
 	@Column(name = "updated_by")
 	private Long updatedBy;
+	
+	@OneToOne(fetch = FetchType.EAGER,targetEntity = Accomodations.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "accomodation_id", referencedColumnName = "id",insertable=false ,updatable=false)
+	private Accomodations  accomodationDetails;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -214,6 +224,14 @@ public class UserAccomodationMapping  implements Serializable {
 
 	public void setIsFoodSelected(Boolean isFoodSelected) {
 		this.isFoodSelected = isFoodSelected;
+	}
+
+	public Accomodations getAccomodationDetails() {
+		return accomodationDetails;
+	}
+
+	public void setAccomodationDetails(Accomodations accomodationDetails) {
+		this.accomodationDetails = accomodationDetails;
 	}
 
 	

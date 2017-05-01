@@ -30,6 +30,7 @@ import com.ysyt.bean.AttributeOptions;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
 import com.ysyt.bean.Uploads;
+import com.ysyt.bean.UserAccomodationMapping;
 import com.ysyt.constants.YSYTConstants;
 import com.ysyt.dao.IAccomodationDao;
 import com.ysyt.service.IAccomodationService;
@@ -40,6 +41,7 @@ import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.AttributeListRequest;
 import com.ysyt.to.request.FilterRequest;
 import com.ysyt.to.request.LocationRequest;
+import com.ysyt.to.request.UserTaggedAccomdoationRequest;
 import com.ysyt.to.response.AccomodationTypeResponse;
 import com.ysyt.to.response.FilterResponse;
 import com.ysyt.wrapper.ParentAmenityHelper;
@@ -596,6 +598,15 @@ public class AccomodationServiceImpl implements IAccomodationService {
 		}
 		
 		return mapAmenities;
+	}
+
+
+	@Override
+	public List<UserAccomodationMapping> getUserTaggedAccomodationDetails(
+			UserTaggedAccomdoationRequest request) {
+		
+		return iAccomodationDao.getUserAccomodationMappingDetails(request,sessionFactory);
+		
 	}
 	
 	

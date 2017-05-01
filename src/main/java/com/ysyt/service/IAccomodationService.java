@@ -11,6 +11,7 @@ import com.ysyt.bean.AttributeOptions;
 import com.ysyt.bean.AttributesMaster;
 import com.ysyt.bean.LocationBean;
 import com.ysyt.bean.Uploads;
+import com.ysyt.bean.UserAccomodationMapping;
 import com.ysyt.to.request.AccomodationListRequest;
 import com.ysyt.to.request.AccomodationRequest;
 import com.ysyt.to.request.AccomodationSubTypesRequest;
@@ -18,8 +19,10 @@ import com.ysyt.to.request.AmenitiesMasterRequest;
 import com.ysyt.to.request.AttributeListRequest;
 import com.ysyt.to.request.FilterRequest;
 import com.ysyt.to.request.LocationRequest;
+import com.ysyt.to.request.UserTaggedAccomdoationRequest;
 import com.ysyt.to.response.AccomodationTypeResponse;
 import com.ysyt.to.response.FilterResponse;
+import com.ysyt.to.response.UserTaggedAccomodationsResponse;
 
 
 public interface IAccomodationService {
@@ -60,5 +63,8 @@ public interface IAccomodationService {
 	List<AttributeOptions> getAttributeOptionList(AttributeListRequest request);
 
 	Map<String, List<AttributesMaster>> fetchAmenities(Long id);
+
+	List<UserAccomodationMapping> getUserTaggedAccomodationDetails(
+			UserTaggedAccomdoationRequest request);
 
 }
