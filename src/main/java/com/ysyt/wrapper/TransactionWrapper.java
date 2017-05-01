@@ -5,15 +5,16 @@ import java.sql.Timestamp;
 public class TransactionWrapper {
 
 	
-	private Timestamp joinDate;
+	private Timestamp joiningDate;
 	private Timestamp vacateDate;
 	
 
-	public Timestamp getJoinDate() {
-		return joinDate;
+
+	public Timestamp getJoiningDate() {
+		return joiningDate;
 	}
-	public void setJoinDate(Timestamp joinDate) {
-		this.joinDate = joinDate;
+	public void setJoiningDate(Timestamp joiningDate) {
+		this.joiningDate = joiningDate;
 	}
 	public Timestamp getVacateDate() {
 		return vacateDate;

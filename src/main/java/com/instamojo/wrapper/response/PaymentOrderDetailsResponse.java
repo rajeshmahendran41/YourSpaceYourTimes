@@ -2,6 +2,8 @@ package com.instamojo.wrapper.response;
 
 import com.google.gson.annotations.SerializedName;
 import com.instamojo.wrapper.model.Payment;
+import com.ysyt.bean.Accomodations;
+import com.ysyt.bean.Transactions;
 
 import java.util.Arrays;
 
@@ -56,6 +58,9 @@ public class PaymentOrderDetailsResponse extends Response {
     
     /** The payments. */
     private Payment[] payments;
+    
+    
+    private Transactions transaction;
 
     /**
      * Gets the id.
@@ -321,6 +326,14 @@ public class PaymentOrderDetailsResponse extends Response {
 		this.payments = payments;
 	}
 
+	public Transactions getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(Transactions transaction) {
+		this.transaction = transaction;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -345,4 +358,6 @@ public class PaymentOrderDetailsResponse extends Response {
                 ", jsonResponse='" + jsonResponse + '\'' +
                 '}';
 	}
+
+	
 }

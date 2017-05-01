@@ -29,6 +29,7 @@ import com.instamojo.wrapper.response.OrderResponse;
 import com.instamojo.wrapper.response.PaymentOrderDetailsResponse;
 import com.instamojo.wrapper.response.PaymentOrderListResponse;
 import com.ysyt.bean.Accomodations;
+import com.ysyt.bean.Transactions;
 import com.ysyt.constants.YSYTConstants;
 import com.ysyt.service.IAccomodationService;
 import com.ysyt.to.request.LocationRequest;
@@ -214,6 +215,8 @@ public class InstaMojoController {
 		    paymentOrderDetailsResponse = api.getPaymentOrderDetails(orderId);
 		    if(!Util.isNull(paymentOrderDetailsResponse.getId())){
 		    	iTransactionService.checkInitialTransaction(paymentOrderDetailsResponse);
+		    	paymentOrderDetailsResponse.setTransaction(iTransactionService.getTranscationDetailsByOrderId(paymentOrderDetailsResponse.getId()));
+
 		    }
 		} catch (ConnectionException e) {
 			
