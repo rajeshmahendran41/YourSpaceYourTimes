@@ -116,7 +116,7 @@ public final class Util {
     
     public static String[] exculdeApi(){
     	
-    	return new String[]{"/api/auth/signup","/api/auth/login","/api/accomodation/locations","/api/accomodation/list","/api/accomodation/filter"};
+    	return new String[]{"/api/auth/signup","/api/auth/login","/api/accomodation/locations","/api/accomodation/list","/api/accomodation/filter","/api/accomodation/list"};
     	
     }
        
