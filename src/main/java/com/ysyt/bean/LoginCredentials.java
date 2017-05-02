@@ -30,9 +30,6 @@ public class LoginCredentials implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 
-	@Column(name = "id", columnDefinition = "serial")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)	
-	private Long id;
 	
 	@Id
 	@Column(name = "user_id")
@@ -67,13 +64,7 @@ public class LoginCredentials implements Serializable {
 	@Column(name = "updated_by")
 	private Long updatedBy;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 
 	public Long getUserId() {
 		return userId;
