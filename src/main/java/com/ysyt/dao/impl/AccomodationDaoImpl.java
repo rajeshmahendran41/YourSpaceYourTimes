@@ -158,8 +158,10 @@ public class AccomodationDaoImpl implements IAccomodationDao {
 			if(!Util.isNullList(accomodationDetails)){
 				accomodation.setAccomodationDetails(accomodationDetails);
 			}
-			
+			if(!Util.isNull(Util.getCurrentUser(httpRequest))){
+
 			accomodation.setIsEnrolled(isEnrolled(null, accomodation.getId(), sessionFactory));
+			}
 		}
 
 		
