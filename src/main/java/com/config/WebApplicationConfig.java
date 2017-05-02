@@ -20,7 +20,7 @@ public class WebApplicationConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
     	
-    	registry.addInterceptor(userAuth).excludePathPatterns(Util.exculdeApi());
+    	registry.addInterceptor(userAuth).excludePathPatterns("/api/auth/signup","/api/auth/login","/api/accomodation/locations","/api/accomodation/list","/api/accomodation/filter","/api/accomodation/list");
     
     }
 
