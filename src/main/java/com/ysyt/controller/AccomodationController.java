@@ -149,7 +149,7 @@ public class AccomodationController {
         return res;
 	}
 	
-	@RequestMapping(value = "list", method = RequestMethod.POST, produces ="application/json")
+	@RequestMapping(value = "/list", method = RequestMethod.POST, produces ="application/json")
     @ResponseBody
     public AccomodationListResponse getAccomodationList(@RequestBody AccomodationListRequest request){
         
